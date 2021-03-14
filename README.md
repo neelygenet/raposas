@@ -4,6 +4,13 @@ O Raposas é um indexador do Google Drive que funciona de forma semelhante ao Go
 
 O código-fonte deste indexador é open-source e foi derivado de um projeto pré-existente criado por ParveenBhadooOfficial (créditos abaixo). Se você é um programador e deseja contribuir ou simplesmente acessar o nosso código, você pode encontrar o nosso repositório no GitHub clicando [aqui](https://github.com/neelygenet/raposas).
 
+## Escolha o drive que deseja acessar
+### [1 - Arquivos Principais](https://drive.raposas.net/1:/)
+Mantido por uma equipe dedicada de voluntários do Raposas.
+
+### [2 - Contribuições](https://drive.raposas.net/2:/)
+Mantido pela comunidade e de acesso aberto.
+
 ## Doe
 
 Com a sua doação, poderemos aumentar a qualidade deste indexador para que ele abarque cada vez mais conteúdo. Se você considera que valemos o seu dinheiro, por favor, considere fazer uma doação.

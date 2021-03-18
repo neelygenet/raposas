@@ -1,10 +1,3 @@
-## Escolha o drive que deseja acessar
-### 🦊 [Arquivos Principais](https://drive.raposas.net/0:/Principal/)
-Mantido pelos Raposas com os mais altos padrões de segurança e privacidade.
-
-### 🐺 [Contribuições](https://drive.raposas.net/1:/)
-Mantido pela comunidade de forma anônima.
-
 # Raposas [![](https://data.jsdelivr.com/v1/package/gh/neelygenet/raposas/badge)](https://www.jsdelivr.com/package/gh/neelygenet/raposas)
 O Raposas é um indexador do Google Drive que funciona de forma semelhante ao Google que visa disponibilizar arquivos que já estão previamente disponíveis na internet em uma interface de fácil acesso.
 

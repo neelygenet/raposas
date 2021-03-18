@@ -21,7 +21,7 @@ function init() {
 <div class="darkmode-toggle" onclick="darkLight()">🌓</div>
 <footer class="text-muted"> <div class="container"> ${UI.credit ? '<p>Construído com <i class="fa fa-heart" title="amor" style="color: #dc3545!important;"></i> e <i class="fa fa-coffee" title="café" style="color: #ffc107!important;"></i> por <a href="https://github.com/neelygenet/raposas" target="_blank">Neely Genet</a> com a ajuda de outros programas Open Source.</p>' : ''} <p><i class="fas fa-crow" title="corvo" style="color: #000000!important;"></i> ${UI.copyright_year} - ${UI.company_name}. Todos os direitos liberados. <a href="https://www.youtube.com/watch?v=LXilEPmkoQY" target="_blank">Copiar não é roubar</a>.</p> 
 <center><br>
-<script id="_wauh8c">var _wau = _wau || []; _wau.push(["classic", "uxgz21xxjd", "h8c"]);</script><script async src="//waust.at/c.js"></script>
+<script id="_wauu6d">var _wau = _wau || []; _wau.push(["colored", "wefh4d9lyh", "u6d", "cfe2f3000000"]);</script><script async src="//waust.at/co.js"></script>
 </center></div> </footer>
   `;
 	$('body').html(html);

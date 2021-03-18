@@ -115,7 +115,7 @@ function nav(path) {
 	html += `</ul>`;*/
 
 	// Dropdown to select different drive roots.
-	html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Drives disponíveis</a><div class="dropdown-menu" aria-labelledby="navbarDropdown">`;
+	html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Escolha o drive</a><div class="dropdown-menu" aria-labelledby="navbarDropdown">`;
 	names.forEach((name, idx) => {
 		html += `<a class="dropdown-item"  href="/${idx}:/">${name}</a>`;
 	});
@@ -143,9 +143,13 @@ function nav(path) {
 		}
 	}
 
-	html += `</div></li><li class="nav-item">
-    <a class="nav-link" href="${UI.contact_link}" target="_blank">Relatar problema</a>
-  </li>`;
+	html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mais</a><div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+<a class="dropdown-item" href="https://blog.raposas.net/p/digital-milenium-copyright-act-dmca.html" target="_blank"><i class="far fa-copyright" style="color: #000000;"></i> DMCA</a>
+<a class="dropdown-item" href="https://blog.raposas.net/" target="_blank"><i class="fab fa-blogger" style="color: #FF4500;"></i> Blog</a>
+<a class="dropdown-item" href="t.me/raposas_net" target="_blank"><i class="fab fa-telegram" style="color: #7B68EE"></i> Telegram</a>
+
+</div></li>`;
 
 	var search_text = model.is_search_page ? (model.q || '') : '';
 	const isMobile = Os.isMobile;

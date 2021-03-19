@@ -121,7 +121,7 @@ function nav(path) {
 	});
 	html += `</div></li>`;
 
-	html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Caminho Atual</a><div class="dropdown-menu" aria-labelledby="navbarDropdown"><a class="dropdown-item"  href="/${cur}:/ ">📁 Início</a>`;
+	html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Caminho atual</a><div class="dropdown-menu" aria-labelledby="navbarDropdown"><a class="dropdown-item"  href="/${cur}:/ ">📁 Início</a>`;
 
 	if (!model.is_search_page) {
 		var arr = path.trim('/').split('/');
@@ -144,11 +144,10 @@ function nav(path) {
 	}
 
 	html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mais</a><div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-<a class="dropdown-item" href="https://blog.raposas.net/p/digital-milenium-copyright-act-dmca.html" target="_blank"><i class="far fa-copyright" style="color: #000000;"></i> DMCA</a>
 <a class="dropdown-item" href="https://blog.raposas.net/" target="_blank"><i class="fab fa-blogger" style="color: #FF4500;"></i> Blog</a>
-<a class="dropdown-item" href="t.me/raposas_net" target="_blank"><i class="fab fa-telegram" style="color: #7B68EE"></i> Telegram</a>
-
+<a class="dropdown-item" href="https://t.me/raposas_net" target="_blank"><i class="fab fa-telegram" style="color: #1E90FF"></i> Telegram</a>
+<a class="dropdown-item" href="https://blog.raposas.net/p/digital-milenium-copyright-act-dmca.html" target="_blank"><i class="far fa-copyright" style="color: #000000;"></i> Política de Copyright</a>
+<a class="dropdown-item" href="https://blog.raposas.net/p/politica-de-privacidade.html" target="_blank"><i class="fas fa-user-secret" style="color: #000000;"></i> Política de Privacidade</a>
 </div></li>`;
 
 	var search_text = model.is_search_page ? (model.q || '') : '';

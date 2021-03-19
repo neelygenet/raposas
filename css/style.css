@@ -1,5 +1,4 @@
-
- :root {
+:root {
     --blue: #007bff;
     --indigo: #6610f2;
     --purple: #6f42c1;
@@ -5136,12 +5135,12 @@ input[type=submit].btn-block {
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .show>.nav-link {
-    color:  #ffffff;
+    color: #ffffff;
 }
 
 .navbar-light .navbar-toggler {
-    color:  #ffffff;
-    border-color:  #ffffff;
+    color: #ffffff;
+    border-color: #ffffff;
 }
 
 .navbar-light .navbar-toggler-icon {
@@ -5149,16 +5148,16 @@ input[type=submit].btn-block {
 }
 
 .navbar-light .navbar-text {
-    color:  #ffffff;
+    color: #ffffff;
 }
 
 .navbar-light .navbar-text a {
-    color:  #ffffff;
+    color: #ffffff;
 }
 
 .navbar-light .navbar-text a:focus,
 .navbar-light .navbar-text a:hover {
-    color:  #ffffff;
+    color: #ffffff;
 }
 
 .navbar-dark .navbar-brand {
@@ -11439,19 +11438,18 @@ a.text-dark:hover {
     }
 }
 
-    .darkmode-toggle {
-        background: #100f2c;
-        width: 3rem;
-        height: 3rem;
-        position: fixed;
-        border-radius: 50%;
-        right: 32px;
-        bottom: 32px;
-        left: unset;
-        cursor: pointer;
-        transition: all 0.5s ease;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+.darkmode-toggle {
+    background: #100f2c;
+    width: 3rem;
+    height: 3rem;
+    position: fixed;
+    border-radius: 50%;
+    right: 32px;
+    bottom: 32px;
+    left: unset;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-    

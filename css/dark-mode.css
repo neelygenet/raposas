@@ -1,1 +1,18 @@
-:root{filter:invert(100%)}img,object,picture,.plyr,.plyr--full-ui{filter:invert(100%)}
+/* 
+    Inversão de todas as cores da página 
+*/
+:root {
+    filter: invert(100%)
+}
+
+/*  
+    Nova inversão de todas as cores dos itens abaixo
+    Uma espécie de "desinversão" para permitir a visualização correta de imagens e vídeos.
+*/
+img,
+object,
+picture,
+.plyr,
+.plyr--full-ui {
+    filter: invert(100%)
+}

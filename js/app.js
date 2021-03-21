@@ -20,9 +20,7 @@ function init() {
 </script>
 <div class="darkmode-toggle" onclick="darkLight()">🌓</div>
 <footer class="text-muted"> <div class="container"> ${UI.credit ? '<p>Construído com <i class="fa fa-heart" title="amor" style="color: #dc3545!important;"></i> e <i class="fa fa-coffee" title="café" style="color: #ffc107!important;"></i> por <a href="https://github.com/neelygenet/raposas" target="_blank">Neely Genet</a> com a ajuda de outros programas Open Source.</p>' : ''} <p><i class="fas fa-crow" title="corvo" style="color: #000000!important;"></i> ${UI.copyright_year} - ${UI.company_name}. Todos os direitos liberados. <a href="https://www.youtube.com/watch?v=LXilEPmkoQY" target="_blank">Copiar não é roubar</a>.</p> 
-<center><br>
-<script id="_wauu6d">var _wau = _wau || []; _wau.push(["colored", "wefh4d9lyh", "u6d", "cfe2f3000000"]);</script><script async src="//waust.at/co.js"></script>
-</center></div> </footer>
+</div> </footer>
   `;
 	$('body').html(html);
 }
@@ -132,8 +130,8 @@ function nav(path) {
 				var n = arr[i];
 				n = decodeURI(n);
 				p += n + '/';
-				if (p.endsWith(".mp3/") === true || p.endsWith(".mp4/") === true || p.endsWith(".mkv/") === true || p.endsWith(".flac/") === true || p.endsWith(".m4a/") === true || p.endsWith(".pdf/") === true || p.endsWith(".jpg/") === true || p.endsWith(".png/") === true || p.endsWith(".jpeg/") === true || p.endsWith(".gif/") === true || p.endsWith(".md/") === true || p.endsWith(".zip/") === true || p.endsWith(".rar/") === true || p.endsWith(".exe/") === true  || p.endsWith(".tar/") === true) {
-				    p = p.slice(0, -1);
+				if (p.endsWith(".mp3/") === true || p.endsWith(".mp4/") === true || p.endsWith(".mkv/") === true || p.endsWith(".flac/") === true || p.endsWith(".m4a/") === true || p.endsWith(".pdf/") === true || p.endsWith(".jpg/") === true || p.endsWith(".png/") === true || p.endsWith(".jpeg/") === true || p.endsWith(".gif/") === true || p.endsWith(".md/") === true || p.endsWith(".zip/") === true || p.endsWith(".rar/") === true || p.endsWith(".exe/") === true || p.endsWith(".tar/") === true) {
+					p = p.slice(0, -1);
 				}
 				if (n === '') {
 					break;
@@ -359,18 +357,18 @@ function append_files_to_list(path, files) {
 			if (is_lastpage_loaded && item.name == "README.md") {
 				get_file(p, item, function (data) {
 					markdown("#readme_md", data);
-          			$("img").addClass("img-fluid")
-					
+					$("img").addClass("img-fluid")
+
 					//Remove .img-fluid from logo
-		  			let logoElement = document.querySelector('.mainLogo');
-		  			logoElement.classList.remove('img-fluid');
+					let logoElement = document.querySelector('.mainLogo');
+					logoElement.classList.remove('img-fluid');
 				});
 			}
 			if (item.name == "HEAD.md") {
 				get_file(p, item, function (data) {
 					markdown("#head_md", data);
 					$("img").addClass("img-fluid")
-					
+
 					//Remove .img-fluid from logo
 					let logoElement = document.querySelector('.mainLogo');
 					logoElement.classList.remove('img-fluid');
@@ -645,7 +643,7 @@ function file(path) {
 	var name = path.split('/').pop();
 	var ext = name.split('.').pop().toLowerCase().replace(`?a=view`, "").toLowerCase();
 	//if ('|pdf|docx|docm|dot|dotx|dotm|rtf|odt|xlsx|xlsm|xlt|xltx|xltm|ods|csv|tsv|tab|pptx|pptm|pps|ppsx|ppsm|pot|potx|potm|odp|wmf|emf|doc|xls|ppt|' === ext) return file_pdf(path);
-	
+
 	if ("|pdf|".indexOf(`|${ext}|`) >= 0) {
 		return file_pdf(path);
 	}
@@ -668,11 +666,10 @@ function file(path) {
 
 	if ("|bmp|jpg|jpeg|png|gif|".indexOf(`|${ext}|`) >= 0) {
 		return file_image(path);
-	}
-	else {
+	} else {
 		return file_others(path);
 	}
-	
+
 }
 
 // Document display |zip|.exe/others direct downloads
@@ -801,7 +798,7 @@ function file_pdf(path) {
   </div>
   </div>
   `;
-  //$('#content').html(content);
+	//$('#content').html(content);
 	$('#content').removeClass('mdui-container').addClass('mdui-container-fluid').css({
 		padding: 0
 	}).html(content);

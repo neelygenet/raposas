@@ -146,8 +146,8 @@ function nav(path) {
 <a class="dropdown-item" href="https://blog.raposas.net/p/politica-de-privacidade.html" target="_blank"><i class="fas fa-user-secret" style="color: #000000;"></i> Política de Privacidade</a>
 </div></li>
 <div>
-<button type="button" class="btn btn-warning" href="https://forum.raposas.net" target="_blank"><i class="fas fa-comments" style="color: #000000;"></i> Fórum</button>
-<button type="button" class="btn btn-info" href="https://t.me/raposas_net" target="_blank"><i class="fab fa-telegram" style="color: #1E90FF"></i> Telegram</button>
+<a href="https://forum.raposas.net" target="_blank"><button type="button" class="btn btn-warning"><i class="fas fa-comments" style="color: #000000;"></i> Fórum</button></a>
+<a href="https://t.me/raposas_net" target="_blank"><button type="button" class="btn btn-info"><i class="fab fa-telegram" style="color: #FFFFFF"></i> Telegram</button></a>
 </div>`;
 
 	var search_text = model.is_search_page ? (model.q || '') : '';

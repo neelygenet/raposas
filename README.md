@@ -7,7 +7,7 @@ O código-fonte deste indexador é open-source e foi derivado de um projeto pré
 
 Com a sua doação, poderemos aumentar a qualidade deste indexador para que ele abarque cada vez mais conteúdo. Se você considera que valemos o seu dinheiro, por favor, considere fazer uma doação.
 
-Doe sem gastar um centavo: [clique aqui para instruções](https://blog.raposas.net/p/doe-sem-gastar-um-centavo.html).
+Doe sem gastar um centavo: [clique aqui para instruções](https://forum.raposas.net/t/como-doar-para-o-raposas-sem-gastar-um-centavo/).
 
 Doe com Litecoin (LTC): ```LUThU4sprrxKLJUH4h1xbQLoBrxMJQ72zZ```
 
@@ -24,5 +24,5 @@ Doe com Litecoin (LTC): ```LUThU4sprrxKLJUH4h1xbQLoBrxMJQ72zZ```
 ## Créditos
 
 * Código-fonte original: [ParveenBhadooOfficial](https://github.com/ParveenBhadooOfficial/Google-Drive-Index)
-* Novo design: [Bootstrap](https://getbootstrap.com)
+* Frameworks utilizados: [Bootstrap](https://getbootstrap.com), [jQuery](https://jquery.com/), [Plyr](https://plyr.io),
 * Ícones: [Fonteawesome](https://fontawesome.com/)

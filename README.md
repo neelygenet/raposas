@@ -7,7 +7,9 @@ O código-fonte deste indexador é open-source e foi derivado de um projeto pré
 
 Com a sua doação, poderemos aumentar a qualidade deste indexador para que ele abarque cada vez mais conteúdo. Se você considera que valemos o seu dinheiro, por favor, considere fazer uma doação.
 
-Nossa chave PIX: ```doe@raposas.net```
+Doe sem gastar um centavo: [clique aqui para instruções](https://blog.raposas.net/p/doe-sem-gastar-um-centavo.html).
+
+Doe com Litecoin (LTC): ```LUThU4sprrxKLJUH4h1xbQLoBrxMJQ72zZ```
 
 ## Perguntas frequentes
 

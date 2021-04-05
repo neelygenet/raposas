@@ -377,7 +377,7 @@ function append_files_to_list(path, files) {
 				});
 			}
 			var ext = p.split('.').pop().toLowerCase();
-			if ("|html|php|css|go|java|js|json|txt|sh|md|mp4|webm|avi|bmp|jpg|jpeg|png|gif|m4a|mp3|flac|wav|ogg|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|pdf|".indexOf(`|${ext}|`) >= 0) {
+			if ("|html|php|css|go|java|js|json|txt|sh|md|mp4|webm|avi|bmp|jpg|jpeg|png|gif|m4a|mp3|flac|wav|ogg|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|flv|pdf|".indexOf(`|${ext}|`) >= 0) {
 				targetFiles.push(filepath);
 				pn += "?a=view";
 				c += " view";
@@ -555,7 +555,7 @@ function append_search_result_to_list(files) {
 			var p = '/' + cur + ':/' + item.name;
 			var c = "file";
 			var ext = item.name.split('.').pop().toLowerCase();
-			if ("|html|php|css|go|java|js|json|txt|sh|md|mp4|webm|avi|bmp|jpg|jpeg|png|gif|m4a|mp3|flac|wav|ogg|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
+			if ("|html|php|css|go|java|js|json|txt|sh|md|mp4|webm|avi|bmp|jpg|jpeg|png|gif|m4a|mp3|flac|wav|ogg|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|flv|".indexOf(`|${ext}|`) >= 0) {
 				p += "?a=view";
 				c += " view";
 			}
@@ -690,7 +690,7 @@ function file_others(path) {
 <div class="card-body">
   <div class="alert alert-danger" id="folderne" role="alert"></div><script>document.getElementById("folderne").innerHTML=decodeURI(this.window.location.href.substring(window.location.href.lastIndexOf('/',window.location.href.lastIndexOf('/')+1))).replace('/','').replace('?a=view','');</script>
 </div>
-<p class="card-text text-center"><a href="${href}" class="btn btn-primary">Download</a></p><br>`;
+<p class="card-text text-center"><a href="${href}" class="btn btn-primary">Baixar</a></p><br>`;
 	$('#content').html(content);
 }
 
@@ -718,7 +718,7 @@ function file_code(path) {
   <div class="alert alert-danger" id="folderne" role="alert"></div><script>document.getElementById("folderne").innerHTML=decodeURI(this.window.location.href.substring(window.location.href.lastIndexOf('/',window.location.href.lastIndexOf('/')+1))).replace('/','').replace('?a=view','');</script>
 <code id="editor" class="card-text"></code>
 </div>
-<p class="card-text text-center"><a href="${href}" class="btn btn-primary">Download</a></p><br>`;
+<p class="card-text text-center"><a href="${href}" class="btn btn-primary">Baixar</a></p><br>`;
 	$('#content').html(content);
 
 	$.get(path, function (data) {
@@ -750,7 +750,7 @@ function file_video(path) {
   </div>
 	${UI.disable_player ? '<style>#mep_0{display:none;}</style>' : ''}
   <script type="text/javascript">const player = new Plyr('#player');</script>
-  <p class="card-text text-center"><a href="${url}" class="btn btn-primary">Download</a></p><br>
+  <p class="card-text text-center"><a href="${url}" class="btn btn-primary">Baixar</a></p><br>
   </div>
   </div>
   `;
@@ -773,7 +773,7 @@ function file_audio(path) {
   </div>
 	${UI.disable_player ? '<style>#mep_0{display:none;}</style>' : ''}
   <script type="text/javascript">const player = new Plyr('#player');</script>
-  <p class="card-text text-center"><a href="${url}" class="btn btn-primary">Download</a></p><br>
+  <p class="card-text text-center"><a href="${url}" class="btn btn-primary">Baixar</a></p><br>
   </div>
   </div>
   `;
@@ -796,7 +796,7 @@ function file_pdf(path) {
   	<embed class="embed-responsive" data-v-59e039ae="" src="${inline_url}" type="application/pdf" height="600px">
   </object>
   
-  <p class="card-text text-center"><a href="${url}" class="btn btn-primary">Download</a></p><br>
+  <p class="card-text text-center"><a href="${url}" class="btn btn-primary">Baixar</a></p><br>
   </div>
   </div>
   `;
@@ -841,7 +841,7 @@ function file_image(path) {
   <div class="alert alert-danger" id="folderne" role="alert"></div><script>document.getElementById("folderne").innerHTML=decodeURI(this.window.location.href.substring(window.location.href.lastIndexOf('/',window.location.href.lastIndexOf('/')+1))).replace('/','').replace('?a=view','');</script>
   <img src="${url}" width="50%">
   </div>
-  <p class="card-text text-center"><a href="${url}" class="btn btn-primary">Download</a></p><br>
+  <p class="card-text text-center"><a href="${url}" class="btn btn-primary">Baixar</a></p><br>
   </div>
   </div>
     `;

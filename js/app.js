@@ -746,7 +746,7 @@ function file_video(path) {
   <div class="card">
   <div class="card-body text-center">
   <div class="alert alert-danger" id="folderne" role="alert"></div><script>document.getElementById("folderne").innerHTML=decodeURI(this.window.location.href.substring(window.location.href.lastIndexOf('/',window.location.href.lastIndexOf('/')+1))).replace('/','').replace('?a=view','');</script>
-<iframe src="https://drive.google.com/file/d/${file.id}/preview" width="100%" height="100%"></iframe>
+<iframe src="https://drive.google.com/file/d/${fileId}/preview" width="100%" height="100%"></iframe>
   </div>
 	${UI.disable_player ? '<style>#mep_0{display:none;}</style>' : ''}
   <script type="text/javascript">const player = new Plyr('#player');</script>

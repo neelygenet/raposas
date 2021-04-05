@@ -156,6 +156,7 @@ function nav(path) {
 </ul>
 <form class="form-inline my-2 my-lg-0" method="get" action="/${cur}:search">
 <input class="form-control mr-sm-2" name="q" type="search" placeholder="🔎 Pesquisar" aria-label="Pesquisar" value="${search_text}" required>
+<script>alert(global.lalala)</script>
 <button class="btn ${UI.dark_mode ? 'btn-secondary' : 'btn-outline-success'} my-2 my-sm-0" onclick="if($('#search_bar').hasClass('mdui-textfield-expanded') && $('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Pesquisar</button>
 </form>
 </div>

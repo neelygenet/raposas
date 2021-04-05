@@ -24,5 +24,5 @@ Doe com Litecoin (LTC): ```LUThU4sprrxKLJUH4h1xbQLoBrxMJQ72zZ```
 ## Créditos
 
 * Código-fonte original: [ParveenBhadooOfficial](https://github.com/ParveenBhadooOfficial/Google-Drive-Index)
-* Frameworks utilizados: [Bootstrap](https://getbootstrap.com), [jQuery](https://jquery.com/), [Plyr](https://plyr.io),
+* Frameworks utilizados: [Bootstrap](https://getbootstrap.com), [jQuery](https://jquery.com/) e [Plyr](https://plyr.io)
 * Ícones: [Fonteawesome](https://fontawesome.com/)

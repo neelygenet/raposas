@@ -1,6 +1,5 @@
 /* Readequado para as necessidades do Raposas a partir de outros programas Open Sources.
-   Programa original: https://github.com/ParveenBhadooOfficial/Bhadoo-Drive-Index
-   Todos os créditos ao ParveenBhadooOfficial pelo excelente trabalho!
+   Programa original: https://github.com/ParveenBhadooOfficial/Google-Drive-Index
 */
 
 // Initialize the page
@@ -156,7 +155,6 @@ function nav(path) {
 </ul>
 <form class="form-inline my-2 my-lg-0" method="get" action="/${cur}:search">
 <input class="form-control mr-sm-2" name="q" type="search" placeholder="🔎 Pesquisar" aria-label="Pesquisar" value="${search_text}" required>
-<script>alert(global.lalala)</script>
 <button class="btn ${UI.dark_mode ? 'btn-secondary' : 'btn-outline-success'} my-2 my-sm-0" onclick="if($('#search_bar').hasClass('mdui-textfield-expanded') && $('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Pesquisar</button>
 </form>
 </div>
@@ -747,7 +745,7 @@ function file_video(path) {
   <div class="card">
   <div class="card-body text-center">
   <div class="alert alert-danger" id="folderne" role="alert"></div><script>document.getElementById("folderne").innerHTML=decodeURI(this.window.location.href.substring(window.location.href.lastIndexOf('/',window.location.href.lastIndexOf('/')+1))).replace('/','').replace('?a=view','');</script>
-<iframe src="https://drive.google.com/file/d/${GoogleDriveId}/preview" width="100%" height="100%"></iframe>
+  <iframe src="https://drive.google.com/file/d/${alpha}" width="100%" height="100%"></iframe>
   </div>
 	${UI.disable_player ? '<style>#mep_0{display:none;}</style>' : ''}
   <script type="text/javascript">const player = new Plyr('#player');</script>
@@ -792,7 +790,6 @@ function file_pdf(path) {
   <div class="card-body text-center">
   <div class="alert alert-danger" id="folderne" role="alert"></div><script>document.getElementById("folderne").innerHTML=decodeURI(this.window.location.href.substring(window.location.href.lastIndexOf('/',window.location.href.lastIndexOf('/')+1))).replace('/','').replace('?a=view','');</script>
   </div>
-
   <object data-v-59e039ae="" data="${inline_url}" type="application/pdf" name="file.pdf" height="600px">
   	<embed class="embed-responsive" data-v-59e039ae="" src="${inline_url}" type="application/pdf" height="600px">
   </object>

@@ -643,7 +643,6 @@ function get_file(path, file, callback) {
 function file(path) {
 	var name = path.split('/').pop();
 	var ext = name.split('.').pop().toLowerCase().replace(`?a=view`, "").toLowerCase();
-	//if ('|pdf|docx|docm|dot|dotx|dotm|rtf|odt|xlsx|xlsm|xlt|xltx|xltm|ods|csv|tsv|tab|pptx|pptm|pps|ppsx|ppsm|pot|potx|potm|odp|wmf|emf|doc|xls|ppt|' === ext) return file_pdf(path);
 
 	if ("|pdf|".indexOf(`|${ext}|`) >= 0) {
 		return file_pdf(path);
@@ -657,7 +656,7 @@ function file(path) {
 		return file_video(path);
 	}
 
-	if ("|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
+	if ("|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|".indexOf(`|${ext}|`) >= 0) {
 		return file_video(path);
 	}
 

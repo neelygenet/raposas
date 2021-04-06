@@ -1,6 +1,8 @@
 # Raposas [![](https://data.jsdelivr.com/v1/package/gh/neelygenet/raposas/badge)](https://www.jsdelivr.com/package/gh/neelygenet/raposas)
 O **Raposas** é um indexador público e gratuito do Google Drive. Funcionamos de uma forma muito parecida com o Google: o Google ativamente busca por novos sites para incluí-los em sua base de dados e, então, disponibilizá-los em uma interface amplamente utilizada em todo o mundo. No Raposas fazemos algo semelhante, mas ao invés de termos um sistema de robôs automáticos que custa bilhões de dólares, a própria comunidade envia pastas e arquivos do Google Drive para serem indexados pelo Raposas.
 
+![Logo do Raposas](https://github.com/neelygenet/raposas/raw/main/images/logo.png)
+
 O código-fonte deste indexador é open-source e foi derivado de um projeto pré-existente criado por ParveenBhadooOfficial (créditos abaixo). Se você é um programador e deseja contribuir ou simplesmente acessar o nosso código, você pode encontrar o nosso repositório no GitHub clicando [aqui](https://github.com/neelygenet/raposas).
 
 ## Doe

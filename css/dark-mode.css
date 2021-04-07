@@ -91,6 +91,11 @@ body{
     color: white;
 }
 
+/* Ícones */
+.basicIcon{
+    background-color: #FFFFFF;
+}
+
 /* Dialogs */
 .mdui-dialog{
     background-color: var(--primary-dark);

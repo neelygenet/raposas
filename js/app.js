@@ -92,8 +92,8 @@ function nav(path) {
     var model = window.MODEL;
     var html = "";
     var cur = window.current_drive_order || 0;
-    html += `<nav class="navbar navbar-expand-lg ${UI.dark_mode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'}">
-  <a class="navbar-brand" href="/${cur}:/">${UI.logo_image ? '<img border="0" alt="'+UI.company_name+'" src="'+UI.logo_link_name+'" height="64px" class="mainLogo">' : UI.logo_link_name}</a>
+    html += `<nav class="navbar navbar-expand-lg fixed-top">
+  <a class="navbar-brand" href="/${cur}:/">${UI.logo_image ? '<img border="0" alt="'+UI.company_name+'" src="'+UI.logo_link_name+'" height="'+UI.height+'" width="'+UI.logo_width+'">' : UI.logo_link_name}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -104,12 +104,6 @@ function nav(path) {
       </li>`;
     var names = window.drive_names;
     var drive_name = window.drive_names[cur];
-    /*html += `<button class="mdui-btn mdui-btn-raised" mdui-menu="{target: '#drive-names'}"><i class="mdui-icon mdui-icon-left material-icons">share</i> ${names[cur]}</button>`;
-    html += `<ul class="mdui-menu" id="drive-names" style="transform-origin: 0px 0px; position: fixed;">`;
-    names.forEach((name, idx) => {
-        html += `<li class="mdui-menu-item ${(idx === cur) ? 'mdui-list-item-active' : ''} "><a href="/${idx}:/" class="mdui-ripple">${name}</a></li>`;
-    });
-    html += `</ul>`;*/
 
     // Dropdown to select different drive roots.
     html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Escolha o drive</a><div class="dropdown-menu" aria-labelledby="navbarDropdown">`;
@@ -127,34 +121,32 @@ function nav(path) {
                 var n = arr[i];
                 n = decodeURI(n);
                 p += n + '/';
-                if (p.endsWith(".mp3/") === true || p.endsWith(".mp4/") === true || p.endsWith(".mkv/") === true || p.endsWith(".flac/") === true || p.endsWith(".m4a/") === true || p.endsWith(".pdf/") === true || p.endsWith(".jpg/") === true || p.endsWith(".png/") === true || p.endsWith(".jpeg/") === true || p.endsWith(".gif/") === true || p.endsWith(".md/") === true || p.endsWith(".zip/") === true || p.endsWith(".rar/") === true || p.endsWith(".exe/") === true || p.endsWith(".tar/") === true) {
+                if (p.endsWith(".mp3/") === true || p.endsWith(".mp4/") === true || p.endsWith(".mkv/") === true || p.endsWith(".flac/") === true || p.endsWith(".m4a/") === true || p.endsWith(".pdf/") === true || p.endsWith(".jpg/") === true || p.endsWith(".png/") === true || p.endsWith(".jpeg/") === true || p.endsWith(".gif/") === true || p.endsWith(".md/") === true || p.endsWith(".zip/") === true || p.endsWith(".rar/") === true || p.endsWith(".exe/") === true || p.endsWith(".tar/") === true || p.endsWith(".txt/") === true || p.endsWith(".html/") === true) {
                     p = p.slice(0, -1);
                 }
                 if (n === '') {
                     break;
                 }
+                html += `<a class="dropdown-item"  href="${p}">> ${n}</a>`;
             }
         }
     }
 
-    html += `
-	<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mais</a>
-	    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		<a class="dropdown-item" href="https://blog.raposas.net/p/copyright.html" target="_blank"><i
-			class="far fa-copyright" class="basicIcon"></i> Copyright</a>
-		<a class="dropdown-item" href="https://blog.raposas.net/p/privacidade.html" target="_blank"><i
-			class="fas fa-user-secret" class="basicIcon"></i> Privacidade</a>
-	    </div>
-	</li>
-
-	<li class="nav-item">
-	    <a class="nav-link" href="https://t.me/raposas_net"><i class="fab fa-telegram"></i> Telegram</a>
-	</li>
-
-	<li class="nav-item">
-	    <a class="nav-link" href="https://discord.gg/D7PpmzKJpy"><i class="fab fa-discord"></i> Discord</a>
-	</li>`;
+    html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mais</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="https://blog.raposas.net/p/copyright.html" target="_blank"><i
+            class="far fa-copyright" class="basicIcon"></i> Copyright</a>
+        <a class="dropdown-item" href="https://blog.raposas.net/p/privacidade.html" target="_blank"><i
+            class="fas fa-user-secret" class="basicIcon"></i> Privacidade</a>
+        </div>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="https://t.me/raposas_net"><i class="fab fa-telegram"></i> Telegram</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="https://discord.gg/D7PpmzKJpy"><i class="fab fa-discord"></i> Discord</a>
+        </li>`;
 
     var search_text = model.is_search_page ? (model.q || '') : '';
     const isMobile = Os.isMobile;
@@ -162,7 +154,7 @@ function nav(path) {
 </ul>
 <form class="form-inline my-2 my-lg-0" method="get" action="/${cur}:search">
 <input class="form-control mr-sm-2" name="q" type="search" placeholder="🔎 Pesquisar" aria-label="Pesquisar" value="${search_text}" required>
-<button class="btn ${UI.dark_mode ? 'btn-secondary' : 'btn-outline-success'} my-2 my-sm-0" onclick="if($('#search_bar').hasClass('mdui-textfield-expanded') && $('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Pesquisar</button>
+<button class="btn ${UI.dark_mode ? 'btn-secondary' : 'btn-outline-success'} my-2 my-sm-0" onclick="if($('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Search</button>
 </form>
 </div>
 </nav>
@@ -175,8 +167,49 @@ function nav(path) {
     }
 
     $('#nav').html(html);
-    mdui.mutation();
-    mdui.updateTextFields();
+}
+
+/**
+ * Initiate POST request for listing
+ * @param path Path
+ * @param params Form params
+ * @param resultCallback Success Result Callback
+ * @param authErrorCallback Pass Error Callback
+ */
+function requestListPath(path, params, resultCallback, authErrorCallback) {
+    var p = {
+        password: params['password'] || null,
+        page_token: params['page_token'] || null,
+        page_index: params['page_index'] || 0
+    };
+    $.post(path, p, function (data, status) {
+        var res = jQuery.parseJSON(data);
+        if (res && res.error && res.error.code == '401') {
+            // Password verification failed
+            if (authErrorCallback) authErrorCallback(path)
+        } else if (res && res.data) {
+            if (resultCallback) resultCallback(res, path, p)
+        }
+    })
+}
+
+/**
+ * Search POST request
+ * @param params Form params
+ * @param resultCallback Success callback
+ */
+function requestSearch(params, resultCallback) {
+    var p = {
+        q: params['q'] || null,
+        page_token: params['page_token'] || null,
+        page_index: params['page_index'] || 0
+    };
+    $.post(`/${window.current_drive_order}:search`, p, function (data, status) {
+        var res = jQuery.parseJSON(data);
+        if (res && res.data) {
+            if (resultCallback) resultCallback(res, p)
+        }
+    })
 }
 
 /**
@@ -276,7 +309,7 @@ function list(path) {
     $('#content').html(content);
 
     var password = localStorage.getItem('password' + path);
-    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border m-5 text-primary" role="status"><span class="sr-only">Loading...</span></div></div>`);
+    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border m-5 text-primary" role="status"><span class="sr-only">Carregando...</span></div></div>`);
     $('#readme_md').hide().html('');
     $('#head_md').hide().html('');
 

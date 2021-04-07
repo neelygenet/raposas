@@ -18,7 +18,7 @@ function init() {
 	function darkLight(){"dark"!=localStorage.toggled?($("head").append('<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neelygenet/raposas@${UI.version}/css/dark-mode.css" type="text/css" />'),localStorage.toggled="dark"):($('link[href="https://cdn.jsdelivr.net/gh/neelygenet/raposas@${UI.version}/css/dark-mode.css"]').remove(),localStorage.toggled="")}$("#main").toggleClass(localStorage.toggled),"dark"==localStorage.toggled&&$("head").append('<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neelygenet/raposas@${UI.version}/css/dark-mode.css" type="text/css" />');
 </script>
 <div class="darkmode-toggle" onclick="darkLight()">🌓</div>
-<footer class="text-muted"> <div class="container"> ${UI.credit ? '<p>Construído com <i class="fa fa-heart" title="amor" style="color: #dc3545!important;"></i> e <i class="fa fa-coffee" title="café" style="color: #ffc107!important;"></i> por <a href="https://github.com/neelygenet/raposas" target="_blank">Neely Genet</a> com a ajuda de outros programas Open Source.</p>' : ''} <p><i class="fas fa-crow" title="corvo" style="color: #000000!important;"></i> ${UI.copyright_year} - ${UI.company_name}. Todos os direitos liberados. <a href="https://www.youtube.com/watch?v=LXilEPmkoQY" target="_blank">Copiar não é roubar</a>.</p> 
+<footer class="text-muted"> <div class="container"> ${UI.credit ? '<p>Construído com <i class="fa fa-heart" title="amor" style="color: #dc3545!important;"></i> e <i class="fa fa-coffee" title="café" style="color: #ffc107!important;"></i> por <a href="https://github.com/neelygenet/raposas" target="_blank">Neely Genet</a> com a ajuda de outros programas Open Source.</p>' : ''} <p><i class="fas fa-crow" title="corvo" class="basicIcon"></i> ${UI.copyright_year} - ${UI.company_name}. Todos os direitos liberados. <a href="https://www.youtube.com/watch?v=LXilEPmkoQY" target="_blank">Copiar não é roubar</a>.</p> 
 </div> </footer>
   `;
     $('body').html(html);
@@ -140,14 +140,24 @@ function nav(path) {
         }
     }
 
-    html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Políticas</a><div class="dropdown-menu" aria-labelledby="navbarDropdown">
-<a class="dropdown-item" href="https://blog.raposas.net/p/digital-milenium-copyright-act-dmca.html" target="_blank"><i class="far fa-copyright" style="color: #000000;"></i> Política de Copyright</a>
-<a class="dropdown-item" href="https://blog.raposas.net/p/politica-de-privacidade.html" target="_blank"><i class="fas fa-user-secret" style="color: #000000;"></i> Política de Privacidade</a>
-</div></li>
-<div>
-<a href="https://discord.gg/D7PpmzKJpy" target="_blank"><button type="button" class="btn btn-info" style="background-color: #e88c2c;"><i class="fab fa-discord" style="color: #FFFFFF;"></i></button></a>
-<a href="https://t.me/raposas_net" target="_blank"><button type="button" class="btn btn-info" style="background-color: #e88c2c;"><i class="fab fa-telegram" style="color: #FFFFFF"></i></button></a>
-</div>`;
+    html += `
+	<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mais</a>
+	    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		<a class="dropdown-item" href="https://blog.raposas.net/p/copyright.html" target="_blank"><i
+			class="far fa-copyright" class="basicIcon"></i> Copyright</a>
+		<a class="dropdown-item" href="https://blog.raposas.net/p/privacidade.html" target="_blank"><i
+			class="fas fa-user-secret" class="basicIcon"></i> Privacidade</a>
+	    </div>
+	</li>
+
+	<li class="nav-item">
+	    <a class="nav-link" href="https://discord.gg/D7PpmzKJpy"><i class="fab fa-discord"></i> Discord</a>
+	</li>
+
+	<li class="nav-item">
+	    <a class="nav-link" href="https://t.me/raposas_net"><i class="fab fa-telegram"></i> Telegram</a>
+	</li>`;
 
     var search_text = model.is_search_page ? (model.q || '') : '';
     const isMobile = Os.isMobile;

@@ -133,7 +133,6 @@ function nav(path) {
                 if (n === '') {
                     break;
                 }
-                html += `<a class="dropdown-item"  href="/${cur}:${p}">📁 ${n}</a>`;
             }
         }
     }

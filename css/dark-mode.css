@@ -1,18 +1,105 @@
-/* 
-    Inversão de todas as cores da página 
-*/
-:root {
-    filter: invert(100%)
+:root{
+    --primary-dark: #212529;
+    --secondary-dark: #272b2f;
 }
 
-/*  
-    Nova inversão de todas as cores dos itens abaixo
-    Uma espécie de "desinversão" para permitir a visualização correta de imagens e vídeos.
-*/
-img,
-object,
-picture,
-.plyr,
-.plyr--full-ui {
-    filter: invert(100%)
+.list-group-item, .card-header{
+    background-color: var(--primary-dark);
+    color: white;
+    border: 1px solid gray;
+}
+
+.list-group-item:hover{
+    background-color: var(--secondary-dark);
+}
+
+.list-group-item-action{
+    color: white;
+}
+
+.list-group-item-action:hover{
+    background-color: var(--secondary-dark);
+    color: white;
+    text-decoration: underline;
+}
+
+.container{
+    background-color: var(--primary-dark);
+}
+
+#readme_md{
+    background-color: var(--primary-dark);
+    color: white;
+}
+
+body{
+    background-color: var(--primary-dark);
+}
+
+.text-muted{
+    text-align: center;
+}
+
+.text-muted > .container{
+    color: white;
+}
+
+.fa-crow{
+    color: white;
+}
+
+.card{
+    border: 0;
+}
+
+.mdui-container-fluid > .container > .card{
+    background-color: var(--primary-dark);
+}
+
+#content > .container > .card{
+    background-color: var(--primary-dark);
+}
+
+.alert-danger{
+    background-color: var(--secondary-dark);
+    color: white;
+    border: 1px solid white;
+}
+
+.float-right{
+    margin-left: 10px;
+}
+
+/* Alterações no header */
+.navbar{
+    background-color: var(--primary-dark) !important;
+    border-bottom: 1px solid lightgray; 
+}
+
+/* Alterações em dropbars */
+.dropdown-menu.show {
+    border: 1px solid white;
+    background-color: var(--primary-dark);
+}
+
+.dropdown-item{
+    color: white;
+}
+
+.dropdown-item:hover{
+    background-color: var(--secondary-dark);
+    color: white;
+}
+
+/* Ícones */
+.basicIcon{
+    background-color: #FFFFFF;
+}
+
+/* Dialogs */
+.mdui-dialog{
+    background-color: var(--primary-dark);
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
 }

@@ -228,23 +228,56 @@ function requestSearch(params, resultCallback) {
 // Render file list
 function list(path) {
     var content = `
-  <div class="container"><br>
-  <div class="card">
-  <h5 class="card-header" id="folderne"><input type="text" id="folderne" class="form-control" placeholder="Caminho atual: Página inicial" value="" readonly><script>document.getElementById("folderne").innerHTML='Pasta atual: '+decodeURI(this.window.location.href.substring(window.location.href.lastIndexOf('/',window.location.href.lastIndexOf('/')-1))).replace('/','').replace('/','');</script>
-  </h5>
-  <div id="list" class="list-group">
-  </div>
-  </div>
-  <div class="card">
-  <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
-  </div>
-  </div>
-  `;
+    <div class="container"><br>
+    <div class="card">
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb" id="folderne"><li class="breadcrumb-item"><a href="/">Home</a></li>&nbsp;->&nbsp;
+    <script>
+    navlink='';
+    navfulllink = window.location.pathname + window.location.search;
+    navfulllink.split('/').forEach(navname => {
+    if (navname != '') {
+      navlink = "" + navlink + "/" + navname + "";
+      if (navname.endsWith('?a=view/')) {
+      navnamede = decodeURIComponent(navname);
+      navnamews = navnamede.replace(/\?.+/g,"$'")
+      if (navnamews.length > 15){
+      navnamecr = navnamews.slice(0,5) + '...';
+      }
+      else {
+      navnamecr = navnamews.slice(0,15);
+      }
+      document.getElementById('folderne').innerHTML += '<li class="breadcrumb-item"><a href="' + navlink + '">' + navnamecr + '</a></li>';
+      }
+      else {
+      navnamede = decodeURIComponent(navname);
+      if (navnamede.length > 15){
+      navnamecr = navnamede.slice(0,15) + '...';
+      }
+      else {
+      navnamecr = navnamede.slice(0,15);
+      }
+      document.getElementById('folderne').innerHTML += '<li class="breadcrumb-item"><a href="' + navlink + '/">' + navnamecr + '</a></li>';
+      }
+    }
+    });
+    </script>
+    </ol>
+    </nav>
+    <div id="list" class="list-group">
+    </div>
+    </div>
+    <div class="card">
+    <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
+    </div>
+        <div class="alert alert-secondary text-center d-none" role="alert" id="count">Total <span class="number text-center"></span> items</div>
+    </div>
+    `;
     $('#content').html(content);
 
     var password = localStorage.getItem('password' + path);
-    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border m-5 text-primary" role="status"><span class="sr-only">Carregando...</span></div></div>`);
-    //$('#readme_md').hide().html('');
+    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border m-5 text-primary" role="status"><span class="sr-only">Loading...</span></div></div>`);
+    $('#readme_md').hide().html('');
     $('#head_md').hide().html('');
 
     /**
@@ -292,8 +325,6 @@ function list(path) {
                         // Show a loading spinner
                         $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border m-5 text-primary" role="status"><span class="sr-only">Loading...</span></div></div>`)
                             .insertBefore('#readme_md');
-                        mdui.updateSpinners();
-                        // mdui.mutation();
 
                         let $list = $('#list');
                         requestListPath(path, {
@@ -869,7 +900,6 @@ function file_image(path) {
     });
 }
 
-
 // Time conversion
 function utc2beijing(utc_datetime) {
     // Convert to normal time format year-month-day hour: minute: second
@@ -950,18 +980,5 @@ window.onpopstate = function () {
 $(function () {
     init();
     var path = window.location.pathname;
-    /*$("body").on("click", '.folder', function () {
-        var url = $(this).attr('href');
-        history.pushState(null, null, url);
-        render(url);
-        return false;
-    });
-    $("body").on("click", '.view', function () {
-        var url = $(this).attr('href');
-        history.pushState(null, null, url);
-        render(url);
-        return false;
-    });*/
-
     render(path);
 });

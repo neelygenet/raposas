@@ -118,8 +118,6 @@ function nav(path) {
     });
     html += `</div></li>`;
 
-    html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Caminho atual</a><div class="dropdown-menu" aria-labelledby="navbarDropdown"><a class="dropdown-item"  href="/${cur}:/ ">📁 Início</a>`;
-
     if (!model.is_search_page) {
         var arr = path.trim('/').split('/');
         var p = '/';
@@ -230,47 +228,50 @@ function list(path) {
     var content = `
     <div class="container"><br>
     <div class="card">
-    <nav aria-label="breadcrumb">
-    <ol class="breadcrumb" id="folderne"><li class="breadcrumb-item"><a href="/">Home</a></li>&nbsp;->&nbsp;
-    <script>
-    navlink='';
-    navfulllink = window.location.pathname + window.location.search;
-    navfulllink.split('/').forEach(navname => {
-    if (navname != '') {
-      navlink = "" + navlink + "/" + navname + "";
-      if (navname.endsWith('?a=view/')) {
-      navnamede = decodeURIComponent(navname);
-      navnamews = navnamede.replace(/\?.+/g,"$'")
-      if (navnamews.length > 15){
-      navnamecr = navnamews.slice(0,5) + '...';
-      }
-      else {
-      navnamecr = navnamews.slice(0,15);
-      }
-      document.getElementById('folderne').innerHTML += '<li class="breadcrumb-item"><a href="' + navlink + '">' + navnamecr + '</a></li>';
-      }
-      else {
-      navnamede = decodeURIComponent(navname);
-      if (navnamede.length > 15){
-      navnamecr = navnamede.slice(0,15) + '...';
-      }
-      else {
-      navnamecr = navnamede.slice(0,15);
-      }
-      document.getElementById('folderne').innerHTML += '<li class="breadcrumb-item"><a href="' + navlink + '/">' + navnamecr + '</a></li>';
-      }
-    }
-    });
-    </script>
-    </ol>
-    </nav>
-    <div id="list" class="list-group">
-    </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" id="folderne">
+                <li class="breadcrumb-item"><a href="/">Início</a></li>&nbsp;→&nbsp;
+                <script>
+                    navlink = '';
+                    navfulllink = window.location.pathname + window.location.search;
+                    navfulllink.split('/').forEach(navname => {
+                        if (navname != '') {
+                            navlink = "" + navlink + "/" + navname + "";
+                            if (navname.endsWith('?a=view/')) {
+                                navnamede = decodeURIComponent(navname);
+                                navnamews = navnamede.replace(/\?.+/g, "$'")
+                                if (navnamews.length > 15) {
+                                    navnamecr = navnamews.slice(0, 5) + '...';
+                                } else {
+                                    navnamecr = navnamews.slice(0, 15);
+                                }
+                                document.getElementById('folderne').innerHTML +=
+                                    '<li class="breadcrumb-item"><a href="' + navlink + '">' + navnamecr +
+                                    '</a></li>';
+                            } else {
+                                navnamede = decodeURIComponent(navname);
+                                if (navnamede.length > 15) {
+                                    navnamecr = navnamede.slice(0, 15) + '...';
+                                } else {
+                                    navnamecr = navnamede.slice(0, 15);
+                                }
+                                document.getElementById('folderne').innerHTML +=
+                                    '<li class="breadcrumb-item"><a href="' + navlink + '/">' + navnamecr +
+                                    '</a></li>';
+                            }
+                        }
+                    });
+                </script>
+            </ol>
+        </nav>
+        <div id="list" class="list-group">
+        </div>
     </div>
     <div class="card">
-    <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
+        <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
     </div>
-        <div class="alert alert-secondary text-center d-none" role="alert" id="count">Total <span class="number text-center"></span> items</div>
+    <div class="alert alert-secondary text-center d-none" role="alert" id="count">Total <span
+            class="number text-center"></span> items</div>
     </div>
     `;
     $('#content').html(content);

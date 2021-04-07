@@ -92,7 +92,7 @@ function nav(path) {
     var model = window.MODEL;
     var html = "";
     var cur = window.current_drive_order || 0;
-    html += `<nav class="navbar navbar-expand-lg ${UI.dark_mode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'}">
+    html += `<nav class="navbar navbar-expand-lg>
   <a class="navbar-brand" href="/${cur}:/">${UI.logo_image ? '<img border="0" alt="'+UI.company_name+'" src="'+UI.logo_link_name+'" height="64px" class="mainLogo">' : UI.logo_link_name}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -100,7 +100,7 @@ function nav(path) {
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/${cur}:/"><i class="fas fa-home"></i>Início</a>
+        <a class="nav-link" href="/${cur}:/">Início</a>
       </li>`;
     var names = window.drive_names;
     var drive_name = window.drive_names[cur];
@@ -110,6 +110,13 @@ function nav(path) {
         html += `<li class="mdui-menu-item ${(idx === cur) ? 'mdui-list-item-active' : ''} "><a href="/${idx}:/" class="mdui-ripple">${name}</a></li>`;
     });
     html += `</ul>`;*/
+
+    // Dropdown to select different drive roots.
+    html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Escolha o drive</a><div class="dropdown-menu" aria-labelledby="navbarDropdown">`;
+    names.forEach((name, idx) => {
+        html += `<a class="dropdown-item"  href="/${idx}:/">${name}</a>`;
+    });
+    html += `</div></li>`;
 
     if (!model.is_search_page) {
         var arr = path.trim('/').split('/');
@@ -131,22 +138,14 @@ function nav(path) {
     }
 
     html += `
-	</div>
-	<li class="nav-item">
-	    <a class="dropdown-item" href="https://raposas.net/0:/" target="_blank"><i class="fas fa-folder"></i>
-	     Arquivos principais</a>
-	</li>
-	<li class="nav-item">
-	    <a class="dropdown-item" href="https://raposas.net/1:/" target="_blank"><i class="fas fa-folder"></i>
-	Contribuições</a>
-	</li>
-	<li class="nav-item">
-	    <a class="dropdown-item" href="https://blog.raposas.net/p/copyright.html" target="_blank"><i
+	<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mais</a>
+	    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		<a class="dropdown-item" href="https://blog.raposas.net/p/copyright.html" target="_blank"><i
 			class="far fa-copyright" class="basicIcon"></i> Copyright</a>
-	</li>
-	<li class="nav-item">
-	    <a class="dropdown-item" href="https://blog.raposas.net/p/privacidade.html" target="_blank"><i
+		<a class="dropdown-item" href="https://blog.raposas.net/p/privacidade.html" target="_blank"><i
 			class="fas fa-user-secret" class="basicIcon"></i> Privacidade</a>
+	    </div>
 	</li>
 	<li class="nav-item">
 	    <a class="nav-link" href="https://t.me/raposas_net"><i class="fab fa-telegram"></i> Telegram</a>

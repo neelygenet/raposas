@@ -1,2188 +1,6474 @@
 /*!
- * mdui v0.4.3 (https://mdui.org)
- * Copyright 2016-2019 zdhxiong
+ * mdui 1.0.1 (https://mdui.org)
+ * Copyright 2016-2020 zdhxiong
  * Licensed under MIT
  */
-! function (t, e) {
-    "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : t.mdui = e()
-}(this, function () {
-    "use strict";
-    var a, d = {};
-    a = 0, window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitRequestAnimationFrame, window.cancelAnimationFrame = window.webkitCancelAnimationFrame), window.requestAnimationFrame || (window.requestAnimationFrame = function (t, e) {
-        var n = (new Date).getTime(),
-            i = Math.max(0, 16.7 - (n - a)),
-            o = window.setTimeout(function () {
-                t(n + i)
-            }, i);
-        return a = n + i, o
-    }), window.cancelAnimationFrame || (window.cancelAnimationFrame = function (t) {
-        clearTimeout(t)
-    });
-    var n, g = function () {
-            var c = function (t) {
-                for (var e = 0; e < t.length; e += 1) this[e] = t[e];
-                return this.length = t.length, this
-            };
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.mdui = factory());
+}(this, (function () { 'use strict';
 
-            function v(t) {
-                var e = [];
-                if (!t) return new c(e);
-                if (t instanceof c) return t;
-                if ("string" == typeof t) {
-                    var n = t.trim();
-                    if ("<" === n[0] && ">" === n[n.length - 1]) {
-                        var i = "div";
-                        0 === n.indexOf("<li") && (i = "ul"), 0 === n.indexOf("<tr") && (i = "tbody"), 0 !== n.indexOf("<td") && 0 !== n.indexOf("<th") || (i = "tr"), 0 === n.indexOf("<tbody") && (i = "table"), 0 === n.indexOf("<option") && (i = "select");
-                        var o = document.createElement(i);
-                        o.innerHTML = n;
-                        for (var a = 0; a < o.childNodes.length; a += 1) e.push(o.childNodes[a])
-                    } else
-                        for (var s = "#" !== t[0] || t.match(/[ .<>:~]/) ? document.querySelectorAll(t) : [document.getElementById(t.slice(1))], r = 0; r < s.length; r += 1) s[r] && e.push(s[r])
-                } else {
-                    if ("function" == typeof t) return v(document).ready(t);
-                    if (t.nodeType || t === window || t === document) e.push(t);
-                    else if (0 < t.length && t[0].nodeType)
-                        for (var d = 0; d < t.length; d += 1) e.push(t[d])
-                }
-                return new c(e)
-            }
+  !function(){try{return new MouseEvent("test")}catch(e$1){}var e=function(e,t){t=t||{bubbles:!1,cancelable:!1};var n=document.createEvent("MouseEvent");return n.initMouseEvent(e,t.bubbles,t.cancelable,window,0,t.screenX||0,t.screenY||0,t.clientX||0,t.clientY||0,t.ctrlKey||!1,t.altKey||!1,t.shiftKey||!1,t.metaKey||!1,t.button||0,t.relatedTarget||null),n};e.prototype=Event.prototype,window.MouseEvent=e;}();
 
-            function t() {
-                for (var e = this, n = [], t = arguments.length; t--;) n[t] = arguments[t];
-                if (!n.length) return this;
-                if (1 === n.length) return Object.keys(n[0]).forEach(function (t) {
-                    e[t] = n[0][t]
-                }), this;
-                for (var i = n.shift(), o = function (e) {
-                        Object.keys(n[e]).forEach(function (t) {
-                            i[t] = n[e][t]
-                        })
-                    }, a = 0; a < n.length; a += 1) o(a);
-                return i
-            }
+  !function(){function t(t,e){e=e||{bubbles:!1,cancelable:!1,detail:void 0};var n=document.createEvent("CustomEvent");return n.initCustomEvent(t,e.bubbles,e.cancelable,e.detail),n}"function"!=typeof window.CustomEvent&&(t.prototype=window.Event.prototype,window.CustomEvent=t);}();
 
-            function u(t) {
-                return "object" == typeof t && null !== t
-            }
-
-            function g(t) {
-                return "function" == typeof t
-            }
-
-            function b(t) {
-                return "string" == typeof t
-            }
-
-            function a(t) {
-                return "number" == typeof t.length
-            }
-
-            function x(t, e) {
-                if (a(t)) {
-                    for (var n = 0; n < t.length; n += 1)
-                        if (!1 === e.call(t[n], n, t[n])) return t
-                } else
-                    for (var i = Object.keys(t), o = 0; o < i.length; o += 1)
-                        if (!1 === e.call(t[i[o]], i[o], t[i[o]])) return t;
-                return t
-            }
-
-            function e(t, n) {
-                var e, i, o = [];
-                return x(t, function (t, e) {
-                    null != (i = n(e, t)) && o.push(i)
-                }), (e = []).concat.apply(e, o)
-            }
-
-            function s(n, t) {
-                return x(t, function (t, e) {
-                    n.push(e)
-                }), n
-            }
-
-            function r(t) {
-                for (var e = [], n = 0; n < t.length; n += 1) - 1 === e.indexOf(t[n]) && e.push(t[n]);
-                return e
-            }(v.fn = c.prototype).extend = t, v.extend = t;
-            var i = {};
-
-            function n(t, n, i, o) {
-                var a, s = [];
-                return t.each(function (t, e) {
-                    for (a = e[o]; a;) {
-                        if (2 === i) {
-                            if (!n || n && v(a).is(n)) break;
-                            s.push(a)
-                        } else {
-                            if (0 === i) {
-                                (!n || n && v(a).is(n)) && s.push(a);
-                                break
-                            }(!n || n && v(a).is(n)) && s.push(a)
-                        }
-                        a = a[o]
-                    }
-                }), new c(r(s))
-            }
-            v.extend({
-                each: x,
-                merge: s,
-                unique: r,
-                map: e,
-                contains: function (t, e) {
-                    return t && !e ? document.documentElement.contains(t) : t !== e && t.contains(e)
-                },
-                param: function (t) {
-                    if (!u(t)) return "";
-                    var s = [];
-                    return x(t, function (t, e) {
-                        ! function n(i, o) {
-                            var a;
-                            u(o) ? x(o, function (t, e) {
-                                a = Array.isArray(o) && !u(e) ? "" : t, n(i + "[" + a + "]", e)
-                            }) : (a = null !== o && "" !== o ? "=" + encodeURIComponent(o) : "", s.push(encodeURIComponent(i) + a))
-                        }(t, e)
-                    }), s.join("&")
-                }
-            }), v.fn.extend({
-                each: function (t) {
-                    return x(this, t)
-                },
-                map: function (n) {
-                    return new c(e(this, function (t, e) {
-                        return n.call(t, e, t)
-                    }))
-                },
-                get: function (t) {
-                    return void 0 === t ? [].slice.call(this) : this[0 <= t ? t : t + this.length]
-                },
-                slice: function () {
-                    for (var t = [], e = arguments.length; e--;) t[e] = arguments[e];
-                    return new c([].slice.apply(this, t))
-                },
-                filter: function (n) {
-                    if (g(n)) return this.map(function (t, e) {
-                        return n.call(e, t, e) ? e : void 0
-                    });
-                    var i = v(n);
-                    return this.map(function (t, e) {
-                        return -1 < i.index(e) ? e : void 0
-                    })
-                },
-                not: function (t) {
-                    var n = this.filter(t);
-                    return this.map(function (t, e) {
-                        return -1 < n.index(e) ? void 0 : e
-                    })
-                },
-                offset: function () {
-                    if (this[0]) {
-                        var t = this[0].getBoundingClientRect();
-                        return {
-                            left: t.left + window.pageXOffset,
-                            top: t.top + window.pageYOffset,
-                            width: t.width,
-                            height: t.height
-                        }
-                    }
-                    return null
-                },
-                offsetParent: function () {
-                    return this.map(function () {
-                        for (var t = this.offsetParent; t && "static" === v(t).css("position");) t = t.offsetParent;
-                        return t || document.documentElement
-                    })
-                },
-                position: function () {
-                    var t, e, n = this;
-                    if (!n[0]) return null;
-                    var i, o, a = {
-                        top: 0,
-                        left: 0
-                    };
-                    return "fixed" === n.css("position") ? e = n[0].getBoundingClientRect() : (t = n.offsetParent(), e = n.offset(), i = t[0], o = "html", i.nodeName && i.nodeName.toLowerCase() === o.toLowerCase() || (a = t.offset()), a = {
-                        top: a.top + t.css("borderTopWidth"),
-                        left: a.left + t.css("borderLeftWidth")
-                    }), {
-                        top: e.top - a.top - n.css("marginTop"),
-                        left: e.left - a.left - n.css("marginLeft"),
-                        width: e.width,
-                        height: e.height
-                    }
-                },
-                show: function () {
-                    return this.each(function () {
-                        var t, e, n;
-                        "none" === this.style.display && (this.style.display = ""), "none" === window.getComputedStyle(this, "").getPropertyValue("display") && (this.style.display = (t = this.nodeName, i[t] || (e = document.createElement(t), document.body.appendChild(e), n = getComputedStyle(e, "").getPropertyValue("display"), e.parentNode.removeChild(e), "none" === n && (n = "block"), i[t] = n), i[t]))
-                    })
-                },
-                hide: function () {
-                    return this.each(function () {
-                        this.style.display = "none"
-                    })
-                },
-                toggle: function () {
-                    return this.each(function () {
-                        this.style.display = "none" === this.style.display ? "" : "none"
-                    })
-                },
-                hasClass: function (t) {
-                    return !(!this[0] || !t) && this[0].classList.contains(t)
-                },
-                removeAttr: function (t) {
-                    return this.each(function () {
-                        this.removeAttribute(t)
-                    })
-                },
-                removeProp: function (t) {
-                    return this.each(function () {
-                        try {
-                            delete this[t]
-                        } catch (t) {}
-                    })
-                },
-                eq: function (t) {
-                    var e = -1 === t ? this.slice(t) : this.slice(t, +t + 1);
-                    return new c(e)
-                },
-                first: function () {
-                    return this.eq(0)
-                },
-                last: function () {
-                    return this.eq(-1)
-                },
-                index: function (t) {
-                    return t ? b(t) ? v(t).eq(0).parent().children().get().indexOf(this[0]) : this.get().indexOf(t) : this.eq(0).parent().children().get().indexOf(this[0])
-                },
-                is: function (t) {
-                    var e = this[0];
-                    if (!e || null == t) return !1;
-                    if (b(t)) return e !== document && e !== window && (e.matches || e.matchesSelector || e.webkitMatchesSelector || e.mozMatchesSelector || e.oMatchesSelector || e.msMatchesSelector).call(e, t);
-                    if (t === document || t === window) return e === t;
-                    if (t.nodeType || a(t)) {
-                        for (var n = t.nodeType ? [t] : t, i = 0; i < n.length; i += 1)
-                            if (n[i] === e) return !0;
-                        return !1
-                    }
-                    return !1
-                },
-                find: function (i) {
-                    var o = [];
-                    return this.each(function (t, e) {
-                        var n = e.nodeType;
-                        1 !== n && 9 !== n || s(o, e.querySelectorAll(i))
-                    }), new c(o)
-                },
-                children: function (n) {
-                    var i = [];
-                    return this.each(function (t, e) {
-                        x(e.childNodes, function (t, e) {
-                            1 === e.nodeType && (!n || n && v(e).is(n)) && i.push(e)
-                        })
-                    }), new c(r(i))
-                },
-                has: function (t) {
-                    var e = b(t) ? this.find(t) : v(t),
-                        n = e.length;
-                    return this.filter(function () {
-                        for (var t = 0; t < n; t += 1)
-                            if (v.contains(this, e[t])) return !0;
-                        return !1
-                    })
-                },
-                siblings: function (t) {
-                    return this.prevAll(t).add(this.nextAll(t))
-                },
-                closest: function (t) {
-                    var e = this;
-                    return e.is(t) || (e = e.parents(t).eq(0)), e
-                },
-                remove: function () {
-                    return this.each(function (t, e) {
-                        e.parentNode && e.parentNode.removeChild(e)
-                    })
-                },
-                add: function (t) {
-                    return new c(r(s(this.get(), v(t))))
-                },
-                empty: function () {
-                    return this.each(function () {
-                        this.innerHTML = ""
-                    })
-                },
-                clone: function () {
-                    return this.map(function () {
-                        return this.cloneNode(!0)
-                    })
-                },
-                replaceWith: function (t) {
-                    return this.before(t).remove()
-                },
-                serializeArray: function () {
-                    var n = [],
-                        t = this[0];
-                    return t && t.elements && v([].slice.call(t.elements)).each(function () {
-                        var t = v(this),
-                            e = t.attr("type");
-                        "fieldset" === this.nodeName.toLowerCase() || this.disabled || -1 !== ["submit", "reset", "button"].indexOf(e) || -1 !== ["radio", "checkbox"].indexOf(e) && !this.checked || n.push({
-                            name: t.attr("name"),
-                            value: t.val()
-                        })
-                    }), n
-                },
-                serialize: function () {
-                    var n = [];
-                    return x(this.serializeArray(), function (t, e) {
-                        n.push(encodeURIComponent(e.name) + "=" + encodeURIComponent(e.value))
-                    }), n.join("&")
-                }
-            }), x(["val", "html", "text"], function (i, t) {
-                var o = {
-                        0: "value",
-                        1: "innerHTML",
-                        2: "textContent"
-                    },
-                    e = {
-                        0: void 0,
-                        1: void 0,
-                        2: null
-                    };
-                v.fn[t] = function (n) {
-                    return void 0 === n ? this[0] ? this[0][o[i]] : e[i] : this.each(function (t, e) {
-                        e[o[i]] = n
-                    })
-                }
-            }), x(["attr", "prop", "css"], function (a, t) {
-                function s(t, e, n) {
-                    0 === a ? t.setAttribute(e, n) : 1 === a ? t[e] = n : t.style[e] = n
-                }
-                v.fn[t] = function (e, i) {
-                    var o = arguments.length;
-                    return 1 === o && b(e) ? function (t, e) {
-                        if (t) return 0 === a ? t.getAttribute(e) : 1 === a ? t[e] : window.getComputedStyle(t, null).getPropertyValue(e)
-                    }(this[0], e) : this.each(function (t, n) {
-                        2 === o ? s(n, e, i) : x(e, function (t, e) {
-                            s(n, t, e)
-                        })
-                    })
-                }
-            }), x(["add", "remove", "toggle"], function (t, i) {
-                v.fn[i + "Class"] = function (t) {
-                    if (!t) return this;
-                    var e = t.split(" ");
-                    return this.each(function (t, n) {
-                        x(e, function (t, e) {
-                            n.classList[i](e)
-                        })
-                    })
-                }
-            }), x({
-                Width: "width",
-                Height: "height"
-            }, function (r, d) {
-                v.fn[d] = function (t) {
-                    if (void 0 !== t) return isNaN(Number(t)) || "" === t || (t += "px"), this.css(d, t);
-                    var e, n, i = this[0];
-                    if ((n = i) && n === n.window) return i["inner" + r];
-                    if ((e = i) && e.nodeType === e.DOCUMENT_NODE) return i.documentElement["scroll" + r];
-                    var o = v(i),
-                        a = 0,
-                        s = "width" === d;
-                    return "ActiveXObject" in window && "border-box" === o.css("box-sizing") && (a = parseFloat(o.css("padding-" + (s ? "left" : "top"))) + parseFloat(o.css("padding-" + (s ? "right" : "bottom"))) + parseFloat(o.css("border-" + (s ? "left" : "top") + "-width")) + parseFloat(o.css("border-" + (s ? "right" : "bottom") + "-width"))), parseFloat(v(i).css(d)) + a
-                }
-            }), x({
-                Width: "width",
-                Height: "height"
-            }, function (t, n) {
-                v.fn["inner" + t] = function () {
-                    var t = this[n](),
-                        e = v(this[0]);
-                    return "border-box" !== e.css("box-sizing") && (t += parseFloat(e.css("padding-" + ("width" === n ? "left" : "top"))), t += parseFloat(e.css("padding-" + ("width" === n ? "right" : "bottom")))), t
-                }
-            }), x(["", "All", "Until"], function (e, t) {
-                v.fn["prev" + t] = function (t) {
-                    return n(0 === e ? this : v(this.get().reverse()), t, e, "previousElementSibling")
-                }
-            }), x(["", "All", "Until"], function (e, t) {
-                v.fn["next" + t] = function (t) {
-                    return n(this, t, e, "nextElementSibling")
-                }
-            }), x(["", "s", "sUntil"], function (e, t) {
-                v.fn["parent" + t] = function (t) {
-                    return n(0 === e ? this : v(this.get().reverse()), t, e, "parentNode")
-                }
-            }), x(["append", "prepend"], function (a, t) {
-                v.fn[t] = function (t) {
-                    var e, o = 1 < this.length;
-                    if (!b(t) || "<" === t[0] && ">" === t[t.length - 1]) e = v(t).get();
-                    else {
-                        var n = document.createElement("div");
-                        n.innerHTML = t, e = [].slice.call(n.childNodes)
-                    }
-                    return 1 === a && e.reverse(), this.each(function (n, i) {
-                        x(e, function (t, e) {
-                            o && 0 < n && (e = e.cloneNode(!0)), 0 === a ? i.appendChild(e) : i.insertBefore(e, i.childNodes[0])
-                        })
-                    })
-                }
-            }), x(["insertBefore", "insertAfter"], function (o, t) {
-                v.fn[t] = function (t) {
-                    var i = v(t);
-                    return this.each(function (t, n) {
-                        i.each(function (t, e) {
-                            e.parentNode.insertBefore(1 === i.length ? n : n.cloneNode(!0), 0 === o ? e : e.nextSibling)
-                        })
-                    })
-                }
-            }), x({
-                appendTo: "append",
-                prependTo: "prepend",
-                before: "insertBefore",
-                after: "insertAfter",
-                replaceAll: "replaceWith"
-            }, function (t, e) {
-                v.fn[t] = function (t) {
-                    return v(t)[e](this), this
-                }
-            });
-            var d = "mduiElementDataStorage";
-            v.extend({
-                    data: function (n, t, e) {
-                        var i = {};
-                        if (void 0 !== e) i[t] = e;
-                        else {
-                            if (!u(t)) {
-                                if (void 0 === t) {
-                                    var o = {};
-                                    return x(n.attributes, function (t, e) {
-                                        var n = e.name;
-                                        if (0 === n.indexOf("data-")) {
-                                            var i = n.slice(5).replace(/-./g, function (t) {
-                                                return t.charAt(1).toUpperCase()
-                                            });
-                                            o[i] = e.value
-                                        }
-                                    }), n[d] && x(n[d], function (t, e) {
-                                        o[t] = e
-                                    }), o
-                                }
-                                if (n[d] && t in n[d]) return n[d][t];
-                                var a = n.getAttribute("data-" + t);
-                                return a || void 0
-                            }
-                            i = t
-                        }
-                        n[d] || (n[d] = {}), x(i, function (t, e) {
-                            n[d][t] = e
-                        })
-                    },
-                    removeData: function (t, e) {
-                        t[d] && t[d][e] && (t[d][e] = null, delete t[d][e])
-                    }
-                }), v.fn.extend({
-                    data: function (n, i) {
-                        return void 0 === i ? u(n) ? this.each(function (t, e) {
-                            v.data(e, n)
-                        }) : this[0] ? v.data(this[0], n) : void 0 : this.each(function (t, e) {
-                            v.data(e, n, i)
-                        })
-                    },
-                    removeData: function (n) {
-                        return this.each(function (t, e) {
-                            v.removeData(e, n)
-                        })
-                    }
-                }),
-                function () {
-                    try {
-                        return new t("test")
-                    } catch (t) {}
-                    var t = function (t, e) {
-                        e = e || {
-                            bubbles: !1,
-                            cancelable: !1
-                        };
-                        var n = document.createEvent("MouseEvent");
-                        return n.initMouseEvent(t, e.bubbles, e.cancelable, window, 0, 0, 0, 0, 0, !1, !1, !1, !1, 0, null), n
-                    };
-                    t.prototype = Event.prototype, window.MouseEvent = t
-                }(),
-                function () {
-                    function t(t, e) {
-                        e = e || {
-                            bubbles: !1,
-                            cancelable: !1,
-                            detail: void 0
-                        };
-                        var n = document.createEvent("CustomEvent");
-                        return n.initCustomEvent(t, e.bubbles, e.cancelable, e.detail), n
-                    }
-                    "function" != typeof window.CustomEvent && (t.prototype = window.Event.prototype, window.CustomEvent = t)
-                }();
-            var l = {},
-                o = 1;
-
-            function f() {
-                return !1
-            }
-
-            function p(t) {
-                return t.mduiElementId || (o += 1, t.mduiElementId = o), t.mduiElementId
-            }
-
-            function h(a, t, s, r) {
-                (t || "").split(" ").forEach(function (t) {
-                    var e, n, i, o;
-                    (e = a, n = t, i = s, o = r, (l[p(e)] || []).filter(function (t) {
-                        return t && (!n || t.e === n) && (!i || t.fn.toString() === i.toString()) && (!o || t.sel === o)
-                    })).forEach(function (t) {
-                        delete l[p(a)][t.i], a.removeEventListener(t.e, t.proxy, !1)
-                    })
-                })
-            }
-            v.fn.extend({
-                ready: function (t) {
-                    return /complete|loaded|interactive/.test(document.readyState) && document.body ? t(v) : document.addEventListener("DOMContentLoaded", function () {
-                        t(v)
-                    }, !1), this
-                },
-                on: function (t, n, i, e, o) {
-                    var a = this;
-                    if (t && !b(t)) return x(t, function (t, e) {
-                        a.on(t, n, i, e)
-                    }), a;
-                    if (b(n) || g(e) || !1 === e || (e = i, i = n, n = void 0), (g(i) || !1 === i) && (e = i, i = void 0), !1 === e && (e = f), 1 === o) {
-                        var s = e;
-                        e = function () {
-                            return a.off(t, n, e), s.apply(this, arguments)
-                        }
-                    }
-                    return this.each(function () {
-                        ! function (o, t, a, s, r) {
-                            var d = p(o);
-                            l[d] || (l[d] = []);
-                            var c = !1;
-                            u(s) && s.useCapture && (c = !0), t.split(" ").forEach(function (t) {
-                                var e = {
-                                    e: t,
-                                    fn: a,
-                                    sel: r,
-                                    i: l[d].length
-                                };
-
-                                function n(t, e) {
-                                    !1 === a.apply(e, void 0 === t._detail ? [t] : [t].concat(t._detail)) && (t.preventDefault(), t.stopPropagation())
-                                }
-
-                                function i(e) {
-                                    e._data = s, r ? v(o).find(r).get().reverse().forEach(function (t) {
-                                        (t === e.target || v.contains(t, e.target)) && n(e, t)
-                                    }) : n(e, o)
-                                }
-                                e.proxy = i, l[d].push(e), o.addEventListener(e.e, i, c)
-                            })
-                        }(this, t, e, i, n)
-                    })
-                },
-                one: function (t, n, i, e) {
-                    var o = this;
-                    return b(t) ? t.split(" ").forEach(function (t) {
-                        o.on(t, n, i, e, 1)
-                    }) : x(t, function (t, e) {
-                        t.split(" ").forEach(function (t) {
-                            o.on(t, n, i, e, 1)
-                        })
-                    }), this
-                },
-                off: function (t, n, e) {
-                    var i = this;
-                    return t && !b(t) ? (x(t, function (t, e) {
-                        i.off(t, n, e)
-                    }), i) : (b(n) || g(e) || !1 === e || (e = n, n = void 0), !1 === e && (e = f), i.each(function () {
-                        h(this, t, e, n)
-                    }))
-                },
-                trigger: function (t, e) {
-                    var n, i = -1 < ["click", "mousedown", "mouseup", "mousemove"].indexOf(t);
-                    return (n = i ? new MouseEvent(t, {
-                        bubbles: !0,
-                        cancelable: !0
-                    }) : new CustomEvent(t, {
-                        detail: e,
-                        bubbles: !0,
-                        cancelable: !0
-                    }))._detail = e, this.each(function () {
-                        this.dispatchEvent(n)
-                    })
-                }
-            });
-            var y = {},
-                w = 0,
-                $ = {
-                    ajaxStart: "start.mdui.ajax",
-                    ajaxSuccess: "success.mdui.ajax",
-                    ajaxError: "error.mdui.ajax",
-                    ajaxComplete: "complete.mdui.ajax"
-                };
-
-            function C(t) {
-                return 0 <= ["GET", "HEAD"].indexOf(t)
-            }
-
-            function k(t, e) {
-                return (t + "&" + e).replace(/[&?]{1,2}/, "?")
-            }
-            return v.extend({
-                ajaxSetup: function (t) {
-                    v.extend(y, t || {})
-                },
-                ajax: function (a) {
-                    var n = {
-                            method: "GET",
-                            data: !1,
-                            processData: !0,
-                            async: !0,
-                            cache: !0,
-                            username: "",
-                            password: "",
-                            headers: {},
-                            xhrFields: {},
-                            statusCode: {},
-                            dataType: "text",
-                            jsonp: "callback",
-                            jsonpCallback: function () {
-                                return w += 1, "mduijsonp_" + Date.now() + "_" + w
-                            },
-                            contentType: "application/x-www-form-urlencoded",
-                            timeout: 0,
-                            global: !0
-                        },
-                        i = ["beforeSend", "success", "error", "statusCode", "complete"],
-                        s = !1,
-                        r = y,
-                        e = {};
-
-                    function d(t, e) {
-                        a.global && v(document).trigger(t, e)
-                    }
-
-                    function c(t) {
-                        for (var e, n, i = [], o = arguments.length - 1; 0 < o--;) i[o] = arguments[o + 1];
-                        t && (t in r && (e = r[t].apply(r, i)), a[t] && (n = a[t].apply(a, i)), "beforeSend" !== t || !1 !== e && !1 !== n || (s = !0))
-                    }
-                    x(r, function (t, e) {
-                        i.indexOf(t) < 0 && (n[t] = e)
-                    });
-                    var t, u = (a = v.extend({}, n, a)).method.toUpperCase();
-                    if (a.url || (a.url = window.location.toString()), t = (C(u) || a.processData) && a.data && [ArrayBuffer, Blob, Document, FormData].indexOf(a.data.constructor) < 0 ? b(a.data) ? a.data : v.param(a.data) : a.data, C(u) && t && (a.url = k(a.url, t), t = null), "jsonp" === a.dataType) {
-                        var o, l = g(a.jsonpCallback) ? a.jsonpCallback() : a.jsonpCallback,
-                            f = k(a.url, a.jsonp + "=" + l);
-                        if (e.options = a, d($.ajaxStart, e), c("beforeSend", null), s) return;
-                        var p = document.createElement("script");
-                        return p.type = "text/javascript", p.onerror = function () {
-                            o && clearTimeout(o), d($.ajaxError, e), c("error", null, "scripterror"), d($.ajaxComplete, e), c("complete", null, "scripterror")
-                        }, p.src = f, window[l] = function (t) {
-                            o && clearTimeout(o), e.data = t, d($.ajaxSuccess, e), c("success", t, "success", null), v(p).remove(), p = null, delete window[l]
-                        }, v("head").append(p), void(0 < a.timeout && (o = setTimeout(function () {
-                            v(p).remove(), p = null, d($.ajaxError, e), c("error", null, "timeout")
-                        }, a.timeout)))
-                    }
-                    C(u) && !a.cache && (a.url = k(a.url, "_=" + Date.now()));
-                    var h, m = new XMLHttpRequest;
-                    return m.open(u, a.url, a.async, a.username, a.password), (a.contentType || t && !C(u) && !1 !== a.contentType) && m.setRequestHeader("Content-Type", a.contentType), "json" === a.dataType && m.setRequestHeader("Accept", "application/json, text/javascript"), a.headers && x(a.headers, function (t, e) {
-                        m.setRequestHeader(t, e)
-                    }), void 0 === a.crossDomain && (a.crossDomain = /^([\w-]+:)?\/\/([^/]+)/.test(a.url) && RegExp.$2 !== window.location.host), a.crossDomain || m.setRequestHeader("X-Requested-With", "XMLHttpRequest"), a.xhrFields && x(a.xhrFields, function (t, e) {
-                        m[t] = e
-                    }), e.xhr = m, e.options = a, m.onload = function () {
-                        var n;
-                        h && clearTimeout(h);
-                        var i, o = 200 <= m.status && m.status < 300 || 0 === m.status;
-                        if (o)
-                            if (n = 204 === m.status || "HEAD" === u ? "nocontent" : 304 === m.status ? "notmodified" : "success", "json" === a.dataType) {
-                                try {
-                                    i = JSON.parse(m.responseText), e.data = i
-                                } catch (t) {
-                                    n = "parsererror", d($.ajaxError, e), c("error", m, n)
-                                }
-                                "parsererror" !== n && (d($.ajaxSuccess, e), c("success", i, n, m))
-                            } else i = "text" === m.responseType || "" === m.responseType ? m.responseText : m.response, e.data = i, d($.ajaxSuccess, e), c("success", i, n, m);
-                        else n = "error", d($.ajaxError, e), c("error", m, n);
-                        x([r.statusCode, a.statusCode], function (t, e) {
-                            e && e[m.status] && (o ? e[m.status](i, n, m) : e[m.status](m, n))
-                        }), d($.ajaxComplete, e), c("complete", m, n)
-                    }, m.onerror = function () {
-                        h && clearTimeout(h), d($.ajaxError, e), c("error", m, m.statusText), d($.ajaxComplete, e), c("complete", m, "error")
-                    }, m.onabort = function () {
-                        var t = "abort";
-                        h && (t = "timeout", clearTimeout(h)), d($.ajaxError, e), c("error", m, t), d($.ajaxComplete, e), c("complete", m, t)
-                    }, d($.ajaxStart, e), c("beforeSend", m), s || (0 < a.timeout && (h = setTimeout(function () {
-                        m.abort()
-                    }, a.timeout)), m.send(t)), m
-                }
-            }), x($, function (t, e) {
-                v.fn[t] = function (n) {
-                    return this.on(e, function (t, e) {
-                        n(t, e.xhr, e.options, e.data)
-                    })
-                }
-            }), v
-        }(),
-        f = g(document),
-        T = g(window),
-        l = {};
-    n = [], l.queue = function (t, e) {
-        if (void 0 === n[t] && (n[t] = []), void 0 === e) return n[t];
-        n[t].push(e)
-    }, l.dequeue = function (t) {
-        void 0 !== n[t] && n[t].length && n[t].shift()()
-    };
-    var r = {
-        touches: 0,
-        isAllow: function (t) {
-            var e = !0;
-            return r.touches && -1 < ["mousedown", "mouseup", "mousemove", "click", "mouseover", "mouseout", "mouseenter", "mouseleave"].indexOf(t.type) && (e = !1), e
-        },
-        register: function (t) {
-            "touchstart" === t.type ? r.touches += 1 : -1 < ["touchmove", "touchend", "touchcancel"].indexOf(t.type) && setTimeout(function () {
-                r.touches && (r.touches -= 1)
-            }, 500)
-        },
-        start: "touchstart mousedown",
-        move: "touchmove mousemove",
-        end: "touchend mouseup",
-        cancel: "touchcancel mouseleave",
-        unlock: "touchend touchmove touchcancel"
-    };
-    g(function () {
-        setTimeout(function () {
-            g("body").addClass("mdui-loaded")
-        }, 0)
-    });
-    var i, s = function (t) {
-            var e = {};
-            if (null === t || !t) return e;
-            if ("object" == typeof t) return t;
-            var n = t.indexOf("{");
-            try {
-                e = new Function("", "var json = " + t.substr(n) + "; return JSON.parse(JSON.stringify(json));")()
-            } catch (t) {}
-            return e
-        },
-        p = function (t, e, n, i, o) {
-            o || (o = {}), o.inst = n;
-            var a = t + ".mdui." + e;
-            "undefined" != typeof jQuery && jQuery(i).trigger(a, o), g(i).trigger(a, o)
-        };
-    g.fn.extend({
-            reflow: function () {
-                return this.each(function () {
-                    return this.clientLeft
-                })
-            },
-            transition: function (t) {
-                return "string" != typeof t && (t += "ms"), this.each(function () {
-                    this.style.webkitTransitionDuration = t, this.style.transitionDuration = t
-                })
-            },
-            transitionEnd: function (e) {
-                var n, i = ["webkitTransitionEnd", "transitionend"],
-                    o = this;
-
-                function a(t) {
-                    if (t.target === this)
-                        for (e.call(this, t), n = 0; n < i.length; n++) o.off(i[n], a)
-                }
-                if (e)
-                    for (n = 0; n < i.length; n++) o.on(i[n], a);
-                return this
-            },
-            transformOrigin: function (t) {
-                return this.each(function () {
-                    this.style.webkitTransformOrigin = t, this.style.transformOrigin = t
-                })
-            },
-            transform: function (t) {
-                return this.each(function () {
-                    this.style.webkitTransform = t, this.style.transform = t
-                })
-            }
-        }), g.extend({
-            showOverlay: function (t) {
-                var e = g(".mdui-overlay");
-                e.length ? (e.data("isDeleted", 0), void 0 !== t && e.css("z-index", t)) : (void 0 === t && (t = 2e3), e = g('<div class="mdui-overlay">').appendTo(document.body).reflow().css("z-index", t));
-                var n = e.data("overlay-level") || 0;
-                return e.data("overlay-level", ++n).addClass("mdui-overlay-show")
-            },
-            hideOverlay: function (t) {
-                var e = g(".mdui-overlay");
-                if (e.length) {
-                    var n = t ? 1 : e.data("overlay-level");
-                    1 < n ? e.data("overlay-level", --n) : e.data("overlay-level", 0).removeClass("mdui-overlay-show").data("isDeleted", 1).transitionEnd(function () {
-                        e.data("isDeleted") && e.remove()
-                    })
-                }
-            },
-            lockScreen: function () {
-                var t = g("body"),
-                    e = t.width();
-                t.addClass("mdui-locked").width(e);
-                var n = t.data("lockscreen-level") || 0;
-                t.data("lockscreen-level", ++n)
-            },
-            unlockScreen: function (t) {
-                var e = g("body"),
-                    n = t ? 1 : e.data("lockscreen-level");
-                1 < n ? e.data("lockscreen-level", --n) : e.data("lockscreen-level", 0).removeClass("mdui-locked").width("")
-            },
-            throttle: function (n, i) {
-                var o = null;
-                return (!i || i < 16) && (i = 16),
-                    function () {
-                        var t = this,
-                            e = arguments;
-                        null === o && (o = setTimeout(function () {
-                            n.apply(t, e), o = null
-                        }, i))
-                    }
-            }
-        }), i = {}, g.extend({
-            guid: function (t) {
-                if (void 0 !== t && void 0 !== i[t]) return i[t];
-
-                function e() {
-                    return Math.floor(65536 * (1 + Math.random())).toString(16).substring(1)
-                }
-                var n = e() + e() + "-" + e() + "-" + e() + "-" + e() + "-" + e() + e() + e();
-                return void 0 !== t && (i[t] = n), n
-            }
-        }),
-        function () {
-            var a = {};
-
-            function s(t, e, n, i, o) {
-                var a = g(n),
-                    s = a.data("mdui.mutation");
-                s || (s = [], a.data("mdui.mutation", s)), -1 === s.indexOf(t) && (s.push(t), e.call(n, i, o))
-            }
-            g.fn.extend({
-                mutation: function () {
-                    return this.each(function (t, e) {
-                        var o = g(this);
-                        g.each(a, function (n, i) {
-                            o.is(n) && s(n, i, o[0], t, e), o.find(n).each(function (t, e) {
-                                s(n, i, this, t, e)
-                            })
-                        })
-                    })
-                }
-            }), d.mutation = function (n, i) {
-                "string" == typeof n && "function" == typeof i ? (a[n] = i, g(n).each(function (t, e) {
-                    s(n, i, this, t, e)
-                })) : g(document).mutation()
-            }
-        }(), d.Headroom = function () {
-            var a = {
-                tolerance: 5,
-                offset: 0,
-                initialClass: "mdui-headroom",
-                pinnedClass: "mdui-headroom-pinned-top",
-                unpinnedClass: "mdui-headroom-unpinned-top"
-            };
-
-            function t(t, e) {
-                var n = this;
-                if (n.$headroom = g(t).eq(0), n.$headroom.length) {
-                    var i = n.$headroom.data("mdui.headroom");
-                    if (i) return i;
-                    n.options = g.extend({}, a, e || {});
-                    var o = n.options.tolerance;
-                    o !== Object(o) && (n.options.tolerance = {
-                        down: o,
-                        up: o
-                    }), n._init()
-                }
-            }
-            t.prototype._init = function () {
-                var t = this;
-                t.state = "pinned", t.$headroom.addClass(t.options.initialClass).removeClass(t.options.pinnedClass + " " + t.options.unpinnedClass), t.inited = !1, t.lastScrollY = 0, t._attachEvent()
-            }, t.prototype._attachEvent = function () {
-                var t = this;
-                t.inited || (t.lastScrollY = window.pageYOffset, t.inited = !0, T.on("scroll", function () {
-                    t._scroll()
-                }))
-            }, t.prototype._scroll = function () {
-                var i = this;
-                i.rafId = window.requestAnimationFrame(function () {
-                    var t = window.pageYOffset,
-                        e = t > i.lastScrollY ? "down" : "up",
-                        n = Math.abs(t - i.lastScrollY) >= i.options.tolerance[e];
-                    t > i.lastScrollY && t >= i.options.offset && n ? i.unpin() : (t < i.lastScrollY && n || t <= i.options.offset) && i.pin(), i.lastScrollY = t
-                })
-            };
-            var e = function (t) {
-                "pinning" === t.state && (t.state = "pinned", p("pinned", "headroom", t, t.$headroom)), "unpinning" === t.state && (t.state = "unpinned", p("unpinned", "headroom", t, t.$headroom))
-            };
-            return t.prototype.pin = function () {
-                var t = this;
-                "pinning" !== t.state && "pinned" !== t.state && t.$headroom.hasClass(t.options.initialClass) && (p("pin", "headroom", t, t.$headroom), t.state = "pinning", t.$headroom.removeClass(t.options.unpinnedClass).addClass(t.options.pinnedClass).transitionEnd(function () {
-                    e(t)
-                }))
-            }, t.prototype.unpin = function () {
-                var t = this;
-                "unpinning" !== t.state && "unpinned" !== t.state && t.$headroom.hasClass(t.options.initialClass) && (p("unpin", "headroom", t, t.$headroom), t.state = "unpinning", t.$headroom.removeClass(t.options.pinnedClass).addClass(t.options.unpinnedClass).transitionEnd(function () {
-                    e(t)
-                }))
-            }, t.prototype.enable = function () {
-                this.inited || this._init()
-            }, t.prototype.disable = function () {
-                var t = this;
-                t.inited && (t.inited = !1, t.$headroom.removeClass([t.options.initialClass, t.options.pinnedClass, t.options.unpinnedClass].join(" ")), T.off("scroll", function () {
-                    t._scroll()
-                }), window.cancelAnimationFrame(t.rafId))
-            }, t.prototype.getState = function () {
-                return this.state
-            }, t
-        }(), g(function () {
-            d.mutation("[mdui-headroom]", function () {
-                var t = g(this),
-                    e = s(t.attr("mdui-headroom")),
-                    n = t.data("mdui.headroom");
-                n || (n = new d.Headroom(t, e), t.data("mdui.headroom", n))
-            })
+  /**
+   * @this {Promise}
+   */
+  function finallyConstructor(callback) {
+    var constructor = this.constructor;
+    return this.then(
+      function(value) {
+        // @ts-ignore
+        return constructor.resolve(callback()).then(function() {
+          return value;
         });
-    var c, h, u, t, e, o, m, v = function () {
-        var s = {
-            accordion: !1
-        };
+      },
+      function(reason) {
+        // @ts-ignore
+        return constructor.resolve(callback()).then(function() {
+          // @ts-ignore
+          return constructor.reject(reason);
+        });
+      }
+    );
+  }
 
-        function t(t, e, n) {
-            var i = this;
-            i.ns = n;
-            var o = "mdui-" + i.ns + "-item";
-            if (i.class_item = o, i.class_item_open = o + "-open", i.class_header = o + "-header", i.class_body = o + "-body", i.$collapse = g(t).eq(0), i.$collapse.length) {
-                var a = i.$collapse.data("mdui." + i.ns);
-                if (a) return a;
-                i.options = g.extend({}, s, e || {}), i.$collapse.on("click", "." + i.class_header, function () {
-                    var t = g(this).parent("." + i.class_item);
-                    i.$collapse.children(t).length && i.toggle(t)
-                }), i.$collapse.on("click", "[mdui-" + i.ns + "-item-close]", function () {
-                    var t = g(this).parents("." + i.class_item).eq(0);
-                    i._isOpen(t) && i.close(t)
-                })
-            }
+  function allSettled(arr) {
+    var P = this;
+    return new P(function(resolve, reject) {
+      if (!(arr && typeof arr.length !== 'undefined')) {
+        return reject(
+          new TypeError(
+            typeof arr +
+              ' ' +
+              arr +
+              ' is not iterable(cannot read property Symbol(Symbol.iterator))'
+          )
+        );
+      }
+      var args = Array.prototype.slice.call(arr);
+      if (args.length === 0) { return resolve([]); }
+      var remaining = args.length;
+
+      function res(i, val) {
+        if (val && (typeof val === 'object' || typeof val === 'function')) {
+          var then = val.then;
+          if (typeof then === 'function') {
+            then.call(
+              val,
+              function(val) {
+                res(i, val);
+              },
+              function(e) {
+                args[i] = { status: 'rejected', reason: e };
+                if (--remaining === 0) {
+                  resolve(args);
+                }
+              }
+            );
+            return;
+          }
         }
-        t.prototype._isOpen = function (t) {
-            return t.hasClass(this.class_item_open)
-        }, t.prototype._getItem = function (t) {
-            return parseInt(t) === t ? this.$collapse.children("." + this.class_item).eq(t) : g(t).eq(0)
-        };
-        var o = function (t, e, n) {
-            t._isOpen(n) ? (e.transition(0).height("auto").reflow().transition(""), p("opened", t.ns, t, n[0])) : (e.height(""), p("closed", t.ns, t, n[0]))
-        };
-        return t.prototype.open = function (t) {
-            var e = this,
-                n = e._getItem(t);
-            if (!e._isOpen(n)) {
-                e.options.accordion && e.$collapse.children("." + e.class_item_open).each(function () {
-                    var t = g(this);
-                    t !== n && e.close(t)
-                });
-                var i = n.children("." + e.class_body);
-                i.height(i[0].scrollHeight).transitionEnd(function () {
-                    o(e, i, n)
-                }), p("open", e.ns, e, n[0]), n.addClass(e.class_item_open)
-            }
-        }, t.prototype.close = function (t) {
-            var e = this,
-                n = e._getItem(t);
-            if (e._isOpen(n)) {
-                var i = n.children("." + e.class_body);
-                p("close", e.ns, e, n[0]), n.removeClass(e.class_item_open), i.transition(0).height(i[0].scrollHeight).reflow().transition("").height("").transitionEnd(function () {
-                    o(e, i, n)
-                })
-            }
-        }, t.prototype.toggle = function (t) {
-            var e = this._getItem(t);
-            this._isOpen(e) ? this.close(e) : this.open(e)
-        }, t.prototype.openAll = function () {
-            var e = this;
-            e.$collapse.children("." + e.class_item).each(function () {
-                var t = g(this);
-                e._isOpen(t) || e.open(t)
-            })
-        }, t.prototype.closeAll = function () {
-            var e = this;
-            e.$collapse.children("." + e.class_item).each(function () {
-                var t = g(this);
-                e._isOpen(t) && e.close(t)
-            })
-        }, t
-    }();
-    return d.Collapse = function (t, e) {
-            return new v(t, e, "collapse")
-        }, g(function () {
-            d.mutation("[mdui-collapse]", function () {
-                var t = g(this),
-                    e = t.data("mdui.collapse");
-                if (!e) {
-                    var n = s(t.attr("mdui-collapse"));
-                    e = new d.Collapse(t, n), t.data("mdui.collapse", e)
-                }
-            })
-        }),
-        function () {
-            var i = function (t) {
-                return "<" + t + ' class="mdui-table-cell-checkbox"><label class="mdui-checkbox"><input type="checkbox"/><i class="mdui-checkbox-icon"></i></label></' + t + ">"
-            };
+        args[i] = { status: 'fulfilled', value: val };
+        if (--remaining === 0) {
+          resolve(args);
+        }
+      }
 
-            function n(t) {
-                this.$table = g(t).eq(0), this.$table.length && this.init()
-            }
-            n.prototype.init = function () {
-                var t = this;
-                t.$thRow = t.$table.find("thead tr"), t.$tdRows = t.$table.find("tbody tr"), t.$tdCheckboxs = g(), t.selectable = t.$table.hasClass("mdui-table-selectable"), t.selectedRow = 0, t._updateThCheckbox(), t._updateTdCheckbox(), t._updateNumericCol()
-            }, n.prototype._updateThCheckboxStatus = function () {
-                var t = this,
-                    e = t.$thCheckbox[0];
-                e.checked = t.selectedRow === t.$tdRows.length, e.indeterminate = t.selectedRow && t.selectedRow !== t.$tdRows.length
-            }, n.prototype._updateTdCheckbox = function () {
-                var n = this;
-                n.$tdRows.each(function () {
-                    var t = g(this);
-                    if (t.find(".mdui-table-cell-checkbox").remove(), n.selectable) {
-                        var e = g(i("td")).prependTo(t).find('input[type="checkbox"]');
-                        t.hasClass("mdui-table-row-selected") && (e[0].checked = !0, n.selectedRow++), n._updateThCheckboxStatus(), e.on("change", function () {
-                            e[0].checked ? (t.addClass("mdui-table-row-selected"), n.selectedRow++) : (t.removeClass("mdui-table-row-selected"), n.selectedRow--), n._updateThCheckboxStatus()
-                        }), n.$tdCheckboxs = n.$tdCheckboxs.add(e)
-                    }
-                })
-            }, n.prototype._updateThCheckbox = function () {
-                var t = this;
-                t.$thRow.find(".mdui-table-cell-checkbox").remove(), t.selectable && (t.$thCheckbox = g(i("th")).prependTo(t.$thRow).find('input[type="checkbox"]').on("change", function () {
-                    var n = t.$thCheckbox[0].checked;
-                    t.selectedRow = n ? t.$tdRows.length : 0, t.$tdCheckboxs.each(function (t, e) {
-                        e.checked = n
-                    }), t.$tdRows.each(function (t, e) {
-                        g(e)[n ? "addClass" : "removeClass"]("mdui-table-row-selected")
-                    })
-                }))
-            }, n.prototype._updateNumericCol = function () {
-                var n, i, o = this;
-                o.$thRow.find("th").each(function (e, t) {
-                    n = g(t), o.$tdRows.each(function () {
-                        i = g(this);
-                        var t = n.hasClass("mdui-table-col-numeric") ? "addClass" : "removeClass";
-                        i.find("td").eq(e)[t]("mdui-table-col-numeric")
-                    })
-                })
-            }, d.mutation(".mdui-table", function () {
-                var t = g(this);
-                t.data("mdui.table") || t.data("mdui.table", new n(t))
-            }), d.updateTables = function () {
-                g(arguments.length ? arguments[0] : ".mdui-table").each(function () {
-                    var t = g(this),
-                        e = t.data("mdui.table");
-                    e ? e.init() : t.data("mdui.table", new n(t))
-                })
-            }
-        }(), c = {
-            delay: 200,
-            show: function (t, e) {
-                if (2 !== t.button) {
-                    var n, i = (n = "touches" in t && t.touches.length ? t.touches[0] : t).pageX,
-                        o = n.pageY,
-                        a = e.offset(),
-                        s = i - a.left,
-                        r = o - a.top,
-                        d = e.innerHeight(),
-                        c = e.innerWidth(),
-                        u = Math.max(Math.pow(Math.pow(d, 2) + Math.pow(c, 2), .5), 48),
-                        l = "translate3d(" + (c / 2 - s) + "px, " + (d / 2 - r) + "px, 0) scale(1)";
-                    g('<div class="mdui-ripple-wave" style="width: ' + u + "px; height: " + u + "px; margin-top:-" + u / 2 + "px; margin-left:-" + u / 2 + "px; left:" + s + "px; top:" + r + 'px;"></div>').data("translate", l).prependTo(e).reflow().transform(l)
-                }
-            },
-            hide: function (t, e) {
-                var n = g(e || this);
-                n.children(".mdui-ripple-wave").each(function () {
-                    ! function (t) {
-                        if (!t.length || t.data("isRemoved")) return;
-                        t.data("isRemoved", !0);
-                        var e = setTimeout(function () {
-                                t.remove()
-                            }, 400),
-                            n = t.data("translate");
-                        t.addClass("mdui-ripple-wave-fill").transform(n.replace("scale(1)", "scale(1.01)")).transitionEnd(function () {
-                            clearTimeout(e), t.addClass("mdui-ripple-wave-out").transform(n.replace("scale(1)", "scale(1.01)")), e = setTimeout(function () {
-                                t.remove()
-                            }, 700), setTimeout(function () {
-                                t.transitionEnd(function () {
-                                    clearTimeout(e), t.remove()
-                                })
-                            }, 0)
-                        })
-                    }(g(this))
-                }), n.off("touchmove touchend touchcancel mousemove mouseup mouseleave", c.hide)
-            }
-        }, f.on(r.start, function (e) {
-            if (r.isAllow(e) && (r.register(e), e.target !== document)) {
-                var n, t = g(e.target);
-                if ((n = t.hasClass("mdui-ripple") ? t : t.parents(".mdui-ripple").eq(0)).length) {
-                    if (n[0].disabled || null !== n.attr("disabled")) return;
-                    if ("touchstart" === e.type) {
-                        var i = !1,
-                            o = setTimeout(function () {
-                                o = null, c.show(e, n)
-                            }, c.delay),
-                            a = function (t) {
-                                o && (clearTimeout(o), o = null, c.show(e, n)), i || (i = !0, c.hide(t, n))
-                            };
-                        n.on("touchmove", function (t) {
-                            o && (clearTimeout(o), o = null), a(t)
-                        }).on("touchend touchcancel", a)
-                    } else c.show(e, n), n.on("touchmove touchend touchcancel mousemove mouseup mouseleave", c.hide)
-                }
-            }
-        }).on(r.unlock, r.register), h = function (t, e) {
-            return !("object" != typeof t || null === t || void 0 === t[e] || !t[e]) && t[e]
-        }, f.on("input focus blur", ".mdui-textfield-input", {
-            useCapture: !0
-        }, function (t) {
-            var e = t.target,
-                n = g(e),
-                i = t.type,
-                o = n.val(),
-                a = h(t.detail, "reInit"),
-                s = h(t.detail, "domLoadedEvent"),
-                r = n.attr("type") || "";
-            if (!(0 <= ["checkbox", "button", "submit", "range", "radio", "image"].indexOf(r))) {
-                var d = n.parent(".mdui-textfield");
-                if ("focus" === i && d.addClass("mdui-textfield-focus"), "blur" === i && d.removeClass("mdui-textfield-focus"), "blur" !== i && "input" !== i || d[o && "" !== o ? "addClass" : "removeClass"]("mdui-textfield-not-empty"), d[e.disabled ? "addClass" : "removeClass"]("mdui-textfield-disabled"), "input" !== i && "blur" !== i || s || e.validity && d[e.validity.valid ? "removeClass" : "addClass"]("mdui-textfield-invalid-html5"), "textarea" === t.target.nodeName.toLowerCase()) {
-                    var c = n.val(),
-                        u = !1;
-                    "" === c.replace(/[\r\n]/g, "") && (n.val(" " + c), u = !0), n.height("");
-                    var l = n.height(),
-                        f = e.scrollHeight;
-                    l < f && n.height(f), u && n.val(c)
-                }
-                a && d.find(".mdui-textfield-counter").remove();
-                var p = n.attr("maxlength");
-                p && ((a || s) && g('<div class="mdui-textfield-counter"><span class="mdui-textfield-counter-inputed"></span> / ' + p + "</div>").appendTo(d), d.find(".mdui-textfield-counter-inputed").text(o.length.toString())), (d.find(".mdui-textfield-helper").length || d.find(".mdui-textfield-error").length || p) && d.addClass("mdui-textfield-has-bottom")
-            }
-        }), f.on("click", ".mdui-textfield-expandable .mdui-textfield-icon", function () {
-            g(this).parents(".mdui-textfield").addClass("mdui-textfield-expanded").find(".mdui-textfield-input")[0].focus()
-        }), f.on("click", ".mdui-textfield-expanded .mdui-textfield-close", function () {
-            g(this).parents(".mdui-textfield").removeClass("mdui-textfield-expanded").find(".mdui-textfield-input").val("")
-        }), d.updateTextFields = function () {
-            g(arguments.length ? arguments[0] : ".mdui-textfield").each(function () {
-                g(this).find(".mdui-textfield-input").trigger("input", {
-                    reInit: !0
-                })
-            })
-        }, g(function () {
-            d.mutation(".mdui-textfield", function () {
-                g(this).find(".mdui-textfield-input").trigger("input", {
-                    domLoadedEvent: !0
-                })
-            })
-        }), u = function (t) {
-            var e = t.data(),
-                n = e.$track,
-                i = e.$fill,
-                o = e.$thumb,
-                a = e.$input,
-                s = e.min,
-                r = e.max,
-                d = e.disabled,
-                c = e.discrete,
-                u = e.$thumbText,
-                l = a.val(),
-                f = (l - s) / (r - s) * 100;
-            i.width(f + "%"), n.width(100 - f + "%"), d && (i.css("padding-right", "6px"), n.css("padding-left", "6px")), o.css("left", f + "%"), c && u.text(l), t[0 === parseFloat(f) ? "addClass" : "removeClass"]("mdui-slider-zero")
-        }, t = function (t) {
-            var e = g('<div class="mdui-slider-track"></div>'),
-                n = g('<div class="mdui-slider-fill"></div>'),
-                i = g('<div class="mdui-slider-thumb"></div>'),
-                o = t.find('input[type="range"]'),
-                a = o[0].disabled;
-            t[a ? "addClass" : "removeClass"]("mdui-slider-disabled"), t.find(".mdui-slider-track").remove(), t.find(".mdui-slider-fill").remove(), t.find(".mdui-slider-thumb").remove(), t.append(e).append(n).append(i);
-            var s, r = t.hasClass("mdui-slider-discrete");
-            r && (s = g("<span></span>"), i.empty().append(s)), t.data({
-                $track: e,
-                $fill: n,
-                $thumb: i,
-                $input: o,
-                min: o.attr("min"),
-                max: o.attr("max"),
-                disabled: a,
-                discrete: r,
-                $thumbText: s
-            }), u(t)
-        }, e = '.mdui-slider input[type="range"]', f.on("input change", e, function () {
-            var t = g(this).parent();
-            u(t)
-        }).on(r.start, e, function (t) {
-            r.isAllow(t) && (r.register(t), this.disabled || g(this).parent().addClass("mdui-slider-focus"))
-        }).on(r.end, e, function (t) {
-            r.isAllow(t) && (this.disabled || g(this).parent().removeClass("mdui-slider-focus"))
-        }).on(r.unlock, e, r.register), d.updateSliders = function () {
-            g(arguments.length ? arguments[0] : ".mdui-slider").each(function () {
-                t(g(this))
-            })
-        }, g(function () {
-            d.mutation(".mdui-slider", function () {
-                t(g(this))
-            })
-        }), d.Fab = function () {
-            var o = {
-                trigger: "hover"
-            };
+      for (var i = 0; i < args.length; i++) {
+        res(i, args[i]);
+      }
+    });
+  }
 
-            function t(t, e) {
-                var n = this;
-                if (n.$fab = g(t).eq(0), n.$fab.length) {
-                    var i = n.$fab.data("mdui.fab");
-                    if (i) return i;
-                    n.options = g.extend({}, o, e || {}), n.state = "closed", n.$btn = n.$fab.find(".mdui-fab"), n.$dial = n.$fab.find(".mdui-fab-dial"), n.$dialBtns = n.$dial.find(".mdui-fab"), "hover" === n.options.trigger && (n.$btn.on("touchstart mouseenter", function () {
-                        n.open()
-                    }), n.$fab.on("mouseleave", function () {
-                        n.close()
-                    })), "click" === n.options.trigger && n.$btn.on(r.start, function () {
-                        n.open()
-                    }), f.on(r.start, function (t) {
-                        g(t.target).parents(".mdui-fab-wrapper").length || n.close()
-                    })
-                }
-            }
-            return t.prototype.open = function () {
-                var n = this;
-                "opening" !== n.state && "opened" !== n.state && (n.$dialBtns.each(function (t, e) {
-                    e.style["transition-delay"] = e.style["-webkit-transition-delay"] = 15 * (n.$dialBtns.length - t) + "ms"
-                }), n.$dial.css("height", "auto").addClass("mdui-fab-dial-show"), n.$btn.find(".mdui-fab-opened").length && n.$btn.addClass("mdui-fab-opened"), n.state = "opening", p("open", "fab", n, n.$fab), n.$dialBtns.eq(0).transitionEnd(function () {
-                    n.$btn.hasClass("mdui-fab-opened") && (n.state = "opened", p("opened", "fab", n, n.$fab))
-                }))
-            }, t.prototype.close = function () {
-                var t = this;
-                "closing" !== t.state && "closed" !== t.state && (t.$dialBtns.each(function (t, e) {
-                    e.style["transition-delay"] = e.style["-webkit-transition-delay"] = 15 * t + "ms"
-                }), t.$dial.removeClass("mdui-fab-dial-show"), t.$btn.removeClass("mdui-fab-opened"), t.state = "closing", p("close", "fab", t, t.$fab), t.$dialBtns.eq(-1).transitionEnd(function () {
-                    t.$btn.hasClass("mdui-fab-opened") || (t.state = "closed", p("closed", "fab", t, t.$fab), t.$dial.css("height", 0))
-                }))
-            }, t.prototype.toggle = function () {
-                var t = this;
-                "opening" === t.state || "opened" === t.state ? t.close() : "closing" !== t.state && "closed" !== t.state || t.open()
-            }, t.prototype.getState = function () {
-                return this.state
-            }, t.prototype.show = function () {
-                this.$fab.removeClass("mdui-fab-hide")
-            }, t.prototype.hide = function () {
-                this.$fab.addClass("mdui-fab-hide")
-            }, t
-        }(), g(function () {
-            f.on("touchstart mousedown mouseover", "[mdui-fab]", function (t) {
-                var e = g(this),
-                    n = e.data("mdui.fab");
-                if (!n) {
-                    var i = s(e.attr("mdui-fab"));
-                    n = new d.Fab(e, i), e.data("mdui.fab", n)
-                }
-            })
-        }), d.Select = function () {
-            var a = {
-                position: "auto",
-                gutter: 16
-            };
+  // Store setTimeout reference so promise-polyfill will be unaffected by
+  // other code modifying setTimeout (like sinon.useFakeTimers())
+  var setTimeoutFunc = setTimeout;
 
-            function t(t, e) {
-                var n = this,
-                    i = n.$selectNative = g(t).eq(0);
-                if (i.length) {
-                    var o = i.data("mdui.select");
-                    if (o) return o;
-                    i.hide(), n.options = g.extend({}, a, e || {}), n.uniqueID = g.guid(), n.state = "closed", n.handleUpdate(), f.on("click touchstart", function (t) {
-                        var e = g(t.target);
-                        "opening" !== n.state && "opened" !== n.state || e.is(n.$select) || g.contains(n.$select[0], e[0]) || n.close()
-                    })
-                }
-            }
-            t.prototype.handleUpdate = function () {
-                var i = this;
-                "opening" !== i.state && "opened" !== i.state || i.close();
-                var n = i.$selectNative;
-                i.value = n.val(), i.text = "", i.$items = g(), n.find("option").each(function (t, e) {
-                    var n = {
-                        value: e.value,
-                        text: e.textContent,
-                        disabled: e.disabled,
-                        selected: i.value === e.value,
-                        index: t
-                    };
-                    i.value === n.value && (i.text = n.text, i.selectedIndex = t), i.$items = i.$items.add(g('<div class="mdui-select-menu-item mdui-ripple"' + (n.disabled ? " disabled" : "") + (n.selected ? " selected" : "") + ">" + n.text + "</div>").data(n))
-                }), i.$selected = g('<span class="mdui-select-selected">' + i.text + "</span>"), i.$select = g('<div class="mdui-select mdui-select-position-' + i.options.position + '" style="' + i.$selectNative.attr("style") + '" id="' + i.uniqueID + '"></div>').show().append(i.$selected), i.$menu = g('<div class="mdui-select-menu"></div>').appendTo(i.$select).append(i.$items), g("#" + i.uniqueID).remove(), n.after(i.$select), i.size = parseInt(i.$selectNative.attr("size")), (!i.size || i.size < 0) && (i.size = i.$items.length, 8 < i.size && (i.size = 8)), i.$items.on("click", function () {
-                    if ("closing" !== i.state) {
-                        var t = g(this);
-                        if (!t.data("disabled")) {
-                            var e = t.data();
-                            i.$selected.text(e.text), n.val(e.value), i.$items.removeAttr("selected"), t.attr("selected", ""), i.selectedIndex = e.index, i.value = e.value, i.text = e.text, n.trigger("change"), i.close()
-                        }
-                    }
-                }), i.$select.on("click", function (t) {
-                    var e = g(t.target);
-                    e.is(".mdui-select-menu") || e.is(".mdui-select-menu-item") || i.toggle()
-                })
-            };
-            var e = function (t) {
-                t.$select.removeClass("mdui-select-closing"), "opening" === t.state && (t.state = "opened", p("opened", "select", t, t.$selectNative), t.$menu.css("overflow-y", "auto")), "closing" === t.state && (t.state = "closed", p("closed", "select", t, t.$selectNative), t.$select.width(""), t.$menu.css({
-                    "margin-top": "",
-                    height: "",
-                    width: ""
-                }))
-            };
-            return t.prototype.open = function () {
-                var t = this;
-                "opening" !== t.state && "opened" !== t.state && (t.state = "opening", p("open", "select", t, t.$selectNative), function (t) {
-                    var e, n, i = T.height(),
-                        o = t.options.gutter,
-                        a = t.options.position,
-                        s = parseInt(t.$select.height()),
-                        r = t.$items.eq(0),
-                        d = parseInt(r.height()),
-                        c = parseInt(r.css("margin-top")),
-                        u = parseFloat(t.$select.width() + .01),
-                        l = d * t.size + 2 * c,
-                        f = t.$select[0].getBoundingClientRect().top;
-                    if ("auto" === a) {
-                        var p = i - 2 * o;
-                        p < l && (l = p), n = -(c + t.selectedIndex * d + (d - s) / 2);
-                        var h = -(c + (t.size - 1) * d + (d - s) / 2);
-                        n < h && (n = h);
-                        var m = f + n;
-                        m < o ? n = -(f - o) : i < m + l + o && (n = -(f + l + o - i)), e = t.selectedIndex * d + d / 2 + c + "px"
-                    } else "bottom" === a ? (n = s, e = "0px") : "top" === a && (n = -l - 1, e = "100%");
-                    t.$select.width(u), t.$menu.width(u).height(l).css({
-                        "margin-top": n + "px",
-                        "transform-origin": "center " + e + " 0"
-                    })
-                }(t), t.$select.addClass("mdui-select-open"), t.$menu.transitionEnd(function () {
-                    e(t)
-                }))
-            }, t.prototype.close = function () {
-                var t = this;
-                "closing" !== t.state && "closed" !== t.state && (t.state = "closing", p("close", "select", t, t.$selectNative), t.$menu.css("overflow-y", ""), t.$select.removeClass("mdui-select-open").addClass("mdui-select-closing"), t.$menu.transitionEnd(function () {
-                    e(t)
-                }))
-            }, t.prototype.toggle = function () {
-                var t = this;
-                "opening" === t.state || "opened" === t.state ? t.close() : "closing" !== t.state && "closed" !== t.state || t.open()
-            }, t
-        }(), g(function () {
-            d.mutation("[mdui-select]", function () {
-                var t = g(this),
-                    e = t.data("mdui.select");
-                e || (e = new d.Select(t, s(t.attr("mdui-select"))), t.data("mdui.select", e))
-            })
-        }), g(function () {
-            d.mutation(".mdui-appbar-scroll-hide", function () {
-                var t = g(this);
-                t.data("mdui.headroom", new d.Headroom(t))
-            }), d.mutation(".mdui-appbar-scroll-toolbar-hide", function () {
-                var t = g(this),
-                    e = new d.Headroom(t, {
-                        pinnedClass: "mdui-headroom-pinned-toolbar",
-                        unpinnedClass: "mdui-headroom-unpinned-toolbar"
-                    });
-                t.data("mdui.headroom", e)
-            })
-        }), d.Tab = function () {
-            var a = {
-                    trigger: "click",
-                    loop: !1
+  function isArray(x) {
+    return Boolean(x && typeof x.length !== 'undefined');
+  }
+
+  function noop() {}
+
+  // Polyfill for Function.prototype.bind
+  function bind(fn, thisArg) {
+    return function() {
+      fn.apply(thisArg, arguments);
+    };
+  }
+
+  /**
+   * @constructor
+   * @param {Function} fn
+   */
+  function Promise$1(fn) {
+    if (!(this instanceof Promise$1))
+      { throw new TypeError('Promises must be constructed via new'); }
+    if (typeof fn !== 'function') { throw new TypeError('not a function'); }
+    /** @type {!number} */
+    this._state = 0;
+    /** @type {!boolean} */
+    this._handled = false;
+    /** @type {Promise|undefined} */
+    this._value = undefined;
+    /** @type {!Array<!Function>} */
+    this._deferreds = [];
+
+    doResolve(fn, this);
+  }
+
+  function handle(self, deferred) {
+    while (self._state === 3) {
+      self = self._value;
+    }
+    if (self._state === 0) {
+      self._deferreds.push(deferred);
+      return;
+    }
+    self._handled = true;
+    Promise$1._immediateFn(function() {
+      var cb = self._state === 1 ? deferred.onFulfilled : deferred.onRejected;
+      if (cb === null) {
+        (self._state === 1 ? resolve : reject)(deferred.promise, self._value);
+        return;
+      }
+      var ret;
+      try {
+        ret = cb(self._value);
+      } catch (e) {
+        reject(deferred.promise, e);
+        return;
+      }
+      resolve(deferred.promise, ret);
+    });
+  }
+
+  function resolve(self, newValue) {
+    try {
+      // Promise Resolution Procedure: https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure
+      if (newValue === self)
+        { throw new TypeError('A promise cannot be resolved with itself.'); }
+      if (
+        newValue &&
+        (typeof newValue === 'object' || typeof newValue === 'function')
+      ) {
+        var then = newValue.then;
+        if (newValue instanceof Promise$1) {
+          self._state = 3;
+          self._value = newValue;
+          finale(self);
+          return;
+        } else if (typeof then === 'function') {
+          doResolve(bind(then, newValue), self);
+          return;
+        }
+      }
+      self._state = 1;
+      self._value = newValue;
+      finale(self);
+    } catch (e) {
+      reject(self, e);
+    }
+  }
+
+  function reject(self, newValue) {
+    self._state = 2;
+    self._value = newValue;
+    finale(self);
+  }
+
+  function finale(self) {
+    if (self._state === 2 && self._deferreds.length === 0) {
+      Promise$1._immediateFn(function() {
+        if (!self._handled) {
+          Promise$1._unhandledRejectionFn(self._value);
+        }
+      });
+    }
+
+    for (var i = 0, len = self._deferreds.length; i < len; i++) {
+      handle(self, self._deferreds[i]);
+    }
+    self._deferreds = null;
+  }
+
+  /**
+   * @constructor
+   */
+  function Handler(onFulfilled, onRejected, promise) {
+    this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
+    this.onRejected = typeof onRejected === 'function' ? onRejected : null;
+    this.promise = promise;
+  }
+
+  /**
+   * Take a potentially misbehaving resolver function and make sure
+   * onFulfilled and onRejected are only called once.
+   *
+   * Makes no guarantees about asynchrony.
+   */
+  function doResolve(fn, self) {
+    var done = false;
+    try {
+      fn(
+        function(value) {
+          if (done) { return; }
+          done = true;
+          resolve(self, value);
+        },
+        function(reason) {
+          if (done) { return; }
+          done = true;
+          reject(self, reason);
+        }
+      );
+    } catch (ex) {
+      if (done) { return; }
+      done = true;
+      reject(self, ex);
+    }
+  }
+
+  Promise$1.prototype['catch'] = function(onRejected) {
+    return this.then(null, onRejected);
+  };
+
+  Promise$1.prototype.then = function(onFulfilled, onRejected) {
+    // @ts-ignore
+    var prom = new this.constructor(noop);
+
+    handle(this, new Handler(onFulfilled, onRejected, prom));
+    return prom;
+  };
+
+  Promise$1.prototype['finally'] = finallyConstructor;
+
+  Promise$1.all = function(arr) {
+    return new Promise$1(function(resolve, reject) {
+      if (!isArray(arr)) {
+        return reject(new TypeError('Promise.all accepts an array'));
+      }
+
+      var args = Array.prototype.slice.call(arr);
+      if (args.length === 0) { return resolve([]); }
+      var remaining = args.length;
+
+      function res(i, val) {
+        try {
+          if (val && (typeof val === 'object' || typeof val === 'function')) {
+            var then = val.then;
+            if (typeof then === 'function') {
+              then.call(
+                val,
+                function(val) {
+                  res(i, val);
                 },
-                s = function (t) {
-                    return t[0].disabled || null !== t.attr("disabled")
-                };
-
-            function t(t, e) {
-                var n = this;
-                if (n.$tab = g(t).eq(0), n.$tab.length) {
-                    var i = n.$tab.data("mdui.tab");
-                    if (i) return i;
-                    n.options = g.extend({}, a, e || {}), n.$tabs = n.$tab.children("a"), n.$indicator = g('<div class="mdui-tab-indicator"></div>').appendTo(n.$tab), n.activeIndex = !1;
-                    var o = location.hash;
-                    o && n.$tabs.each(function (t, e) {
-                        if (g(e).attr("href") === o) return n.activeIndex = t, !1
-                    }), !1 === n.activeIndex && n.$tabs.each(function (t, e) {
-                        if (g(e).hasClass("mdui-tab-active")) return n.activeIndex = t, !1
-                    }), n.$tabs.length && !1 === n.activeIndex && (n.activeIndex = 0), n._setActive(), T.on("resize", g.throttle(function () {
-                        n._setIndicatorPosition()
-                    }, 100)), n.$tabs.each(function (t, e) {
-                        n._bindTabEvent(e)
-                    })
-                }
+                reject
+              );
+              return;
             }
-            return t.prototype._bindTabEvent = function (e) {
-                var n = this,
-                    i = g(e),
-                    t = function (t) {
-                        s(i) ? t.preventDefault() : (n.activeIndex = n.$tabs.index(e), n._setActive())
-                    };
-                i.on("click", t), "hover" === n.options.trigger && i.on("mouseenter", t), i.on("click", function (t) {
-                    0 === i.attr("href").indexOf("#") && t.preventDefault()
-                })
-            }, t.prototype._setActive = function () {
-                var o = this;
-                o.$tabs.each(function (t, e) {
-                    var n = g(e),
-                        i = n.attr("href");
-                    t !== o.activeIndex || s(n) ? (n.removeClass("mdui-tab-active"), g(i).hide()) : (n.hasClass("mdui-tab-active") || (p("change", "tab", o, o.$tab, {
-                        index: o.activeIndex,
-                        id: i.substr(1)
-                    }), p("show", "tab", o, n), n.addClass("mdui-tab-active")), g(i).show(), o._setIndicatorPosition())
-                })
-            }, t.prototype._setIndicatorPosition = function () {
-                var t, e, n = this;
-                !1 !== n.activeIndex ? (t = n.$tabs.eq(n.activeIndex), s(t) || (e = t.offset(), n.$indicator.css({
-                    left: e.left + n.$tab[0].scrollLeft - n.$tab[0].getBoundingClientRect().left + "px",
-                    width: t.width() + "px"
-                }))) : n.$indicator.css({
-                    left: 0,
-                    width: 0
-                })
-            }, t.prototype.next = function () {
-                var t = this;
-                !1 !== t.activeIndex && (t.$tabs.length > t.activeIndex + 1 ? t.activeIndex++ : t.options.loop && (t.activeIndex = 0), t._setActive())
-            }, t.prototype.prev = function () {
-                var t = this;
-                !1 !== t.activeIndex && (0 < t.activeIndex ? t.activeIndex-- : t.options.loop && (t.activeIndex = t.$tabs.length - 1), t._setActive())
-            }, t.prototype.show = function (n) {
-                var i = this;
-                !1 !== i.activeIndex && (parseInt(n) === n ? i.activeIndex = n : i.$tabs.each(function (t, e) {
-                    if (e.id === n) return i.activeIndex = t, !1
-                }), i._setActive())
-            }, t.prototype.handleUpdate = function () {
-                var n = this,
-                    t = n.$tabs,
-                    e = n.$tab.children("a"),
-                    i = t.get(),
-                    o = e.get();
-                if (!e.length) return n.activeIndex = !1, n.$tabs = e, void n._setIndicatorPosition();
-                e.each(function (t, e) {
-                    i.indexOf(e) < 0 && (n._bindTabEvent(e), !1 === n.activeIndex ? n.activeIndex = 0 : t <= n.activeIndex && n.activeIndex++)
-                }), t.each(function (t, e) {
-                    o.indexOf(e) < 0 && (t < n.activeIndex ? n.activeIndex-- : t === n.activeIndex && (n.activeIndex = 0))
-                }), n.$tabs = e, n._setActive()
-            }, t
-        }(), g(function () {
-            d.mutation("[mdui-tab]", function () {
-                var t = g(this),
-                    e = t.data("mdui.tab");
-                e || (e = new d.Tab(t, s(t.attr("mdui-tab"))), t.data("mdui.tab", e))
-            })
-        }), d.Drawer = function () {
-            var o = {
-                    overlay: !1,
-                    swipe: !1
-                },
-                a = function () {
-                    return 1024 <= T.width()
-                };
+          }
+          args[i] = val;
+          if (--remaining === 0) {
+            resolve(args);
+          }
+        } catch (ex) {
+          reject(ex);
+        }
+      }
 
-            function t(t, e) {
-                var n = this;
-                if (n.$drawer = g(t).eq(0), n.$drawer.length) {
-                    var i = n.$drawer.data("mdui.drawer");
-                    if (i) return i;
-                    n.options = g.extend({}, o, e || {}), n.overlay = !1, n.position = n.$drawer.hasClass("mdui-drawer-right") ? "right" : "left", n.$drawer.hasClass("mdui-drawer-close") ? n.state = "closed" : n.$drawer.hasClass("mdui-drawer-open") ? n.state = "opened" : a() ? n.state = "opened" : n.state = "closed", T.on("resize", g.throttle(function () {
-                            a() ? (n.overlay && !n.options.overlay && (g.hideOverlay(), n.overlay = !1, g.unlockScreen()), n.$drawer.hasClass("mdui-drawer-close") || (n.state = "opened")) : n.overlay || "opened" !== n.state || (n.$drawer.hasClass("mdui-drawer-open") ? (g.showOverlay(), n.overlay = !0, g.lockScreen(), g(".mdui-overlay").one("click", function () {
-                                n.close()
-                            })) : n.state = "closed")
-                        }, 100)), n.$drawer.find("[mdui-drawer-close]").each(function () {
-                            g(this).on("click", function () {
-                                n.close()
-                            })
-                        }),
-                        function (a) {
-                            var e, s, r, d, c = !1,
-                                u = !1,
-                                l = g("body"),
-                                n = 24;
+      for (var i = 0; i < args.length; i++) {
+        res(i, args[i]);
+      }
+    });
+  };
 
-                            function f(t, e) {
-                                var n = "right" === a.position ? -1 : 1,
-                                    i = "translate(" + -1 * n * t + "px, 0) !important;";
-                                a.$drawer.css("cssText", "transform:" + i + (e ? "transition: initial !important;" : ""))
-                            }
+  Promise$1.allSettled = allSettled;
 
-                            function o() {
-                                a.$drawer.css({
-                                    transform: "",
-                                    transition: ""
-                                })
-                            }
+  Promise$1.resolve = function(value) {
+    if (value && typeof value === 'object' && value.constructor === Promise$1) {
+      return value;
+    }
 
-                            function p() {
-                                return a.$drawer.width() + 10
-                            }
+    return new Promise$1(function(resolve) {
+      resolve(value);
+    });
+  };
 
-                            function h(t) {
-                                return Math.min(Math.max("closing" === c ? d - t : p() + d - t, 0), p())
-                            }
+  Promise$1.reject = function(value) {
+    return new Promise$1(function(resolve, reject) {
+      reject(value);
+    });
+  };
 
-                            function i(t) {
-                                s = t.touches[0].pageX, "right" === a.position && (s = l.width() - s), r = t.touches[0].pageY, "opened" !== a.state && (n < s || e !== i) || (u = !0, l.on({
-                                    touchmove: m,
-                                    touchend: v,
-                                    touchcancel: m
-                                }))
-                            }
+  Promise$1.race = function(arr) {
+    return new Promise$1(function(resolve, reject) {
+      if (!isArray(arr)) {
+        return reject(new TypeError('Promise.race accepts an array'));
+      }
 
-                            function m(t) {
-                                var e = t.touches[0].pageX;
-                                "right" === a.position && (e = l.width() - e);
-                                var n = t.touches[0].pageY;
-                                if (c) f(h(e), !0);
-                                else if (u) {
-                                    var i = Math.abs(e - s),
-                                        o = Math.abs(n - r);
-                                    8 < i && o <= 8 ? (d = e, c = "opened" === a.state ? "closing" : "opening", g.lockScreen(), f(h(e), !0)) : i <= 8 && 8 < o && v()
-                                }
-                            }
+      for (var i = 0, len = arr.length; i < len; i++) {
+        Promise$1.resolve(arr[i]).then(resolve, reject);
+      }
+    });
+  };
 
-                            function v(t) {
-                                if (c) {
-                                    var e = t.changedTouches[0].pageX;
-                                    "right" === a.position && (e = l.width() - e);
-                                    var n = h(e) / p();
-                                    u = !1;
-                                    var i = c;
-                                    c = null, "opening" === i ? n < .92 ? (o(), a.open()) : o() : .08 < n ? (o(), a.close()) : o(), g.unlockScreen()
-                                } else u = !1;
-                                l.off({
-                                    touchmove: m,
-                                    touchend: v,
-                                    touchcancel: m
-                                })
-                            }
-                            a.options.swipe && (e || (l.on("touchstart", i), e = i))
-                        }(n)
-                }
-            }
-            var e = function (t) {
-                t.$drawer.hasClass("mdui-drawer-open") ? (t.state = "opened", p("opened", "drawer", t, t.$drawer)) : (t.state = "closed", p("closed", "drawer", t, t.$drawer))
-            };
-            return t.prototype.open = function () {
-                var t = this;
-                "opening" !== t.state && "opened" !== t.state && (t.state = "opening", p("open", "drawer", t, t.$drawer), t.options.overlay || g("body").addClass("mdui-drawer-body-" + t.position), t.$drawer.removeClass("mdui-drawer-close").addClass("mdui-drawer-open").transitionEnd(function () {
-                    e(t)
-                }), a() && !t.options.overlay || (t.overlay = !0, g.showOverlay().one("click", function () {
-                    t.close()
-                }), g.lockScreen()))
-            }, t.prototype.close = function () {
-                var t = this;
-                "closing" !== t.state && "closed" !== t.state && (t.state = "closing", p("close", "drawer", t, t.$drawer), t.options.overlay || g("body").removeClass("mdui-drawer-body-" + t.position), t.$drawer.addClass("mdui-drawer-close").removeClass("mdui-drawer-open").transitionEnd(function () {
-                    e(t)
-                }), t.overlay && (g.hideOverlay(), t.overlay = !1, g.unlockScreen()))
-            }, t.prototype.toggle = function () {
-                var t = this;
-                "opening" === t.state || "opened" === t.state ? t.close() : "closing" !== t.state && "closed" !== t.state || t.open()
-            }, t.prototype.getState = function () {
-                return this.state
-            }, t
-        }(), g(function () {
-            d.mutation("[mdui-drawer]", function () {
-                var t = g(this),
-                    e = s(t.attr("mdui-drawer")),
-                    n = e.target;
-                delete e.target;
-                var i = g(n).eq(0),
-                    o = i.data("mdui.drawer");
-                o || (o = new d.Drawer(i, e), i.data("mdui.drawer", o)), t.on("click", function () {
-                    o.toggle()
-                })
-            })
-        }), d.Dialog = function () {
-            var n, i, a, o = {
-                    history: !0,
-                    overlay: !0,
-                    modal: !1,
-                    closeOnEsc: !0,
-                    closeOnCancel: !0,
-                    closeOnConfirm: !0,
-                    destroyOnClosed: !1
-                },
-                s = "__md_dialog",
-                r = function () {
-                    if (a) {
-                        var t = a.$dialog,
-                            e = t.children(".mdui-dialog-title"),
-                            n = t.children(".mdui-dialog-content"),
-                            i = t.children(".mdui-dialog-actions");
-                        t.height(""), n.height("");
-                        var o = t.height();
-                        t.css({
-                            top: (T.height() - o) / 2 + "px",
-                            height: o + "px"
-                        }), n.height(o - (e.height() || 0) - (i.height() || 0))
-                    }
-                },
-                d = function () {
-                    location.hash.substring(1).indexOf("mdui-dialog") < 0 && a.close(!0)
-                },
-                c = function (t) {
-                    g(t.target).hasClass("mdui-overlay") && a && a.close()
-                };
+  // Use polyfill for setImmediate for performance gains
+  Promise$1._immediateFn =
+    // @ts-ignore
+    (typeof setImmediate === 'function' &&
+      function(fn) {
+        // @ts-ignore
+        setImmediate(fn);
+      }) ||
+    function(fn) {
+      setTimeoutFunc(fn, 0);
+    };
 
-            function t(t, e) {
-                var n = this;
-                if (n.$dialog = g(t).eq(0), n.$dialog.length) {
-                    var i = n.$dialog.data("mdui.dialog");
-                    if (i) return i;
-                    g.contains(document.body, n.$dialog[0]) || (n.append = !0, g("body").append(n.$dialog)), n.options = g.extend({}, o, e || {}), n.state = "closed", n.$dialog.find("[mdui-dialog-cancel]").each(function () {
-                        g(this).on("click", function () {
-                            p("cancel", "dialog", n, n.$dialog), n.options.closeOnCancel && n.close()
-                        })
-                    }), n.$dialog.find("[mdui-dialog-confirm]").each(function () {
-                        g(this).on("click", function () {
-                            p("confirm", "dialog", n, n.$dialog), n.options.closeOnConfirm && n.close()
-                        })
-                    }), n.$dialog.find("[mdui-dialog-close]").each(function () {
-                        g(this).on("click", function () {
-                            n.close()
-                        })
-                    })
-                }
-            }
-            var u = function (t) {
-                t.$dialog.hasClass("mdui-dialog-open") ? (t.state = "opened", p("opened", "dialog", t, t.$dialog)) : (t.state = "closed", p("closed", "dialog", t, t.$dialog), t.$dialog.hide(), 0 === l.queue(s).length && !a && i && (g.unlockScreen(), i = !1), T.off("resize", g.throttle(function () {
-                    r()
-                }, 100)), t.options.destroyOnClosed && t.destroy())
-            };
-            return t.prototype._doOpen = function () {
-                var t = this;
-                if (a = t, i || (g.lockScreen(), i = !0), t.$dialog.show(), r(), T.on("resize", g.throttle(function () {
-                        r()
-                    }, 100)), t.state = "opening", p("open", "dialog", t, t.$dialog), t.$dialog.addClass("mdui-dialog-open").transitionEnd(function () {
-                        u(t)
-                    }), n || (n = g.showOverlay(5100)), n[t.options.modal ? "off" : "on"]("click", c).css("opacity", t.options.overlay ? "" : 0), t.options.history) {
-                    var e = location.hash.substring(1); - 1 < e.indexOf("mdui-dialog") && (e = e.replace(/[&?]?mdui-dialog/g, "")), location.hash = e ? e + (-1 < e.indexOf("?") ? "&" : "?") + "mdui-dialog" : "mdui-dialog", T.on("hashchange", d)
-                }
-            }, t.prototype.open = function () {
-                var t = this;
-                "opening" !== t.state && "opened" !== t.state && (a && ("opening" === a.state || "opened" === a.state) || l.queue(s).length ? l.queue(s, function () {
-                    t._doOpen()
-                }) : t._doOpen())
-            }, t.prototype.close = function () {
-                var t = this,
-                    e = arguments;
-                setTimeout(function () {
-                    "closing" !== t.state && "closed" !== t.state && (a = null, t.state = "closing", p("close", "dialog", t, t.$dialog), 0 === l.queue(s).length && n && (g.hideOverlay(), n = null), t.$dialog.removeClass("mdui-dialog-open").transitionEnd(function () {
-                        u(t)
-                    }), t.options.history && 0 === l.queue(s).length && (e[0] || window.history.back(), T.off("hashchange", d)), setTimeout(function () {
-                        l.dequeue(s)
-                    }, 100))
-                }, 0)
-            }, t.prototype.toggle = function () {
-                var t = this;
-                "opening" === t.state || "opened" === t.state ? t.close() : "closing" !== t.state && "closed" !== t.state || t.open()
-            }, t.prototype.getState = function () {
-                return this.state
-            }, t.prototype.destroy = function () {
-                this.append && this.$dialog.remove(), this.$dialog.removeData("mdui.dialog"), 0 !== l.queue(s).length || a || (n && (g.hideOverlay(), n = null), i && (g.unlockScreen(), i = !1))
-            }, t.prototype.handleUpdate = function () {
-                r()
-            }, f.on("keydown", function (t) {
-                a && a.options.closeOnEsc && "opened" === a.state && 27 === t.keyCode && a.close()
-            }), t
-        }(), g(function () {
-            f.on("click", "[mdui-dialog]", function () {
-                var t = g(this),
-                    e = s(t.attr("mdui-dialog")),
-                    n = e.target;
-                delete e.target;
-                var i = g(n).eq(0),
-                    o = i.data("mdui.dialog");
-                o || (o = new d.Dialog(i, e), i.data("mdui.dialog", o)), o.open()
-            })
-        }), d.dialog = function (n) {
-            var i = {
-                text: "",
-                bold: !1,
-                close: !0,
-                onClick: function (t) {}
-            };
-            n = g.extend({}, {
-                title: "",
-                content: "",
-                buttons: [],
-                stackedButtons: !1,
-                cssClass: "",
-                history: !0,
-                overlay: !0,
-                modal: !1,
-                closeOnEsc: !0,
-                destroyOnClosed: !0,
-                onOpen: function () {},
-                onOpened: function () {},
-                onClose: function () {},
-                onClosed: function () {}
-            }, n || {}), g.each(n.buttons, function (t, e) {
-                n.buttons[t] = g.extend({}, i, e)
-            });
-            var o = "";
-            n.buttons.length && (o = '<div class="mdui-dialog-actions ' + (n.stackedButtons ? "mdui-dialog-actions-stacked" : "") + '">', g.each(n.buttons, function (t, e) {
-                o += '<a href="javascript:void(0)" class="mdui-btn mdui-ripple mdui-text-color-primary ' + (e.bold ? "mdui-btn-bold" : "") + '">' + e.text + "</a>"
-            }), o += "</div>");
-            var t = '<div class="mdui-dialog ' + n.cssClass + '">' + (n.title ? '<div class="mdui-dialog-title">' + n.title + "</div>" : "") + (n.content ? '<div class="mdui-dialog-content">' + n.content + "</div>" : "") + o + "</div>",
-                a = new d.Dialog(t, {
-                    history: n.history,
-                    overlay: n.overlay,
-                    modal: n.modal,
-                    closeOnEsc: n.closeOnEsc,
-                    destroyOnClosed: n.destroyOnClosed
-                });
-            return n.buttons.length && a.$dialog.find(".mdui-dialog-actions .mdui-btn").each(function (t, e) {
-                g(e).on("click", function () {
-                    "function" == typeof n.buttons[t].onClick && n.buttons[t].onClick(a), n.buttons[t].close && a.close()
-                })
-            }), "function" == typeof n.onOpen && a.$dialog.on("open.mdui.dialog", function () {
-                n.onOpen(a)
-            }).on("opened.mdui.dialog", function () {
-                n.onOpened(a)
-            }).on("close.mdui.dialog", function () {
-                n.onClose(a)
-            }).on("closed.mdui.dialog", function () {
-                n.onClosed(a)
-            }), a.open(), a
-        }, d.alert = function (t, e, n, i) {
-            "function" == typeof e && (e = "", n = arguments[1], i = arguments[2]), void 0 === n && (n = function () {}), void 0 === i && (i = {});
-            return i = g.extend({}, {
-                confirmText: "ok",
-                history: !0,
-                modal: !1,
-                closeOnEsc: !0
-            }, i), d.dialog({
-                title: e,
-                content: t,
-                buttons: [{
-                    text: i.confirmText,
-                    bold: !1,
-                    close: !0,
-                    onClick: n
-                }],
-                cssClass: "mdui-dialog-alert",
-                history: i.history,
-                modal: i.modal,
-                closeOnEsc: i.closeOnEsc
-            })
-        }, d.confirm = function (t, e, n, i, o) {
-            "function" == typeof e && (e = "", n = arguments[1], i = arguments[2], o = arguments[3]), void 0 === n && (n = function () {}), void 0 === i && (i = function () {}), void 0 === o && (o = {});
-            return o = g.extend({}, {
-                confirmText: "ok",
-                cancelText: "cancel",
-                history: !0,
-                modal: !1,
-                closeOnEsc: !0
-            }, o), d.dialog({
-                title: e,
-                content: t,
-                buttons: [{
-                    text: o.cancelText,
-                    bold: !1,
-                    close: !0,
-                    onClick: i
-                }, {
-                    text: o.confirmText,
-                    bold: !1,
-                    close: !0,
-                    onClick: n
-                }],
-                cssClass: "mdui-dialog-confirm",
-                history: o.history,
-                modal: o.modal,
-                closeOnEsc: o.closeOnEsc
-            })
-        }, d.prompt = function (t, e, i, n, o) {
-            "function" == typeof e && (e = "", i = arguments[1], n = arguments[2], o = arguments[3]), void 0 === i && (i = function () {}), void 0 === n && (n = function () {}), void 0 === o && (o = {});
-            var a = '<div class="mdui-textfield">' + (t ? '<label class="mdui-textfield-label">' + t + "</label>" : "") + ("text" === (o = g.extend({}, {
-                    confirmText: "ok",
-                    cancelText: "cancel",
-                    history: !0,
-                    modal: !1,
-                    closeOnEsc: !0,
-                    type: "text",
-                    maxlength: "",
-                    defaultValue: "",
-                    confirmOnEnter: !1
-                }, o)).type ? '<input class="mdui-textfield-input" type="text" value="' + o.defaultValue + '" ' + (o.maxlength ? 'maxlength="' + o.maxlength + '"' : "") + "/>" : "") + ("textarea" === o.type ? '<textarea class="mdui-textfield-input" ' + (o.maxlength ? 'maxlength="' + o.maxlength + '"' : "") + ">" + o.defaultValue + "</textarea>" : "") + "</div>",
-                s = n;
-            "function" == typeof n && (s = function (t) {
-                var e = t.$dialog.find(".mdui-textfield-input").val();
-                n(e, t)
-            });
-            var r = i;
-            return "function" == typeof i && (r = function (t) {
-                var e = t.$dialog.find(".mdui-textfield-input").val();
-                i(e, t)
-            }), d.dialog({
-                title: e,
-                content: a,
-                buttons: [{
-                    text: o.cancelText,
-                    bold: !1,
-                    close: !0,
-                    onClick: s
-                }, {
-                    text: o.confirmText,
-                    bold: !1,
-                    close: !0,
-                    onClick: r
-                }],
-                cssClass: "mdui-dialog-prompt",
-                history: o.history,
-                modal: o.modal,
-                closeOnEsc: o.closeOnEsc,
-                onOpen: function (n) {
-                    var t = n.$dialog.find(".mdui-textfield-input");
-                    d.updateTextFields(t), t[0].focus(), "text" === o.type && !0 === o.confirmOnEnter && t.on("keydown", function (t) {
-                        if (13 === t.keyCode) {
-                            var e = n.$dialog.find(".mdui-textfield-input").val();
-                            i(e, n), n.close()
-                        }
-                    }), "textarea" === o.type && t.on("input", function () {
-                        n.handleUpdate()
-                    }), o.maxlength && n.handleUpdate()
-                }
-            })
-        }, d.Tooltip = function () {
-            var o = {
-                position: "auto",
-                delay: 0,
-                content: ""
-            };
+  Promise$1._unhandledRejectionFn = function _unhandledRejectionFn(err) {
+    if (typeof console !== 'undefined' && console) {
+      console.warn('Possible Unhandled Promise Rejection:', err); // eslint-disable-line no-console
+    }
+  };
 
-            function i(t) {
-                var e, n, i, o = t.$target[0].getBoundingClientRect(),
-                    a = 1024 < T.width() ? 14 : 24,
-                    s = t.$tooltip[0].offsetWidth,
-                    r = t.$tooltip[0].offsetHeight;
-                switch (i = t.options.position, -1 === ["bottom", "top", "left", "right"].indexOf(i) && (i = o.top + o.height + a + r + 2 < T.height() ? "bottom" : a + r + 2 < o.top ? "top" : a + s + 2 < o.left ? "left" : o.width + a + s + 2 < T.width() - o.left ? "right" : "bottom"), i) {
-                    case "bottom":
-                        e = s / 2 * -1, n = o.height / 2 + a, t.$tooltip.transformOrigin("top center");
-                        break;
-                    case "top":
-                        e = s / 2 * -1, n = -1 * (r + o.height / 2 + a), t.$tooltip.transformOrigin("bottom center");
-                        break;
-                    case "left":
-                        e = -1 * (s + o.width / 2 + a), n = r / 2 * -1, t.$tooltip.transformOrigin("center right");
-                        break;
-                    case "right":
-                        e = o.width / 2 + a, n = r / 2 * -1, t.$tooltip.transformOrigin("center left")
-                }
-                var d = t.$target.offset();
-                t.$tooltip.css({
-                    top: d.top + o.height / 2 + "px",
-                    left: d.left + o.width / 2 + "px",
-                    "margin-left": e + "px",
-                    "margin-top": n + "px"
-                })
-            }
+  /** @suppress {undefinedVars} */
+  var globalNS = (function() {
+    // the only reliable means to get the global object is
+    // `Function('return this')()`
+    // However, this causes CSP violations in Chrome apps.
+    if (typeof self !== 'undefined') {
+      return self;
+    }
+    if (typeof window !== 'undefined') {
+      return window;
+    }
+    if (typeof global !== 'undefined') {
+      return global;
+    }
+    throw new Error('unable to locate global object');
+  })();
 
-            function t(t, e) {
-                var n = this;
-                if (n.$target = g(t).eq(0), n.$target.length) {
-                    var i = n.$target.data("mdui.tooltip");
-                    if (i) return i;
-                    n.options = g.extend({}, o, e || {}), n.state = "closed", n.$tooltip = g('<div class="mdui-tooltip" id="' + g.guid() + '">' + n.options.content + "</div>").appendTo(document.body), n.$target.on("touchstart mouseenter", function (t) {
-                        this.disabled || r.isAllow(t) && (r.register(t), n.open())
-                    }).on("touchend mouseleave", function (t) {
-                        this.disabled || r.isAllow(t) && n.close()
-                    }).on(r.unlock, function (t) {
-                        this.disabled || r.register(t)
-                    })
-                }
-            }
-            var e = function (t) {
-                t.$tooltip.hasClass("mdui-tooltip-open") ? (t.state = "opened", p("opened", "tooltip", t, t.$target)) : (t.state = "closed", p("closed", "tooltip", t, t.$target))
-            };
-            return t.prototype._doOpen = function () {
-                var t = this;
-                t.state = "opening", p("open", "tooltip", t, t.$target), t.$tooltip.addClass("mdui-tooltip-open").transitionEnd(function () {
-                    e(t)
-                })
-            }, t.prototype.open = function (t) {
-                var e = this;
-                if ("opening" !== e.state && "opened" !== e.state) {
-                    var n = g.extend({}, e.options);
-                    g.extend(e.options, s(e.$target.attr("mdui-tooltip"))), t && g.extend(e.options, t), n.content !== e.options.content && e.$tooltip.html(e.options.content), i(e), e.options.delay ? e.timeoutId = setTimeout(function () {
-                        e._doOpen()
-                    }, e.options.delay) : (e.timeoutId = !1, e._doOpen())
-                }
-            }, t.prototype.close = function () {
-                var t = this;
-                t.timeoutId && (clearTimeout(t.timeoutId), t.timeoutId = !1), "closing" !== t.state && "closed" !== t.state && (t.state = "closing", p("close", "tooltip", t, t.$target), t.$tooltip.removeClass("mdui-tooltip-open").transitionEnd(function () {
-                    e(t)
-                }))
-            }, t.prototype.toggle = function () {
-                var t = this;
-                "opening" === t.state || "opened" === t.state ? t.close() : "closing" !== t.state && "closed" !== t.state || t.open()
-            }, t.prototype.getState = function () {
-                return this.state
-            }, t
-        }(), g(function () {
-            f.on("touchstart mouseover", "[mdui-tooltip]", function () {
-                var t = g(this),
-                    e = t.data("mdui.tooltip");
-                if (!e) {
-                    var n = s(t.attr("mdui-tooltip"));
-                    e = new d.Tooltip(t, n), t.data("mdui.tooltip", e)
-                }
-            })
-        }),
-        function () {
-            var n, i = "__md_snackbar",
-                a = {
-                    timeout: 4e3,
-                    buttonText: "",
-                    buttonColor: "",
-                    position: "bottom",
-                    closeOnButtonClick: !0,
-                    closeOnOutsideClick: !0,
-                    onClick: function () {},
-                    onButtonClick: function () {},
-                    onOpen: function () {},
-                    onOpened: function () {},
-                    onClose: function () {},
-                    onClosed: function () {}
-                },
-                o = function (t) {
-                    var e = g(t.target);
-                    e.hasClass("mdui-snackbar") || e.parents(".mdui-snackbar").length || n.close()
-                };
+  // Expose the polyfill if Promise is undefined or set to a
+  // non-function value. The latter can be due to a named HTMLElement
+  // being exposed by browsers for legacy reasons.
+  // https://github.com/taylorhakes/promise-polyfill/issues/114
+  if (typeof globalNS['Promise'] !== 'function') {
+    globalNS['Promise'] = Promise$1;
+  } else if (!globalNS.Promise.prototype['finally']) {
+    globalNS.Promise.prototype['finally'] = finallyConstructor;
+  } else if (!globalNS.Promise.allSettled) {
+    globalNS.Promise.allSettled = allSettled;
+  }
 
-            function s(t, e) {
-                var n = this;
-                if (n.message = t, n.options = g.extend({}, a, e || {}), n.message) {
-                    n.state = "closed", n.timeoutId = !1;
-                    var i = "",
-                        o = "";
-                    0 === n.options.buttonColor.indexOf("#") || 0 === n.options.buttonColor.indexOf("rgb") ? i = 'style="color:' + n.options.buttonColor + '"' : "" !== n.options.buttonColor && (o = "mdui-text-color-" + n.options.buttonColor), n.$snackbar = g('<div class="mdui-snackbar"><div class="mdui-snackbar-text">' + n.message + "</div>" + (n.options.buttonText ? '<a href="javascript:void(0)" class="mdui-snackbar-action mdui-btn mdui-ripple mdui-ripple-white ' + o + '" ' + i + ">" + n.options.buttonText + "</a>" : "") + "</div>").appendTo(document.body), n._setPosition("close"), n.$snackbar.reflow().addClass("mdui-snackbar-" + n.options.position)
-                }
-            }
-            s.prototype._setPosition = function (t) {
-                var e, n, i = this.$snackbar[0].clientHeight,
-                    o = this.options.position;
-                e = "bottom" === o || "top" === o ? "-50%" : "0", "open" === t ? n = "0" : ("bottom" === o && (n = i), "top" === o && (n = -i), "left-top" !== o && "right-top" !== o || (n = -i - 24), "left-bottom" !== o && "right-bottom" !== o || (n = i + 24)), this.$snackbar.transform("translate(" + e + "," + n + "px)")
-            }, s.prototype.open = function () {
-                var e = this;
-                e.message && "opening" !== e.state && "opened" !== e.state && (n ? l.queue(i, function () {
-                    e.open()
-                }) : ((n = e).state = "opening", e.options.onOpen(), e._setPosition("open"), e.$snackbar.transitionEnd(function () {
-                    "opening" === e.state && (e.state = "opened", e.options.onOpened(), e.options.buttonText && e.$snackbar.find(".mdui-snackbar-action").on("click", function () {
-                        e.options.onButtonClick(), e.options.closeOnButtonClick && e.close()
-                    }), e.$snackbar.on("click", function (t) {
-                        g(t.target).hasClass("mdui-snackbar-action") || e.options.onClick()
-                    }), e.options.closeOnOutsideClick && f.on(r.start, o), e.options.timeout && (e.timeoutId = setTimeout(function () {
-                        e.close()
-                    }, e.options.timeout)))
-                })))
-            }, s.prototype.close = function () {
-                var t = this;
-                t.message && "closing" !== t.state && "closed" !== t.state && (t.timeoutId && clearTimeout(t.timeoutId), t.options.closeOnOutsideClick && f.off(r.start, o), t.state = "closing", t.options.onClose(), t._setPosition("close"), t.$snackbar.transitionEnd(function () {
-                    "closing" === t.state && (n = null, t.state = "closed", t.options.onClosed(), t.$snackbar.remove(), l.dequeue(i))
-                }))
-            }, d.snackbar = function (t, e) {
-                "string" != typeof t && (t = (e = t).message);
-                var n = new s(t, e);
-                return n.open(), n
-            }
-        }(), f.on("click", ".mdui-bottom-nav>a", function () {
-            var n, i = g(this),
-                o = i.parent();
-            o.children("a").each(function (t, e) {
-                (n = i.is(e)) && p("change", "bottomNav", null, o, {
-                    index: t
-                }), g(e)[n ? "addClass" : "removeClass"]("mdui-bottom-nav-active")
-            })
-        }), d.mutation(".mdui-bottom-nav-scroll-hide", function () {
-            var t = g(this),
-                e = new d.Headroom(t, {
-                    pinnedClass: "mdui-headroom-pinned-down",
-                    unpinnedClass: "mdui-headroom-unpinned-down"
-                });
-            t.data("mdui.headroom", e)
-        }), o = function () {
-            var t = !!arguments.length && arguments[0];
-            return '<div class="mdui-spinner-layer ' + (t ? "mdui-spinner-layer-" + t : "") + '"><div class="mdui-spinner-circle-clipper mdui-spinner-left"><div class="mdui-spinner-circle"></div></div><div class="mdui-spinner-gap-patch"><div class="mdui-spinner-circle"></div></div><div class="mdui-spinner-circle-clipper mdui-spinner-right"><div class="mdui-spinner-circle"></div></div></div>'
-        }, m = function (t) {
-            var e, n = g(t);
-            e = n.hasClass("mdui-spinner-colorful") ? o("1") + o("2") + o("3") + o("4") : o(), n.html(e)
-        }, g(function () {
-            d.mutation(".mdui-spinner", function () {
-                m(this)
-            })
-        }), d.updateSpinners = function () {
-            g(arguments.length ? arguments[0] : ".mdui-spinner").each(function () {
-                m(this)
-            })
-        }, d.Panel = function (t, e) {
-            return new v(t, e, "panel")
-        }, g(function () {
-            d.mutation("[mdui-panel]", function () {
-                var t = g(this),
-                    e = t.data("mdui.panel");
-                if (!e) {
-                    var n = s(t.attr("mdui-panel"));
-                    e = new d.Panel(t, n), t.data("mdui.panel", e)
-                }
-            })
-        }), d.Menu = function () {
-            var a = {
-                    position: "auto",
-                    align: "auto",
-                    gutter: 16,
-                    fixed: !1,
-                    covered: "auto",
-                    subMenuTrigger: "hover",
-                    subMenuDelay: 200
-                },
-                s = function (t) {
-                    var e, n, i, o, a, s, r = T.height(),
-                        d = T.width(),
-                        c = t.options.gutter,
-                        u = t.isCovered,
-                        l = t.options.fixed,
-                        f = t.$menu.width(),
-                        p = t.$menu.height(),
-                        h = t.$anchor,
-                        m = h[0].getBoundingClientRect(),
-                        v = m.top,
-                        g = m.left,
-                        b = m.height,
-                        x = m.width,
-                        y = r - v - b,
-                        w = d - g - x,
-                        $ = h[0].offsetTop,
-                        C = h[0].offsetLeft;
-                    if (i = "auto" === t.options.position ? p + c < y + (u ? b : 0) ? "bottom" : p + c < v + (u ? b : 0) ? "top" : "center" : t.options.position, o = "auto" === t.options.align ? f + c < w + x ? "left" : f + c < g + x ? "right" : "center" : t.options.align, "bottom" === i) s = "0", n = (u ? 0 : b) + (l ? v : $);
-                    else if ("top" === i) s = "100%", n = (u ? b : 0) + (l ? v - p : $ - p);
-                    else {
-                        s = "50%";
-                        var k = p;
-                        t.isCascade || r < p + 2 * c && (k = r - 2 * c, t.$menu.height(k)), n = (r - k) / 2 + (l ? 0 : $ - v)
-                    }
-                    if (t.$menu.css("top", n + "px"), "left" === o) a = "0", e = l ? g : C;
-                    else if ("right" === o) a = "100%", e = l ? g + x - f : C + x - f;
-                    else {
-                        a = "50%";
-                        var O = f;
-                        d < f + 2 * c && (O = d - 2 * c, t.$menu.width(O)), e = (d - O) / 2 + (l ? 0 : C - g)
-                    }
-                    t.$menu.css("left", e + "px"), t.$menu.transformOrigin(a + " " + s)
-                },
-                u = function (t) {
-                    var e, n, i, o, a, s, r, d, c, u, l, f, p, h, m, v, g;
-                    d = (e = t).parent(".mdui-menu-item"), c = T.height(), u = T.width(), l = e.width(), f = e.height(), p = d[0].getBoundingClientRect(), h = p.width, m = p.height, v = p.left, g = p.top, a = l < u - v - h ? "left" : l < v ? "right" : "left", "bottom" == (o = f < c - g ? "bottom" : f < g + m ? "top" : "bottom") ? n = r = "0" : "top" === o && (r = "100%", n = -f + m), e.css("top", n + "px"), "left" === a ? (s = "0", i = h) : "right" === a && (s = "100%", i = -l), e.css("left", i + "px"), e.transformOrigin(s + " " + r), t.addClass("mdui-menu-open").parent(".mdui-menu-item").addClass("mdui-menu-item-active")
-                },
-                l = function (t) {
-                    t.removeClass("mdui-menu-open").addClass("mdui-menu-closing").transitionEnd(function () {
-                        t.removeClass("mdui-menu-closing")
-                    }).parent(".mdui-menu-item").removeClass("mdui-menu-item-active"), t.find(".mdui-menu").each(function () {
-                        var t = g(this);
-                        t.removeClass("mdui-menu-open").addClass("mdui-menu-closing").transitionEnd(function () {
-                            t.removeClass("mdui-menu-closing")
-                        }).parent(".mdui-menu-item").removeClass("mdui-menu-item-active")
-                    })
-                },
-                r = function (r) {
-                    var d, c;
-                    (r.$menu.on("click", ".mdui-menu-item", function (t) {
-                        var e = g(this),
-                            n = g(t.target);
-                        if (null === e.attr("disabled") && !n.is(".mdui-menu") && !n.is(".mdui-divider") && n.parents(".mdui-menu-item").eq(0).is(e)) {
-                            var i, o = e.children(".mdui-menu");
-                            e.parent(".mdui-menu").children(".mdui-menu-item").each(function () {
-                                var t = g(this).children(".mdui-menu");
-                                !t.length || o.length && t.is(o) || l(t)
-                            }), o.length && ((i = o).hasClass("mdui-menu-open") ? l(i) : u(i))
-                        }
-                    }), "hover" === r.options.subMenuTrigger) && r.$menu.on("mouseover mouseout", ".mdui-menu-item", function (t) {
-                        var e = g(this),
-                            n = t.type,
-                            i = g(t.relatedTarget);
-                        if (null === e.attr("disabled")) {
-                            if ("mouseover" === n) {
-                                if (!e.is(i) && g.contains(e[0], i[0])) return
-                            } else if ("mouseout" === n && (e.is(i) || g.contains(e[0], i[0]))) return;
-                            var o = e.children(".mdui-menu");
-                            if ("mouseover" === n) {
-                                if (o.length) {
-                                    var a = o.data("timeoutClose.mdui.menu");
-                                    if (a && clearTimeout(a), o.hasClass("mdui-menu-open")) return;
-                                    clearTimeout(c), d = c = setTimeout(function () {
-                                        u(o)
-                                    }, r.options.subMenuDelay), o.data("timeoutOpen.mdui.menu", d)
-                                }
-                            } else if ("mouseout" === n && o.length) {
-                                var s = o.data("timeoutOpen.mdui.menu");
-                                s && clearTimeout(s), d = setTimeout(function () {
-                                    l(o)
-                                }, r.options.subMenuDelay), o.data("timeoutClose.mdui.menu", d)
-                            }
-                        }
-                    })
-                };
+  function isFunction(target) {
+      return typeof target === 'function';
+  }
+  function isString(target) {
+      return typeof target === 'string';
+  }
+  function isNumber(target) {
+      return typeof target === 'number';
+  }
+  function isBoolean(target) {
+      return typeof target === 'boolean';
+  }
+  function isUndefined(target) {
+      return typeof target === 'undefined';
+  }
+  function isNull(target) {
+      return target === null;
+  }
+  function isWindow(target) {
+      return target instanceof Window;
+  }
+  function isDocument(target) {
+      return target instanceof Document;
+  }
+  function isElement(target) {
+      return target instanceof Element;
+  }
+  function isNode(target) {
+      return target instanceof Node;
+  }
+  /**
+   * 是否是 IE 浏览器
+   */
+  function isIE() {
+      // @ts-ignore
+      return !!window.document.documentMode;
+  }
+  function isArrayLike(target) {
+      if (isFunction(target) || isWindow(target)) {
+          return false;
+      }
+      return isNumber(target.length);
+  }
+  function isObjectLike(target) {
+      return typeof target === 'object' && target !== null;
+  }
+  function toElement(target) {
+      return isDocument(target) ? target.documentElement : target;
+  }
+  /**
+   * 把用 - 分隔的字符串转为驼峰（如 box-sizing 转换为 boxSizing）
+   * @param string
+   */
+  function toCamelCase(string) {
+      return string
+          .replace(/^-ms-/, 'ms-')
+          .replace(/-([a-z])/g, function (_, letter) { return letter.toUpperCase(); });
+  }
+  /**
+   * 把驼峰法转为用 - 分隔的字符串（如 boxSizing 转换为 box-sizing）
+   * @param string
+   */
+  function toKebabCase(string) {
+      return string.replace(/[A-Z]/g, function (replacer) { return '-' + replacer.toLowerCase(); });
+  }
+  /**
+   * 获取元素的样式值
+   * @param element
+   * @param name
+   */
+  function getComputedStyleValue(element, name) {
+      return window.getComputedStyle(element).getPropertyValue(toKebabCase(name));
+  }
+  /**
+   * 检查元素的 box-sizing 是否是 border-box
+   * @param element
+   */
+  function isBorderBox(element) {
+      return getComputedStyleValue(element, 'box-sizing') === 'border-box';
+  }
+  /**
+   * 获取元素的 padding, border, margin 宽度（两侧宽度的和，单位为px）
+   * @param element
+   * @param direction
+   * @param extra
+   */
+  function getExtraWidth(element, direction, extra) {
+      var position = direction === 'width' ? ['Left', 'Right'] : ['Top', 'Bottom'];
+      return [0, 1].reduce(function (prev, _, index) {
+          var prop = extra + position[index];
+          if (extra === 'border') {
+              prop += 'Width';
+          }
+          return prev + parseFloat(getComputedStyleValue(element, prop) || '0');
+      }, 0);
+  }
+  /**
+   * 获取元素的样式值，对 width 和 height 进行过处理
+   * @param element
+   * @param name
+   */
+  function getStyle(element, name) {
+      // width、height 属性使用 getComputedStyle 得到的值不准确，需要使用 getBoundingClientRect 获取
+      if (name === 'width' || name === 'height') {
+          var valueNumber = element.getBoundingClientRect()[name];
+          if (isBorderBox(element)) {
+              return (valueNumber + "px");
+          }
+          return ((valueNumber -
+              getExtraWidth(element, name, 'border') -
+              getExtraWidth(element, name, 'padding')) + "px");
+      }
+      return getComputedStyleValue(element, name);
+  }
+  /**
+   * 获取子节点组成的数组
+   * @param target
+   * @param parent
+   */
+  function getChildNodesArray(target, parent) {
+      var tempParent = document.createElement(parent);
+      tempParent.innerHTML = target;
+      return [].slice.call(tempParent.childNodes);
+  }
+  /**
+   * 始终返回 false 的函数
+   */
+  function returnFalse() {
+      return false;
+  }
+  /**
+   * 数值单位的 CSS 属性
+   */
+  var cssNumber = [
+      'animationIterationCount',
+      'columnCount',
+      'fillOpacity',
+      'flexGrow',
+      'flexShrink',
+      'fontWeight',
+      'gridArea',
+      'gridColumn',
+      'gridColumnEnd',
+      'gridColumnStart',
+      'gridRow',
+      'gridRowEnd',
+      'gridRowStart',
+      'lineHeight',
+      'opacity',
+      'order',
+      'orphans',
+      'widows',
+      'zIndex',
+      'zoom' ];
 
-            function t(t, e, n) {
-                var i = this;
-                if (i.$anchor = g(t).eq(0), i.$anchor.length) {
-                    var o = i.$anchor.data("mdui.menu");
-                    if (o) return o;
-                    i.$menu = g(e).eq(0), i.$anchor.siblings(i.$menu).length && (i.options = g.extend({}, a, n || {}), i.state = "closed", i.isCascade = i.$menu.hasClass("mdui-menu-cascade"), "auto" === i.options.covered ? i.isCovered = !i.isCascade : i.isCovered = i.options.covered, i.$anchor.on("click", function () {
-                        i.toggle()
-                    }), f.on("click touchstart", function (t) {
-                        var e = g(t.target);
-                        "opening" !== i.state && "opened" !== i.state || e.is(i.$menu) || g.contains(i.$menu[0], e[0]) || e.is(i.$anchor) || g.contains(i.$anchor[0], e[0]) || i.close()
-                    }), f.on("click", ".mdui-menu-item", function (t) {
-                        var e = g(this);
-                        e.find(".mdui-menu").length || null !== e.attr("disabled") || i.close()
-                    }), r(i), T.on("resize", g.throttle(function () {
-                        s(i)
-                    }, 100)))
-                }
-            }
-            t.prototype.toggle = function () {
-                var t = this;
-                "opening" === t.state || "opened" === t.state ? t.close() : "closing" !== t.state && "closed" !== t.state || t.open()
-            };
-            var e = function (t) {
-                t.$menu.removeClass("mdui-menu-closing"), "opening" === t.state && (t.state = "opened", p("opened", "menu", t, t.$menu)), "closing" === t.state && (t.state = "closed", p("closed", "menu", t, t.$menu), t.$menu.css({
-                    top: "",
-                    left: "",
-                    width: "",
-                    position: "fixed"
-                }))
-            };
-            return t.prototype.open = function () {
-                var t = this;
-                "opening" !== t.state && "opened" !== t.state && (t.state = "opening", p("open", "menu", t, t.$menu), s(t), t.$menu.css("position", t.options.fixed ? "fixed" : "absolute").addClass("mdui-menu-open").transitionEnd(function () {
-                    e(t)
-                }))
-            }, t.prototype.close = function () {
-                var t = this;
-                "closing" !== t.state && "closed" !== t.state && (t.state = "closing", p("close", "menu", t, t.$menu), t.$menu.find(".mdui-menu").each(function () {
-                    l(g(this))
-                }), t.$menu.removeClass("mdui-menu-open").addClass("mdui-menu-closing").transitionEnd(function () {
-                    e(t)
-                }))
-            }, t
-        }(), g(function () {
-            f.on("click", "[mdui-menu]", function () {
-                var t = g(this),
-                    e = t.data("mdui.menu");
-                if (!e) {
-                    var n = s(t.attr("mdui-menu")),
-                        i = n.target;
-                    delete n.target, e = new d.Menu(t, i, n), t.data("mdui.menu", e), e.toggle()
-                }
-            })
-        }), d.JQ = g, d
-});
-//# sourceMappingURL=mdui.min.js.map
+  function each(target, callback) {
+      if (isArrayLike(target)) {
+          for (var i = 0; i < target.length; i += 1) {
+              if (callback.call(target[i], i, target[i]) === false) {
+                  return target;
+              }
+          }
+      }
+      else {
+          var keys = Object.keys(target);
+          for (var i$1 = 0; i$1 < keys.length; i$1 += 1) {
+              if (callback.call(target[keys[i$1]], keys[i$1], target[keys[i$1]]) === false) {
+                  return target;
+              }
+          }
+      }
+      return target;
+  }
+
+  /**
+   * 为了使用模块扩充，这里不能使用默认导出
+   */
+  var JQ = function JQ(arr) {
+      var this$1 = this;
+
+      this.length = 0;
+      if (!arr) {
+          return this;
+      }
+      each(arr, function (i, item) {
+          // @ts-ignore
+          this$1[i] = item;
+      });
+      this.length = arr.length;
+      return this;
+  };
+
+  function get$() {
+      var $ = function (selector) {
+          if (!selector) {
+              return new JQ();
+          }
+          // JQ
+          if (selector instanceof JQ) {
+              return selector;
+          }
+          // function
+          if (isFunction(selector)) {
+              if (/complete|loaded|interactive/.test(document.readyState) &&
+                  document.body) {
+                  selector.call(document, $);
+              }
+              else {
+                  document.addEventListener('DOMContentLoaded', function () { return selector.call(document, $); }, false);
+              }
+              return new JQ([document]);
+          }
+          // String
+          if (isString(selector)) {
+              var html = selector.trim();
+              // 根据 HTML 字符串创建 JQ 对象
+              if (html[0] === '<' && html[html.length - 1] === '>') {
+                  var toCreate = 'div';
+                  var tags = {
+                      li: 'ul',
+                      tr: 'tbody',
+                      td: 'tr',
+                      th: 'tr',
+                      tbody: 'table',
+                      option: 'select',
+                  };
+                  each(tags, function (childTag, parentTag) {
+                      if (html.indexOf(("<" + childTag)) === 0) {
+                          toCreate = parentTag;
+                          return false;
+                      }
+                      return;
+                  });
+                  return new JQ(getChildNodesArray(html, toCreate));
+              }
+              // 根据 CSS 选择器创建 JQ 对象
+              var isIdSelector = selector[0] === '#' && !selector.match(/[ .<>:~]/);
+              if (!isIdSelector) {
+                  return new JQ(document.querySelectorAll(selector));
+              }
+              var element = document.getElementById(selector.slice(1));
+              if (element) {
+                  return new JQ([element]);
+              }
+              return new JQ();
+          }
+          if (isArrayLike(selector) && !isNode(selector)) {
+              return new JQ(selector);
+          }
+          return new JQ([selector]);
+      };
+      $.fn = JQ.prototype;
+      return $;
+  }
+  var $ = get$();
+
+  // 避免页面加载完后直接执行css动画
+  // https://css-tricks.com/transitions-only-after-page-load/
+  setTimeout(function () { return $('body').addClass('mdui-loaded'); });
+  var mdui = {
+      $: $,
+  };
+
+  $.fn.each = function (callback) {
+      return each(this, callback);
+  };
+
+  /**
+   * 检查 container 元素内是否包含 contains 元素
+   * @param container 父元素
+   * @param contains 子元素
+   * @example
+  ```js
+  contains( document, document.body ); // true
+  contains( document.getElementById('test'), document ); // false
+  contains( $('.container').get(0), $('.contains').get(0) ); // false
+  ```
+   */
+  function contains(container, contains) {
+      return container !== contains && toElement(container).contains(contains);
+  }
+
+  /**
+   * 把第二个数组的元素追加到第一个数组中，并返回合并后的数组
+   * @param first 第一个数组
+   * @param second 该数组的元素将被追加到第一个数组中
+   * @example
+  ```js
+  merge( [ 0, 1, 2 ], [ 2, 3, 4 ] )
+  // [ 0, 1, 2, 2, 3, 4 ]
+  ```
+   */
+  function merge(first, second) {
+      each(second, function (_, value) {
+          first.push(value);
+      });
+      return first;
+  }
+
+  $.fn.get = function (index) {
+      return index === undefined
+          ? [].slice.call(this)
+          : this[index >= 0 ? index : index + this.length];
+  };
+
+  $.fn.find = function (selector) {
+      var foundElements = [];
+      this.each(function (_, element) {
+          merge(foundElements, $(element.querySelectorAll(selector)).get());
+      });
+      return new JQ(foundElements);
+  };
+
+  // 存储事件
+  var handlers = {};
+  // 元素ID
+  var mduiElementId = 1;
+  /**
+   * 为元素赋予一个唯一的ID
+   */
+  function getElementId(element) {
+      var key = '_mduiEventId';
+      // @ts-ignore
+      if (!element[key]) {
+          // @ts-ignore
+          element[key] = ++mduiElementId;
+      }
+      // @ts-ignore
+      return element[key];
+  }
+  /**
+   * 解析事件名中的命名空间
+   */
+  function parse(type) {
+      var parts = type.split('.');
+      return {
+          type: parts[0],
+          ns: parts.slice(1).sort().join(' '),
+      };
+  }
+  /**
+   * 命名空间匹配规则
+   */
+  function matcherFor(ns) {
+      return new RegExp('(?:^| )' + ns.replace(' ', ' .* ?') + '(?: |$)');
+  }
+  /**
+   * 获取匹配的事件
+   * @param element
+   * @param type
+   * @param func
+   * @param selector
+   */
+  function getHandlers(element, type, func, selector) {
+      var event = parse(type);
+      return (handlers[getElementId(element)] || []).filter(function (handler) { return handler &&
+          (!event.type || handler.type === event.type) &&
+          (!event.ns || matcherFor(event.ns).test(handler.ns)) &&
+          (!func || getElementId(handler.func) === getElementId(func)) &&
+          (!selector || handler.selector === selector); });
+  }
+  /**
+   * 添加事件监听
+   * @param element
+   * @param types
+   * @param func
+   * @param data
+   * @param selector
+   */
+  function add(element, types, func, data, selector) {
+      var elementId = getElementId(element);
+      if (!handlers[elementId]) {
+          handlers[elementId] = [];
+      }
+      // 传入 data.useCapture 来设置 useCapture: true
+      var useCapture = false;
+      if (isObjectLike(data) && data.useCapture) {
+          useCapture = true;
+      }
+      types.split(' ').forEach(function (type) {
+          if (!type) {
+              return;
+          }
+          var event = parse(type);
+          function callFn(e, elem) {
+              // 因为鼠标事件模拟事件的 detail 属性是只读的，因此在 e._detail 中存储参数
+              var result = func.apply(elem, 
+              // @ts-ignore
+              e._detail === undefined ? [e] : [e].concat(e._detail));
+              if (result === false) {
+                  e.preventDefault();
+                  e.stopPropagation();
+              }
+          }
+          function proxyFn(e) {
+              // @ts-ignore
+              if (e._ns && !matcherFor(e._ns).test(event.ns)) {
+                  return;
+              }
+              // @ts-ignore
+              e._data = data;
+              if (selector) {
+                  // 事件代理
+                  $(element)
+                      .find(selector)
+                      .get()
+                      .reverse()
+                      .forEach(function (elem) {
+                      if (elem === e.target ||
+                          contains(elem, e.target)) {
+                          callFn(e, elem);
+                      }
+                  });
+              }
+              else {
+                  // 不使用事件代理
+                  callFn(e, element);
+              }
+          }
+          var handler = {
+              type: event.type,
+              ns: event.ns,
+              func: func,
+              selector: selector,
+              id: handlers[elementId].length,
+              proxy: proxyFn,
+          };
+          handlers[elementId].push(handler);
+          element.addEventListener(handler.type, proxyFn, useCapture);
+      });
+  }
+  /**
+   * 移除事件监听
+   * @param element
+   * @param types
+   * @param func
+   * @param selector
+   */
+  function remove(element, types, func, selector) {
+      var handlersInElement = handlers[getElementId(element)] || [];
+      var removeEvent = function (handler) {
+          delete handlersInElement[handler.id];
+          element.removeEventListener(handler.type, handler.proxy, false);
+      };
+      if (!types) {
+          handlersInElement.forEach(function (handler) { return removeEvent(handler); });
+      }
+      else {
+          types.split(' ').forEach(function (type) {
+              if (type) {
+                  getHandlers(element, type, func, selector).forEach(function (handler) { return removeEvent(handler); });
+              }
+          });
+      }
+  }
+
+  $.fn.trigger = function (type, extraParameters) {
+      var event = parse(type);
+      var eventObject;
+      var eventParams = {
+          bubbles: true,
+          cancelable: true,
+      };
+      var isMouseEvent = ['click', 'mousedown', 'mouseup', 'mousemove'].indexOf(event.type) > -1;
+      if (isMouseEvent) {
+          // Note: MouseEvent 无法传入 detail 参数
+          eventObject = new MouseEvent(event.type, eventParams);
+      }
+      else {
+          eventParams.detail = extraParameters;
+          eventObject = new CustomEvent(event.type, eventParams);
+      }
+      // @ts-ignore
+      eventObject._detail = extraParameters;
+      // @ts-ignore
+      eventObject._ns = event.ns;
+      return this.each(function () {
+          this.dispatchEvent(eventObject);
+      });
+  };
+
+  function extend(target, object1) {
+      var objectN = [], len = arguments.length - 2;
+      while ( len-- > 0 ) objectN[ len ] = arguments[ len + 2 ];
+
+      objectN.unshift(object1);
+      each(objectN, function (_, object) {
+          each(object, function (prop, value) {
+              if (!isUndefined(value)) {
+                  target[prop] = value;
+              }
+          });
+      });
+      return target;
+  }
+
+  /**
+   * 将数组或对象序列化，序列化后的字符串可作为 URL 查询字符串使用
+   *
+   * 若传入数组，则格式必须和 serializeArray 方法的返回值一样
+   * @param obj 对象或数组
+   * @example
+  ```js
+  param({ width: 1680, height: 1050 });
+  // width=1680&height=1050
+  ```
+   * @example
+  ```js
+  param({ foo: { one: 1, two: 2 }})
+  // foo[one]=1&foo[two]=2
+  ```
+   * @example
+  ```js
+  param({ids: [1, 2, 3]})
+  // ids[]=1&ids[]=2&ids[]=3
+  ```
+   * @example
+  ```js
+  param([
+    {"name":"name","value":"mdui"},
+    {"name":"password","value":"123456"}
+  ])
+  // name=mdui&password=123456
+  ```
+   */
+  function param(obj) {
+      if (!isObjectLike(obj) && !Array.isArray(obj)) {
+          return '';
+      }
+      var args = [];
+      function destructure(key, value) {
+          var keyTmp;
+          if (isObjectLike(value)) {
+              each(value, function (i, v) {
+                  if (Array.isArray(value) && !isObjectLike(v)) {
+                      keyTmp = '';
+                  }
+                  else {
+                      keyTmp = i;
+                  }
+                  destructure((key + "[" + keyTmp + "]"), v);
+              });
+          }
+          else {
+              if (value == null || value === '') {
+                  keyTmp = '=';
+              }
+              else {
+                  keyTmp = "=" + (encodeURIComponent(value));
+              }
+              args.push(encodeURIComponent(key) + keyTmp);
+          }
+      }
+      if (Array.isArray(obj)) {
+          each(obj, function () {
+              destructure(this.name, this.value);
+          });
+      }
+      else {
+          each(obj, destructure);
+      }
+      return args.join('&');
+  }
+
+  // 全局配置参数
+  var globalOptions = {};
+  // 全局事件名
+  var ajaxEvents = {
+      ajaxStart: 'start.mdui.ajax',
+      ajaxSuccess: 'success.mdui.ajax',
+      ajaxError: 'error.mdui.ajax',
+      ajaxComplete: 'complete.mdui.ajax',
+  };
+
+  /**
+   * 判断此请求方法是否通过查询字符串提交参数
+   * @param method 请求方法，大写
+   */
+  function isQueryStringData(method) {
+      return ['GET', 'HEAD'].indexOf(method) >= 0;
+  }
+  /**
+   * 添加参数到 URL 上，且 URL 中不存在 ? 时，自动把第一个 & 替换为 ?
+   * @param url
+   * @param query
+   */
+  function appendQuery(url, query) {
+      return (url + "&" + query).replace(/[&?]{1,2}/, '?');
+  }
+  /**
+   * 合并请求参数，参数优先级：options > globalOptions > defaults
+   * @param options
+   */
+  function mergeOptions(options) {
+      // 默认参数
+      var defaults = {
+          url: '',
+          method: 'GET',
+          data: '',
+          processData: true,
+          async: true,
+          cache: true,
+          username: '',
+          password: '',
+          headers: {},
+          xhrFields: {},
+          statusCode: {},
+          dataType: 'text',
+          contentType: 'application/x-www-form-urlencoded',
+          timeout: 0,
+          global: true,
+      };
+      // globalOptions 中的回调函数不合并
+      each(globalOptions, function (key, value) {
+          var callbacks = [
+              'beforeSend',
+              'success',
+              'error',
+              'complete',
+              'statusCode' ];
+          // @ts-ignore
+          if (callbacks.indexOf(key) < 0 && !isUndefined(value)) {
+              defaults[key] = value;
+          }
+      });
+      return extend({}, defaults, options);
+  }
+  /**
+   * 发送 ajax 请求
+   * @param options
+   * @example
+  ```js
+  ajax({
+    method: "POST",
+    url: "some.php",
+    data: { name: "John", location: "Boston" }
+  }).then(function( msg ) {
+    alert( "Data Saved: " + msg );
+  });
+  ```
+   */
+  function ajax(options) {
+      // 是否已取消请求
+      var isCanceled = false;
+      // 事件参数
+      var eventParams = {};
+      // 参数合并
+      var mergedOptions = mergeOptions(options);
+      var url = mergedOptions.url || window.location.toString();
+      var method = mergedOptions.method.toUpperCase();
+      var data = mergedOptions.data;
+      var processData = mergedOptions.processData;
+      var async = mergedOptions.async;
+      var cache = mergedOptions.cache;
+      var username = mergedOptions.username;
+      var password = mergedOptions.password;
+      var headers = mergedOptions.headers;
+      var xhrFields = mergedOptions.xhrFields;
+      var statusCode = mergedOptions.statusCode;
+      var dataType = mergedOptions.dataType;
+      var contentType = mergedOptions.contentType;
+      var timeout = mergedOptions.timeout;
+      var global = mergedOptions.global;
+      // 需要发送的数据
+      // GET/HEAD 请求和 processData 为 true 时，转换为查询字符串格式，特殊格式不转换
+      if (data &&
+          (isQueryStringData(method) || processData) &&
+          !isString(data) &&
+          !(data instanceof ArrayBuffer) &&
+          !(data instanceof Blob) &&
+          !(data instanceof Document) &&
+          !(data instanceof FormData)) {
+          data = param(data);
+      }
+      // 对于 GET、HEAD 类型的请求，把 data 数据添加到 URL 中
+      if (data && isQueryStringData(method)) {
+          // 查询字符串拼接到 URL 中
+          url = appendQuery(url, data);
+          data = null;
+      }
+      /**
+       * 触发事件和回调函数
+       * @param event
+       * @param params
+       * @param callback
+       * @param args
+       */
+      function trigger(event, params, callback) {
+          var args = [], len = arguments.length - 3;
+          while ( len-- > 0 ) args[ len ] = arguments[ len + 3 ];
+
+          // 触发全局事件
+          if (global) {
+              $(document).trigger(event, params);
+          }
+          // 触发 ajax 回调和事件
+          var result1;
+          var result2;
+          if (callback) {
+              // 全局回调
+              if (callback in globalOptions) {
+                  // @ts-ignore
+                  result1 = globalOptions[callback].apply(globalOptions, args);
+              }
+              // 自定义回调
+              if (mergedOptions[callback]) {
+                  // @ts-ignore
+                  result2 = mergedOptions[callback].apply(mergedOptions, args);
+              }
+              // beforeSend 回调返回 false 时取消 ajax 请求
+              if (callback === 'beforeSend' &&
+                  (result1 === false || result2 === false)) {
+                  isCanceled = true;
+              }
+          }
+      }
+      // XMLHttpRequest 请求
+      function XHR() {
+          var textStatus;
+          return new Promise(function (resolve, reject) {
+              // GET/HEAD 请求的缓存处理
+              if (isQueryStringData(method) && !cache) {
+                  url = appendQuery(url, ("_=" + (Date.now())));
+              }
+              // 创建 XHR
+              var xhr = new XMLHttpRequest();
+              xhr.open(method, url, async, username, password);
+              if (contentType ||
+                  (data && !isQueryStringData(method) && contentType !== false)) {
+                  xhr.setRequestHeader('Content-Type', contentType);
+              }
+              // 设置 Accept
+              if (dataType === 'json') {
+                  xhr.setRequestHeader('Accept', 'application/json, text/javascript');
+              }
+              // 添加 headers
+              if (headers) {
+                  each(headers, function (key, value) {
+                      // undefined 值不发送，string 和 null 需要发送
+                      if (!isUndefined(value)) {
+                          xhr.setRequestHeader(key, value + ''); // 把 null 转换成字符串
+                      }
+                  });
+              }
+              // 检查是否是跨域请求，跨域请求时不添加 X-Requested-With
+              var crossDomain = /^([\w-]+:)?\/\/([^/]+)/.test(url) &&
+                  RegExp.$2 !== window.location.host;
+              if (!crossDomain) {
+                  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+              }
+              if (xhrFields) {
+                  each(xhrFields, function (key, value) {
+                      // @ts-ignore
+                      xhr[key] = value;
+                  });
+              }
+              eventParams.xhr = xhr;
+              eventParams.options = mergedOptions;
+              var xhrTimeout;
+              xhr.onload = function () {
+                  if (xhrTimeout) {
+                      clearTimeout(xhrTimeout);
+                  }
+                  // AJAX 返回的 HTTP 响应码是否表示成功
+                  var isHttpStatusSuccess = (xhr.status >= 200 && xhr.status < 300) ||
+                      xhr.status === 304 ||
+                      xhr.status === 0;
+                  var responseData;
+                  if (isHttpStatusSuccess) {
+                      if (xhr.status === 204 || method === 'HEAD') {
+                          textStatus = 'nocontent';
+                      }
+                      else if (xhr.status === 304) {
+                          textStatus = 'notmodified';
+                      }
+                      else {
+                          textStatus = 'success';
+                      }
+                      if (dataType === 'json') {
+                          try {
+                              responseData =
+                                  method === 'HEAD' ? undefined : JSON.parse(xhr.responseText);
+                              eventParams.data = responseData;
+                          }
+                          catch (err) {
+                              textStatus = 'parsererror';
+                              trigger(ajaxEvents.ajaxError, eventParams, 'error', xhr, textStatus);
+                              reject(new Error(textStatus));
+                          }
+                          if (textStatus !== 'parsererror') {
+                              trigger(ajaxEvents.ajaxSuccess, eventParams, 'success', responseData, textStatus, xhr);
+                              resolve(responseData);
+                          }
+                      }
+                      else {
+                          responseData =
+                              method === 'HEAD'
+                                  ? undefined
+                                  : xhr.responseType === 'text' || xhr.responseType === ''
+                                      ? xhr.responseText
+                                      : xhr.response;
+                          eventParams.data = responseData;
+                          trigger(ajaxEvents.ajaxSuccess, eventParams, 'success', responseData, textStatus, xhr);
+                          resolve(responseData);
+                      }
+                  }
+                  else {
+                      textStatus = 'error';
+                      trigger(ajaxEvents.ajaxError, eventParams, 'error', xhr, textStatus);
+                      reject(new Error(textStatus));
+                  }
+                  // statusCode
+                  each([globalOptions.statusCode, statusCode], function (_, func) {
+                      if (func && func[xhr.status]) {
+                          if (isHttpStatusSuccess) {
+                              func[xhr.status](responseData, textStatus, xhr);
+                          }
+                          else {
+                              func[xhr.status](xhr, textStatus);
+                          }
+                      }
+                  });
+                  trigger(ajaxEvents.ajaxComplete, eventParams, 'complete', xhr, textStatus);
+              };
+              xhr.onerror = function () {
+                  if (xhrTimeout) {
+                      clearTimeout(xhrTimeout);
+                  }
+                  trigger(ajaxEvents.ajaxError, eventParams, 'error', xhr, xhr.statusText);
+                  trigger(ajaxEvents.ajaxComplete, eventParams, 'complete', xhr, 'error');
+                  reject(new Error(xhr.statusText));
+              };
+              xhr.onabort = function () {
+                  var statusText = 'abort';
+                  if (xhrTimeout) {
+                      statusText = 'timeout';
+                      clearTimeout(xhrTimeout);
+                  }
+                  trigger(ajaxEvents.ajaxError, eventParams, 'error', xhr, statusText);
+                  trigger(ajaxEvents.ajaxComplete, eventParams, 'complete', xhr, statusText);
+                  reject(new Error(statusText));
+              };
+              // ajax start 回调
+              trigger(ajaxEvents.ajaxStart, eventParams, 'beforeSend', xhr);
+              if (isCanceled) {
+                  reject(new Error('cancel'));
+                  return;
+              }
+              // Timeout
+              if (timeout > 0) {
+                  xhrTimeout = setTimeout(function () {
+                      xhr.abort();
+                  }, timeout);
+              }
+              // 发送 XHR
+              xhr.send(data);
+          });
+      }
+      return XHR();
+  }
+
+  $.ajax = ajax;
+
+  /**
+   * 为 Ajax 请求设置全局配置参数
+   * @param options 键值对参数
+   * @example
+  ```js
+  ajaxSetup({
+    dataType: 'json',
+    method: 'POST',
+  });
+  ```
+   */
+  function ajaxSetup(options) {
+      return extend(globalOptions, options);
+  }
+
+  $.ajaxSetup = ajaxSetup;
+
+  $.contains = contains;
+
+  var dataNS = '_mduiElementDataStorage';
+
+  /**
+   * 在元素上设置键值对数据
+   * @param element
+   * @param object
+   */
+  function setObjectToElement(element, object) {
+      // @ts-ignore
+      if (!element[dataNS]) {
+          // @ts-ignore
+          element[dataNS] = {};
+      }
+      each(object, function (key, value) {
+          // @ts-ignore
+          element[dataNS][toCamelCase(key)] = value;
+      });
+  }
+  function data(element, key, value) {
+      var obj;
+
+      // 根据键值对设置值
+      // data(element, { 'key' : 'value' })
+      if (isObjectLike(key)) {
+          setObjectToElement(element, key);
+          return key;
+      }
+      // 根据 key、value 设置值
+      // data(element, 'key', 'value')
+      if (!isUndefined(value)) {
+          setObjectToElement(element, ( obj = {}, obj[key] = value, obj ));
+          return value;
+      }
+      // 获取所有值
+      // data(element)
+      if (isUndefined(key)) {
+          // @ts-ignore
+          return element[dataNS] ? element[dataNS] : {};
+      }
+      // 从 dataNS 中获取指定值
+      // data(element, 'key')
+      key = toCamelCase(key);
+      // @ts-ignore
+      if (element[dataNS] && key in element[dataNS]) {
+          // @ts-ignore
+          return element[dataNS][key];
+      }
+      return undefined;
+  }
+
+  $.data = data;
+
+  $.each = each;
+
+  $.extend = function () {
+      var this$1 = this;
+      var objectN = [], len = arguments.length;
+      while ( len-- ) objectN[ len ] = arguments[ len ];
+
+      if (objectN.length === 1) {
+          each(objectN[0], function (prop, value) {
+              this$1[prop] = value;
+          });
+          return this;
+      }
+      return extend.apply(void 0, [ objectN.shift(), objectN.shift() ].concat( objectN ));
+  };
+
+  function map(elements, callback) {
+      var ref;
+
+      var value;
+      var ret = [];
+      each(elements, function (i, element) {
+          value = callback.call(window, element, i);
+          if (value != null) {
+              ret.push(value);
+          }
+      });
+      return (ref = []).concat.apply(ref, ret);
+  }
+
+  $.map = map;
+
+  $.merge = merge;
+
+  $.param = param;
+
+  /**
+   * 移除指定元素上存放的数据
+   * @param element 存放数据的元素
+   * @param name
+   * 数据键名
+   *
+   * 若未指定键名，将移除元素上所有数据
+   *
+   * 多个键名可以用空格分隔，或者用数组表示多个键名
+    @example
+  ```js
+  // 移除元素上键名为 name 的数据
+  removeData(document.body, 'name');
+  ```
+   * @example
+  ```js
+  // 移除元素上键名为 name1 和 name2 的数据
+  removeData(document.body, 'name1 name2');
+  ```
+   * @example
+  ```js
+  // 移除元素上键名为 name1 和 name2 的数据
+  removeData(document.body, ['name1', 'name2']);
+  ```
+   * @example
+  ```js
+  // 移除元素上所有数据
+  removeData(document.body);
+  ```
+   */
+  function removeData(element, name) {
+      // @ts-ignore
+      if (!element[dataNS]) {
+          return;
+      }
+      var remove = function (nameItem) {
+          nameItem = toCamelCase(nameItem);
+          // @ts-ignore
+          if (element[dataNS][nameItem]) {
+              // @ts-ignore
+              element[dataNS][nameItem] = null;
+              // @ts-ignore
+              delete element[dataNS][nameItem];
+          }
+      };
+      if (isUndefined(name)) {
+          // @ts-ignore
+          element[dataNS] = null;
+          // @ts-ignore
+          delete element[dataNS];
+          // @ts-ignore
+      }
+      else if (isString(name)) {
+          name
+              .split(' ')
+              .filter(function (nameItem) { return nameItem; })
+              .forEach(function (nameItem) { return remove(nameItem); });
+      }
+      else {
+          each(name, function (_, nameItem) { return remove(nameItem); });
+      }
+  }
+
+  $.removeData = removeData;
+
+  /**
+   * 过滤掉数组中的重复元素
+   * @param arr 数组
+   * @example
+  ```js
+  unique([1, 2, 12, 3, 2, 1, 2, 1, 1]);
+  // [1, 2, 12, 3]
+  ```
+   */
+  function unique(arr) {
+      var result = [];
+      each(arr, function (_, val) {
+          if (result.indexOf(val) === -1) {
+              result.push(val);
+          }
+      });
+      return result;
+  }
+
+  $.unique = unique;
+
+  $.fn.add = function (selector) {
+      return new JQ(unique(merge(this.get(), $(selector).get())));
+  };
+
+  each(['add', 'remove', 'toggle'], function (_, name) {
+      $.fn[(name + "Class")] = function (className) {
+          if (name === 'remove' && !arguments.length) {
+              return this.each(function (_, element) {
+                  element.setAttribute('class', '');
+              });
+          }
+          return this.each(function (i, element) {
+              if (!isElement(element)) {
+                  return;
+              }
+              var classes = (isFunction(className)
+                  ? className.call(element, i, element.getAttribute('class') || '')
+                  : className)
+                  .split(' ')
+                  .filter(function (name) { return name; });
+              each(classes, function (_, cls) {
+                  element.classList[name](cls);
+              });
+          });
+      };
+  });
+
+  each(['insertBefore', 'insertAfter'], function (nameIndex, name) {
+      $.fn[name] = function (target) {
+          var $element = nameIndex ? $(this.get().reverse()) : this; // 顺序和 jQuery 保持一致
+          var $target = $(target);
+          var result = [];
+          $target.each(function (index, target) {
+              if (!target.parentNode) {
+                  return;
+              }
+              $element.each(function (_, element) {
+                  var newItem = index
+                      ? element.cloneNode(true)
+                      : element;
+                  var existingItem = nameIndex ? target.nextSibling : target;
+                  result.push(newItem);
+                  target.parentNode.insertBefore(newItem, existingItem);
+              });
+          });
+          return $(nameIndex ? result.reverse() : result);
+      };
+  });
+
+  /**
+   * 是否不是 HTML 字符串（包裹在 <> 中）
+   * @param target
+   */
+  function isPlainText(target) {
+      return (isString(target) && (target[0] !== '<' || target[target.length - 1] !== '>'));
+  }
+  each(['before', 'after'], function (nameIndex, name) {
+      $.fn[name] = function () {
+          var args = [], len = arguments.length;
+          while ( len-- ) args[ len ] = arguments[ len ];
+
+          // after 方法，多个参数需要按参数顺序添加到元素后面，所以需要将参数顺序反向处理
+          if (nameIndex === 1) {
+              args = args.reverse();
+          }
+          return this.each(function (index, element) {
+              var targets = isFunction(args[0])
+                  ? [args[0].call(element, index, element.innerHTML)]
+                  : args;
+              each(targets, function (_, target) {
+                  var $target;
+                  if (isPlainText(target)) {
+                      $target = $(getChildNodesArray(target, 'div'));
+                  }
+                  else if (index && isElement(target)) {
+                      $target = $(target.cloneNode(true));
+                  }
+                  else {
+                      $target = $(target);
+                  }
+                  $target[nameIndex ? 'insertAfter' : 'insertBefore'](element);
+              });
+          });
+      };
+  });
+
+  $.fn.off = function (types, selector, callback) {
+      var this$1 = this;
+
+      // types 是对象
+      if (isObjectLike(types)) {
+          each(types, function (type, fn) {
+              // this.off('click', undefined, function () {})
+              // this.off('click', '.box', function () {})
+              this$1.off(type, selector, fn);
+          });
+          return this;
+      }
+      // selector 不存在
+      if (selector === false || isFunction(selector)) {
+          callback = selector;
+          selector = undefined;
+          // this.off('click', undefined, function () {})
+      }
+      // callback 传入 `false`，相当于 `return false`
+      if (callback === false) {
+          callback = returnFalse;
+      }
+      return this.each(function () {
+          remove(this, types, callback, selector);
+      });
+  };
+
+  $.fn.on = function (types, selector, data, callback, one) {
+      var this$1 = this;
+
+      // types 可以是 type/func 对象
+      if (isObjectLike(types)) {
+          // (types-Object, selector, data)
+          if (!isString(selector)) {
+              // (types-Object, data)
+              data = data || selector;
+              selector = undefined;
+          }
+          each(types, function (type, fn) {
+              // selector 和 data 都可能是 undefined
+              // @ts-ignore
+              this$1.on(type, selector, data, fn, one);
+          });
+          return this;
+      }
+      if (data == null && callback == null) {
+          // (types, fn)
+          callback = selector;
+          data = selector = undefined;
+      }
+      else if (callback == null) {
+          if (isString(selector)) {
+              // (types, selector, fn)
+              callback = data;
+              data = undefined;
+          }
+          else {
+              // (types, data, fn)
+              callback = data;
+              data = selector;
+              selector = undefined;
+          }
+      }
+      if (callback === false) {
+          callback = returnFalse;
+      }
+      else if (!callback) {
+          return this;
+      }
+      // $().one()
+      if (one) {
+          // eslint-disable-next-line @typescript-eslint/no-this-alias
+          var _this = this;
+          var origCallback = callback;
+          callback = function (event) {
+              _this.off(event.type, selector, callback);
+              // eslint-disable-next-line prefer-rest-params
+              return origCallback.apply(this, arguments);
+          };
+      }
+      return this.each(function () {
+          add(this, types, callback, data, selector);
+      });
+  };
+
+  each(ajaxEvents, function (name, eventName) {
+      $.fn[name] = function (fn) {
+          return this.on(eventName, function (e, params) {
+              fn(e, params.xhr, params.options, params.data);
+          });
+      };
+  });
+
+  $.fn.map = function (callback) {
+      return new JQ(map(this, function (element, i) { return callback.call(element, i, element); }));
+  };
+
+  $.fn.clone = function () {
+      return this.map(function () {
+          return this.cloneNode(true);
+      });
+  };
+
+  $.fn.is = function (selector) {
+      var isMatched = false;
+      if (isFunction(selector)) {
+          this.each(function (index, element) {
+              if (selector.call(element, index, element)) {
+                  isMatched = true;
+              }
+          });
+          return isMatched;
+      }
+      if (isString(selector)) {
+          this.each(function (_, element) {
+              if (isDocument(element) || isWindow(element)) {
+                  return;
+              }
+              // @ts-ignore
+              var matches = element.matches || element.msMatchesSelector;
+              if (matches.call(element, selector)) {
+                  isMatched = true;
+              }
+          });
+          return isMatched;
+      }
+      var $compareWith = $(selector);
+      this.each(function (_, element) {
+          $compareWith.each(function (_, compare) {
+              if (element === compare) {
+                  isMatched = true;
+              }
+          });
+      });
+      return isMatched;
+  };
+
+  $.fn.remove = function (selector) {
+      return this.each(function (_, element) {
+          if (element.parentNode && (!selector || $(element).is(selector))) {
+              element.parentNode.removeChild(element);
+          }
+      });
+  };
+
+  each(['prepend', 'append'], function (nameIndex, name) {
+      $.fn[name] = function () {
+          var args = [], len = arguments.length;
+          while ( len-- ) args[ len ] = arguments[ len ];
+
+          return this.each(function (index, element) {
+              var ref;
+
+              var childNodes = element.childNodes;
+              var childLength = childNodes.length;
+              var child = childLength
+                  ? childNodes[nameIndex ? childLength - 1 : 0]
+                  : document.createElement('div');
+              if (!childLength) {
+                  element.appendChild(child);
+              }
+              var contents = isFunction(args[0])
+                  ? [args[0].call(element, index, element.innerHTML)]
+                  : args;
+              // 如果不是字符串，则仅第一个元素使用原始元素，其他的都克隆自第一个元素
+              if (index) {
+                  contents = contents.map(function (content) {
+                      return isString(content) ? content : $(content).clone();
+                  });
+              }
+              (ref = $(child))[nameIndex ? 'after' : 'before'].apply(ref, contents);
+              if (!childLength) {
+                  element.removeChild(child);
+              }
+          });
+      };
+  });
+
+  each(['appendTo', 'prependTo'], function (nameIndex, name) {
+      $.fn[name] = function (target) {
+          var extraChilds = [];
+          var $target = $(target).map(function (_, element) {
+              var childNodes = element.childNodes;
+              var childLength = childNodes.length;
+              if (childLength) {
+                  return childNodes[nameIndex ? 0 : childLength - 1];
+              }
+              var child = document.createElement('div');
+              element.appendChild(child);
+              extraChilds.push(child);
+              return child;
+          });
+          var $result = this[nameIndex ? 'insertBefore' : 'insertAfter']($target);
+          $(extraChilds).remove();
+          return $result;
+      };
+  });
+
+  each(['attr', 'prop', 'css'], function (nameIndex, name) {
+      function set(element, key, value) {
+          // 值为 undefined 时，不修改
+          if (isUndefined(value)) {
+              return;
+          }
+          switch (nameIndex) {
+              // attr
+              case 0:
+                  if (isNull(value)) {
+                      element.removeAttribute(key);
+                  }
+                  else {
+                      element.setAttribute(key, value);
+                  }
+                  break;
+              // prop
+              case 1:
+                  // @ts-ignore
+                  element[key] = value;
+                  break;
+              // css
+              default:
+                  key = toCamelCase(key);
+                  // @ts-ignore
+                  element.style[key] = isNumber(value)
+                      ? ("" + value + (cssNumber.indexOf(key) > -1 ? '' : 'px'))
+                      : value;
+                  break;
+          }
+      }
+      function get(element, key) {
+          switch (nameIndex) {
+              // attr
+              case 0:
+                  // 属性不存在时，原生 getAttribute 方法返回 null，而 jquery 返回 undefined。这里和 jquery 保持一致
+                  var value = element.getAttribute(key);
+                  return isNull(value) ? undefined : value;
+              // prop
+              case 1:
+                  // @ts-ignore
+                  return element[key];
+              // css
+              default:
+                  return getStyle(element, key);
+          }
+      }
+      $.fn[name] = function (key, value) {
+          var this$1 = this;
+
+          if (isObjectLike(key)) {
+              each(key, function (k, v) {
+                  // @ts-ignore
+                  this$1[name](k, v);
+              });
+              return this;
+          }
+          if (arguments.length === 1) {
+              var element = this[0];
+              return isElement(element) ? get(element, key) : undefined;
+          }
+          return this.each(function (i, element) {
+              set(element, key, isFunction(value) ? value.call(element, i, get(element, key)) : value);
+          });
+      };
+  });
+
+  $.fn.children = function (selector) {
+      var children = [];
+      this.each(function (_, element) {
+          each(element.childNodes, function (__, childNode) {
+              if (!isElement(childNode)) {
+                  return;
+              }
+              if (!selector || $(childNode).is(selector)) {
+                  children.push(childNode);
+              }
+          });
+      });
+      return new JQ(unique(children));
+  };
+
+  $.fn.slice = function () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      return new JQ([].slice.apply(this, args));
+  };
+
+  $.fn.eq = function (index) {
+      var ret = index === -1 ? this.slice(index) : this.slice(index, +index + 1);
+      return new JQ(ret);
+  };
+
+  function dir($elements, nameIndex, node, selector, filter) {
+      var ret = [];
+      var target;
+      $elements.each(function (_, element) {
+          target = element[node];
+          // 不能包含最顶层的 document 元素
+          while (target && isElement(target)) {
+              // prevUntil, nextUntil, parentsUntil
+              if (nameIndex === 2) {
+                  if (selector && $(target).is(selector)) {
+                      break;
+                  }
+                  if (!filter || $(target).is(filter)) {
+                      ret.push(target);
+                  }
+              }
+              // prev, next, parent
+              else if (nameIndex === 0) {
+                  if (!selector || $(target).is(selector)) {
+                      ret.push(target);
+                  }
+                  break;
+              }
+              // prevAll, nextAll, parents
+              else {
+                  if (!selector || $(target).is(selector)) {
+                      ret.push(target);
+                  }
+              }
+              // @ts-ignore
+              target = target[node];
+          }
+      });
+      return new JQ(unique(ret));
+  }
+
+  each(['', 's', 'sUntil'], function (nameIndex, name) {
+      $.fn[("parent" + name)] = function (selector, filter) {
+          // parents、parentsUntil 需要把元素的顺序反向处理，以便和 jQuery 的结果一致
+          var $nodes = !nameIndex ? this : $(this.get().reverse());
+          return dir($nodes, nameIndex, 'parentNode', selector, filter);
+      };
+  });
+
+  $.fn.closest = function (selector) {
+      if (this.is(selector)) {
+          return this;
+      }
+      var matched = [];
+      this.parents().each(function (_, element) {
+          if ($(element).is(selector)) {
+              matched.push(element);
+              return false;
+          }
+      });
+      return new JQ(matched);
+  };
+
+  var rbrace = /^(?:{[\w\W]*\}|\[[\w\W]*\])$/;
+  // 从 `data-*` 中获取的值，需要经过该函数转换
+  function getData(value) {
+      if (value === 'true') {
+          return true;
+      }
+      if (value === 'false') {
+          return false;
+      }
+      if (value === 'null') {
+          return null;
+      }
+      if (value === +value + '') {
+          return +value;
+      }
+      if (rbrace.test(value)) {
+          return JSON.parse(value);
+      }
+      return value;
+  }
+  // 若 value 不存在，则从 `data-*` 中获取值
+  function dataAttr(element, key, value) {
+      if (isUndefined(value) && element.nodeType === 1) {
+          var name = 'data-' + toKebabCase(key);
+          value = element.getAttribute(name);
+          if (isString(value)) {
+              try {
+                  value = getData(value);
+              }
+              catch (e) { }
+          }
+          else {
+              value = undefined;
+          }
+      }
+      return value;
+  }
+  $.fn.data = function (key, value) {
+      // 获取所有值
+      if (isUndefined(key)) {
+          if (!this.length) {
+              return undefined;
+          }
+          var element = this[0];
+          var resultData = data(element);
+          // window, document 上不存在 `data-*` 属性
+          if (element.nodeType !== 1) {
+              return resultData;
+          }
+          // 从 `data-*` 中获取值
+          var attrs = element.attributes;
+          var i = attrs.length;
+          while (i--) {
+              if (attrs[i]) {
+                  var name = attrs[i].name;
+                  if (name.indexOf('data-') === 0) {
+                      name = toCamelCase(name.slice(5));
+                      resultData[name] = dataAttr(element, name, resultData[name]);
+                  }
+              }
+          }
+          return resultData;
+      }
+      // 同时设置多个值
+      if (isObjectLike(key)) {
+          return this.each(function () {
+              data(this, key);
+          });
+      }
+      // value 传入了 undefined
+      if (arguments.length === 2 && isUndefined(value)) {
+          return this;
+      }
+      // 设置值
+      if (!isUndefined(value)) {
+          return this.each(function () {
+              data(this, key, value);
+          });
+      }
+      // 获取值
+      if (!this.length) {
+          return undefined;
+      }
+      return dataAttr(this[0], key, data(this[0], key));
+  };
+
+  $.fn.empty = function () {
+      return this.each(function () {
+          this.innerHTML = '';
+      });
+  };
+
+  $.fn.extend = function (obj) {
+      each(obj, function (prop, value) {
+          // 在 JQ 对象上扩展方法时，需要自己添加 typescript 的类型定义
+          $.fn[prop] = value;
+      });
+      return this;
+  };
+
+  $.fn.filter = function (selector) {
+      if (isFunction(selector)) {
+          return this.map(function (index, element) { return selector.call(element, index, element) ? element : undefined; });
+      }
+      if (isString(selector)) {
+          return this.map(function (_, element) { return $(element).is(selector) ? element : undefined; });
+      }
+      var $selector = $(selector);
+      return this.map(function (_, element) { return $selector.get().indexOf(element) > -1 ? element : undefined; });
+  };
+
+  $.fn.first = function () {
+      return this.eq(0);
+  };
+
+  $.fn.has = function (selector) {
+      var $targets = isString(selector) ? this.find(selector) : $(selector);
+      var length = $targets.length;
+      return this.map(function () {
+          for (var i = 0; i < length; i += 1) {
+              if (contains(this, $targets[i])) {
+                  return this;
+              }
+          }
+          return;
+      });
+  };
+
+  $.fn.hasClass = function (className) {
+      return this[0].classList.contains(className);
+  };
+
+  /**
+   * 值上面的 padding、border、margin 处理
+   * @param element
+   * @param name
+   * @param value
+   * @param funcIndex
+   * @param includeMargin
+   * @param multiply
+   */
+  function handleExtraWidth(element, name, value, funcIndex, includeMargin, multiply) {
+      // 获取元素的 padding, border, margin 宽度（两侧宽度的和）
+      var getExtraWidthValue = function (extra) {
+          return (getExtraWidth(element, name.toLowerCase(), extra) *
+              multiply);
+      };
+      if (funcIndex === 2 && includeMargin) {
+          value += getExtraWidthValue('margin');
+      }
+      if (isBorderBox(element)) {
+          // IE 为 box-sizing: border-box 时，得到的值不含 border 和 padding，这里先修复
+          // 仅获取时需要处理，multiply === 1 为 get
+          if (isIE() && multiply === 1) {
+              value += getExtraWidthValue('border');
+              value += getExtraWidthValue('padding');
+          }
+          if (funcIndex === 0) {
+              value -= getExtraWidthValue('border');
+          }
+          if (funcIndex === 1) {
+              value -= getExtraWidthValue('border');
+              value -= getExtraWidthValue('padding');
+          }
+      }
+      else {
+          if (funcIndex === 0) {
+              value += getExtraWidthValue('padding');
+          }
+          if (funcIndex === 2) {
+              value += getExtraWidthValue('border');
+              value += getExtraWidthValue('padding');
+          }
+      }
+      return value;
+  }
+  /**
+   * 获取元素的样式值
+   * @param element
+   * @param name
+   * @param funcIndex 0: innerWidth, innerHeight; 1: width, height; 2: outerWidth, outerHeight
+   * @param includeMargin
+   */
+  function get(element, name, funcIndex, includeMargin) {
+      var clientProp = "client" + name;
+      var scrollProp = "scroll" + name;
+      var offsetProp = "offset" + name;
+      var innerProp = "inner" + name;
+      // $(window).width()
+      if (isWindow(element)) {
+          // outerWidth, outerHeight 需要包含滚动条的宽度
+          return funcIndex === 2
+              ? element[innerProp]
+              : toElement(document)[clientProp];
+      }
+      // $(document).width()
+      if (isDocument(element)) {
+          var doc = toElement(element);
+          return Math.max(
+          // @ts-ignore
+          element.body[scrollProp], doc[scrollProp], 
+          // @ts-ignore
+          element.body[offsetProp], doc[offsetProp], doc[clientProp]);
+      }
+      var value = parseFloat(getComputedStyleValue(element, name.toLowerCase()) || '0');
+      return handleExtraWidth(element, name, value, funcIndex, includeMargin, 1);
+  }
+  /**
+   * 设置元素的样式值
+   * @param element
+   * @param elementIndex
+   * @param name
+   * @param funcIndex 0: innerWidth, innerHeight; 1: width, height; 2: outerWidth, outerHeight
+   * @param includeMargin
+   * @param value
+   */
+  function set(element, elementIndex, name, funcIndex, includeMargin, value) {
+      var computedValue = isFunction(value)
+          ? value.call(element, elementIndex, get(element, name, funcIndex, includeMargin))
+          : value;
+      if (computedValue == null) {
+          return;
+      }
+      var $element = $(element);
+      var dimension = name.toLowerCase();
+      // 特殊的值，不需要计算 padding、border、margin
+      if (['auto', 'inherit', ''].indexOf(computedValue) > -1) {
+          $element.css(dimension, computedValue);
+          return;
+      }
+      // 其他值保留原始单位。注意：如果不使用 px 作为单位，则算出的值一般是不准确的
+      var suffix = computedValue.toString().replace(/\b[0-9.]*/, '');
+      var numerical = parseFloat(computedValue);
+      computedValue =
+          handleExtraWidth(element, name, numerical, funcIndex, includeMargin, -1) +
+              (suffix || 'px');
+      $element.css(dimension, computedValue);
+  }
+  each(['Width', 'Height'], function (_, name) {
+      each([("inner" + name), name.toLowerCase(), ("outer" + name)], function (funcIndex, funcName) {
+          $.fn[funcName] = function (margin, value) {
+              // 是否是赋值操作
+              var isSet = arguments.length && (funcIndex < 2 || !isBoolean(margin));
+              var includeMargin = margin === true || value === true;
+              // 获取第一个元素的值
+              if (!isSet) {
+                  return this.length
+                      ? get(this[0], name, funcIndex, includeMargin)
+                      : undefined;
+              }
+              // 设置每个元素的值
+              return this.each(function (index, element) { return set(element, index, name, funcIndex, includeMargin, margin); });
+          };
+      });
+  });
+
+  $.fn.hide = function () {
+      return this.each(function () {
+          this.style.display = 'none';
+      });
+  };
+
+  each(['val', 'html', 'text'], function (nameIndex, name) {
+      var props = {
+          0: 'value',
+          1: 'innerHTML',
+          2: 'textContent',
+      };
+      var propName = props[nameIndex];
+      function get($elements) {
+          // text() 获取所有元素的文本
+          if (nameIndex === 2) {
+              // @ts-ignore
+              return map($elements, function (element) { return toElement(element)[propName]; }).join('');
+          }
+          // 空集合时，val() 和 html() 返回 undefined
+          if (!$elements.length) {
+              return undefined;
+          }
+          // val() 和 html() 仅获取第一个元素的内容
+          var firstElement = $elements[0];
+          // select multiple 返回数组
+          if (nameIndex === 0 && $(firstElement).is('select[multiple]')) {
+              return map($(firstElement).find('option:checked'), function (element) { return element.value; });
+          }
+          // @ts-ignore
+          return firstElement[propName];
+      }
+      function set(element, value) {
+          // text() 和 html() 赋值为 undefined，则保持原内容不变
+          // val() 赋值为 undefined 则赋值为空
+          if (isUndefined(value)) {
+              if (nameIndex !== 0) {
+                  return;
+              }
+              value = '';
+          }
+          if (nameIndex === 1 && isElement(value)) {
+              value = value.outerHTML;
+          }
+          // @ts-ignore
+          element[propName] = value;
+      }
+      $.fn[name] = function (value) {
+          // 获取值
+          if (!arguments.length) {
+              return get(this);
+          }
+          // 设置值
+          return this.each(function (i, element) {
+              var computedValue = isFunction(value)
+                  ? value.call(element, i, get($(element)))
+                  : value;
+              // value 是数组，则选中数组中的元素，反选不在数组中的元素
+              if (nameIndex === 0 && Array.isArray(computedValue)) {
+                  // select[multiple]
+                  if ($(element).is('select[multiple]')) {
+                      map($(element).find('option'), function (option) { return (option.selected =
+                          computedValue.indexOf(option.value) >
+                              -1); });
+                  }
+                  // 其他 checkbox, radio 等元素
+                  else {
+                      element.checked =
+                          computedValue.indexOf(element.value) > -1;
+                  }
+              }
+              else {
+                  set(element, computedValue);
+              }
+          });
+      };
+  });
+
+  $.fn.index = function (selector) {
+      if (!arguments.length) {
+          return this.eq(0).parent().children().get().indexOf(this[0]);
+      }
+      if (isString(selector)) {
+          return $(selector).get().indexOf(this[0]);
+      }
+      return this.get().indexOf($(selector)[0]);
+  };
+
+  $.fn.last = function () {
+      return this.eq(-1);
+  };
+
+  each(['', 'All', 'Until'], function (nameIndex, name) {
+      $.fn[("next" + name)] = function (selector, filter) {
+          return dir(this, nameIndex, 'nextElementSibling', selector, filter);
+      };
+  });
+
+  $.fn.not = function (selector) {
+      var $excludes = this.filter(selector);
+      return this.map(function (_, element) { return $excludes.index(element) > -1 ? undefined : element; });
+  };
+
+  /**
+   * 返回最近的用于定位的父元素
+   */
+  $.fn.offsetParent = function () {
+      return this.map(function () {
+          var offsetParent = this.offsetParent;
+          while (offsetParent && $(offsetParent).css('position') === 'static') {
+              offsetParent = offsetParent.offsetParent;
+          }
+          return offsetParent || document.documentElement;
+      });
+  };
+
+  function floatStyle($element, name) {
+      return parseFloat($element.css(name));
+  }
+  $.fn.position = function () {
+      if (!this.length) {
+          return undefined;
+      }
+      var $element = this.eq(0);
+      var currentOffset;
+      var parentOffset = {
+          left: 0,
+          top: 0,
+      };
+      if ($element.css('position') === 'fixed') {
+          currentOffset = $element[0].getBoundingClientRect();
+      }
+      else {
+          currentOffset = $element.offset();
+          var $offsetParent = $element.offsetParent();
+          parentOffset = $offsetParent.offset();
+          parentOffset.top += floatStyle($offsetParent, 'border-top-width');
+          parentOffset.left += floatStyle($offsetParent, 'border-left-width');
+      }
+      return {
+          top: currentOffset.top - parentOffset.top - floatStyle($element, 'margin-top'),
+          left: currentOffset.left -
+              parentOffset.left -
+              floatStyle($element, 'margin-left'),
+      };
+  };
+
+  function get$1(element) {
+      if (!element.getClientRects().length) {
+          return { top: 0, left: 0 };
+      }
+      var rect = element.getBoundingClientRect();
+      var win = element.ownerDocument.defaultView;
+      return {
+          top: rect.top + win.pageYOffset,
+          left: rect.left + win.pageXOffset,
+      };
+  }
+  function set$1(element, value, index) {
+      var $element = $(element);
+      var position = $element.css('position');
+      if (position === 'static') {
+          $element.css('position', 'relative');
+      }
+      var currentOffset = get$1(element);
+      var currentTopString = $element.css('top');
+      var currentLeftString = $element.css('left');
+      var currentTop;
+      var currentLeft;
+      var calculatePosition = (position === 'absolute' || position === 'fixed') &&
+          (currentTopString + currentLeftString).indexOf('auto') > -1;
+      if (calculatePosition) {
+          var currentPosition = $element.position();
+          currentTop = currentPosition.top;
+          currentLeft = currentPosition.left;
+      }
+      else {
+          currentTop = parseFloat(currentTopString);
+          currentLeft = parseFloat(currentLeftString);
+      }
+      var computedValue = isFunction(value)
+          ? value.call(element, index, extend({}, currentOffset))
+          : value;
+      $element.css({
+          top: computedValue.top != null
+              ? computedValue.top - currentOffset.top + currentTop
+              : undefined,
+          left: computedValue.left != null
+              ? computedValue.left - currentOffset.left + currentLeft
+              : undefined,
+      });
+  }
+  $.fn.offset = function (value) {
+      // 获取坐标
+      if (!arguments.length) {
+          if (!this.length) {
+              return undefined;
+          }
+          return get$1(this[0]);
+      }
+      // 设置坐标
+      return this.each(function (index) {
+          set$1(this, value, index);
+      });
+  };
+
+  $.fn.one = function (types, selector, data, callback) {
+      // @ts-ignore
+      return this.on(types, selector, data, callback, true);
+  };
+
+  each(['', 'All', 'Until'], function (nameIndex, name) {
+      $.fn[("prev" + name)] = function (selector, filter) {
+          // prevAll、prevUntil 需要把元素的顺序倒序处理，以便和 jQuery 的结果一致
+          var $nodes = !nameIndex ? this : $(this.get().reverse());
+          return dir($nodes, nameIndex, 'previousElementSibling', selector, filter);
+      };
+  });
+
+  $.fn.removeAttr = function (attributeName) {
+      var names = attributeName.split(' ').filter(function (name) { return name; });
+      return this.each(function () {
+          var this$1 = this;
+
+          each(names, function (_, name) {
+              this$1.removeAttribute(name);
+          });
+      });
+  };
+
+  $.fn.removeData = function (name) {
+      return this.each(function () {
+          removeData(this, name);
+      });
+  };
+
+  $.fn.removeProp = function (name) {
+      return this.each(function () {
+          try {
+              // @ts-ignore
+              delete this[name];
+          }
+          catch (e) { }
+      });
+  };
+
+  $.fn.replaceWith = function (newContent) {
+      this.each(function (index, element) {
+          var content = newContent;
+          if (isFunction(content)) {
+              content = content.call(element, index, element.innerHTML);
+          }
+          else if (index && !isString(content)) {
+              content = $(content).clone();
+          }
+          $(element).before(content);
+      });
+      return this.remove();
+  };
+
+  $.fn.replaceAll = function (target) {
+      var this$1 = this;
+
+      return $(target).map(function (index, element) {
+          $(element).replaceWith(index ? this$1.clone() : this$1);
+          return this$1.get();
+      });
+  };
+
+  /**
+   * 将表单元素的值组合成键值对数组
+   * @returns {Array}
+   */
+  $.fn.serializeArray = function () {
+      var result = [];
+      this.each(function (_, element) {
+          var elements = element instanceof HTMLFormElement ? element.elements : [element];
+          $(elements).each(function (_, element) {
+              var $element = $(element);
+              var type = element.type;
+              var nodeName = element.nodeName.toLowerCase();
+              if (nodeName !== 'fieldset' &&
+                  element.name &&
+                  !element.disabled &&
+                  ['input', 'select', 'textarea', 'keygen'].indexOf(nodeName) > -1 &&
+                  ['submit', 'button', 'image', 'reset', 'file'].indexOf(type) === -1 &&
+                  (['radio', 'checkbox'].indexOf(type) === -1 ||
+                      element.checked)) {
+                  var value = $element.val();
+                  var valueArr = Array.isArray(value) ? value : [value];
+                  valueArr.forEach(function (value) {
+                      result.push({
+                          name: element.name,
+                          value: value,
+                      });
+                  });
+              }
+          });
+      });
+      return result;
+  };
+
+  $.fn.serialize = function () {
+      return param(this.serializeArray());
+  };
+
+  var elementDisplay = {};
+  /**
+   * 获取元素的初始 display 值，用于 .show() 方法
+   * @param nodeName
+   */
+  function defaultDisplay(nodeName) {
+      var element;
+      var display;
+      if (!elementDisplay[nodeName]) {
+          element = document.createElement(nodeName);
+          document.body.appendChild(element);
+          display = getStyle(element, 'display');
+          element.parentNode.removeChild(element);
+          if (display === 'none') {
+              display = 'block';
+          }
+          elementDisplay[nodeName] = display;
+      }
+      return elementDisplay[nodeName];
+  }
+  /**
+   * 显示指定元素
+   * @returns {JQ}
+   */
+  $.fn.show = function () {
+      return this.each(function () {
+          if (this.style.display === 'none') {
+              this.style.display = '';
+          }
+          if (getStyle(this, 'display') === 'none') {
+              this.style.display = defaultDisplay(this.nodeName);
+          }
+      });
+  };
+
+  /**
+   * 取得同辈元素的集合
+   * @param selector {String=}
+   * @returns {JQ}
+   */
+  $.fn.siblings = function (selector) {
+      return this.prevAll(selector).add(this.nextAll(selector));
+  };
+
+  /**
+   * 切换元素的显示状态
+   */
+  $.fn.toggle = function () {
+      return this.each(function () {
+          getStyle(this, 'display') === 'none' ? $(this).show() : $(this).hide();
+      });
+  };
+
+  $.fn.reflow = function () {
+      return this.each(function () {
+          return this.clientLeft;
+      });
+  };
+
+  $.fn.transition = function (duration) {
+      if (isNumber(duration)) {
+          duration = duration + "ms";
+      }
+      return this.each(function () {
+          this.style.webkitTransitionDuration = duration;
+          this.style.transitionDuration = duration;
+      });
+  };
+
+  $.fn.transitionEnd = function (callback) {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      var that = this;
+      var events = ['webkitTransitionEnd', 'transitionend'];
+      function fireCallback(e) {
+          if (e.target !== this) {
+              return;
+          }
+          // @ts-ignore
+          callback.call(this, e);
+          each(events, function (_, event) {
+              that.off(event, fireCallback);
+          });
+      }
+      each(events, function (_, event) {
+          that.on(event, fireCallback);
+      });
+      return this;
+  };
+
+  $.fn.transformOrigin = function (transformOrigin) {
+      return this.each(function () {
+          this.style.webkitTransformOrigin = transformOrigin;
+          this.style.transformOrigin = transformOrigin;
+      });
+  };
+
+  $.fn.transform = function (transform) {
+      return this.each(function () {
+          this.style.webkitTransform = transform;
+          this.style.transform = transform;
+      });
+  };
+
+  /**
+   * CSS 选择器和初始化函数组成的对象
+   */
+  var entries = {};
+  /**
+   * 注册并执行初始化函数
+   * @param selector CSS 选择器
+   * @param apiInit 初始化函数
+   * @param i 元素索引
+   * @param element 元素
+   */
+  function mutation(selector, apiInit, i, element) {
+      var selectors = data(element, '_mdui_mutation');
+      if (!selectors) {
+          selectors = [];
+          data(element, '_mdui_mutation', selectors);
+      }
+      if (selectors.indexOf(selector) === -1) {
+          selectors.push(selector);
+          apiInit.call(element, i, element);
+      }
+  }
+
+  $.fn.mutation = function () {
+      return this.each(function (i, element) {
+          var $this = $(element);
+          each(entries, function (selector, apiInit) {
+              if ($this.is(selector)) {
+                  mutation(selector, apiInit, i, element);
+              }
+              $this.find(selector).each(function (i, element) {
+                  mutation(selector, apiInit, i, element);
+              });
+          });
+      });
+  };
+
+  $.showOverlay = function (zIndex) {
+      var $overlay = $('.mdui-overlay');
+      if ($overlay.length) {
+          $overlay.data('_overlay_is_deleted', false);
+          if (!isUndefined(zIndex)) {
+              $overlay.css('z-index', zIndex);
+          }
+      }
+      else {
+          if (isUndefined(zIndex)) {
+              zIndex = 2000;
+          }
+          $overlay = $('<div class="mdui-overlay">')
+              .appendTo(document.body)
+              .reflow()
+              .css('z-index', zIndex);
+      }
+      var level = $overlay.data('_overlay_level') || 0;
+      return $overlay.data('_overlay_level', ++level).addClass('mdui-overlay-show');
+  };
+
+  $.hideOverlay = function (force) {
+      if ( force === void 0 ) force = false;
+
+      var $overlay = $('.mdui-overlay');
+      if (!$overlay.length) {
+          return;
+      }
+      var level = force ? 1 : $overlay.data('_overlay_level');
+      if (level > 1) {
+          $overlay.data('_overlay_level', --level);
+          return;
+      }
+      $overlay
+          .data('_overlay_level', 0)
+          .removeClass('mdui-overlay-show')
+          .data('_overlay_is_deleted', true)
+          .transitionEnd(function () {
+          if ($overlay.data('_overlay_is_deleted')) {
+              $overlay.remove();
+          }
+      });
+  };
+
+  $.lockScreen = function () {
+      var $body = $('body');
+      // 不直接把 body 设为 box-sizing: border-box，避免污染全局样式
+      var newBodyWidth = $body.width();
+      var level = $body.data('_lockscreen_level') || 0;
+      $body
+          .addClass('mdui-locked')
+          .width(newBodyWidth)
+          .data('_lockscreen_level', ++level);
+  };
+
+  $.unlockScreen = function (force) {
+      if ( force === void 0 ) force = false;
+
+      var $body = $('body');
+      var level = force ? 1 : $body.data('_lockscreen_level');
+      if (level > 1) {
+          $body.data('_lockscreen_level', --level);
+          return;
+      }
+      $body.data('_lockscreen_level', 0).removeClass('mdui-locked').width('');
+  };
+
+  $.throttle = function (fn, delay) {
+      if ( delay === void 0 ) delay = 16;
+
+      var timer = null;
+      return function () {
+          var this$1 = this;
+          var args = [], len = arguments.length;
+          while ( len-- ) args[ len ] = arguments[ len ];
+
+          if (isNull(timer)) {
+              timer = setTimeout(function () {
+                  fn.apply(this$1, args);
+                  timer = null;
+              }, delay);
+          }
+      };
+  };
+
+  var GUID = {};
+  $.guid = function (name) {
+      if (!isUndefined(name) && !isUndefined(GUID[name])) {
+          return GUID[name];
+      }
+      function s4() {
+          return Math.floor((1 + Math.random()) * 0x10000)
+              .toString(16)
+              .substring(1);
+      }
+      var guid = '_' +
+          s4() +
+          s4() +
+          '-' +
+          s4() +
+          '-' +
+          s4() +
+          '-' +
+          s4() +
+          '-' +
+          s4() +
+          s4() +
+          s4();
+      if (!isUndefined(name)) {
+          GUID[name] = guid;
+      }
+      return guid;
+  };
+
+  mdui.mutation = function (selector, apiInit) {
+      if (isUndefined(selector) || isUndefined(apiInit)) {
+          $(document).mutation();
+          return;
+      }
+      entries[selector] = apiInit;
+      $(selector).each(function (i, element) { return mutation(selector, apiInit, i, element); });
+  };
+
+  /**
+   * 触发组件上的事件
+   * @param eventName 事件名
+   * @param componentName 组件名
+   * @param target 在该元素上触发事件
+   * @param instance 组件实例
+   * @param parameters 事件参数
+   */
+  function componentEvent(eventName, componentName, target, instance, parameters) {
+      if (!parameters) {
+          parameters = {};
+      }
+      // @ts-ignore
+      parameters.inst = instance;
+      var fullEventName = eventName + ".mdui." + componentName;
+      // jQuery 事件
+      // @ts-ignore
+      if (typeof jQuery !== 'undefined') {
+          // @ts-ignore
+          jQuery(target).trigger(fullEventName, parameters);
+      }
+      var $target = $(target);
+      // mdui.jq 事件
+      $target.trigger(fullEventName, parameters);
+      var eventParams = {
+          bubbles: true,
+          cancelable: true,
+          detail: parameters,
+      };
+      var eventObject = new CustomEvent(fullEventName, eventParams);
+      // @ts-ignore
+      eventObject._detail = parameters;
+      $target[0].dispatchEvent(eventObject);
+  }
+
+  var $document = $(document);
+  var $window = $(window);
+  var $body = $('body');
+
+  var DEFAULT_OPTIONS = {
+      tolerance: 5,
+      offset: 0,
+      initialClass: 'mdui-headroom',
+      pinnedClass: 'mdui-headroom-pinned-top',
+      unpinnedClass: 'mdui-headroom-unpinned-top',
+  };
+  var Headroom = function Headroom(selector, options) {
+      if ( options === void 0 ) options = {};
+
+      /**
+       * 配置参数
+       */
+      this.options = extend({}, DEFAULT_OPTIONS);
+      /**
+       * 当前 headroom 的状态
+       */
+      this.state = 'pinned';
+      /**
+       * 当前是否启用
+       */
+      this.isEnable = false;
+      /**
+       * 上次滚动后，垂直方向的距离
+       */
+      this.lastScrollY = 0;
+      /**
+       * AnimationFrame ID
+       */
+      this.rafId = 0;
+      this.$element = $(selector).first();
+      extend(this.options, options);
+      // tolerance 参数若为数值，转换为对象
+      var tolerance = this.options.tolerance;
+      if (isNumber(tolerance)) {
+          this.options.tolerance = {
+              down: tolerance,
+              up: tolerance,
+          };
+      }
+      this.enable();
+  };
+  /**
+   * 滚动时的处理
+   */
+  Headroom.prototype.onScroll = function onScroll () {
+          var this$1 = this;
+
+      this.rafId = window.requestAnimationFrame(function () {
+          var currentScrollY = window.pageYOffset;
+          var direction = currentScrollY > this$1.lastScrollY ? 'down' : 'up';
+          var tolerance = this$1.options.tolerance[direction];
+          var scrolled = Math.abs(currentScrollY - this$1.lastScrollY);
+          var toleranceExceeded = scrolled >= tolerance;
+          if (currentScrollY > this$1.lastScrollY &&
+              currentScrollY >= this$1.options.offset &&
+              toleranceExceeded) {
+              this$1.unpin();
+          }
+          else if ((currentScrollY < this$1.lastScrollY && toleranceExceeded) ||
+              currentScrollY <= this$1.options.offset) {
+              this$1.pin();
+          }
+          this$1.lastScrollY = currentScrollY;
+      });
+  };
+  /**
+   * 触发组件事件
+   * @param name
+   */
+  Headroom.prototype.triggerEvent = function triggerEvent (name) {
+      componentEvent(name, 'headroom', this.$element, this);
+  };
+  /**
+   * 动画结束的回调
+   */
+  Headroom.prototype.transitionEnd = function transitionEnd () {
+      if (this.state === 'pinning') {
+          this.state = 'pinned';
+          this.triggerEvent('pinned');
+      }
+      if (this.state === 'unpinning') {
+          this.state = 'unpinned';
+          this.triggerEvent('unpinned');
+      }
+  };
+  /**
+   * 使元素固定住
+   */
+  Headroom.prototype.pin = function pin () {
+          var this$1 = this;
+
+      if (this.state === 'pinning' ||
+          this.state === 'pinned' ||
+          !this.$element.hasClass(this.options.initialClass)) {
+          return;
+      }
+      this.triggerEvent('pin');
+      this.state = 'pinning';
+      this.$element
+          .removeClass(this.options.unpinnedClass)
+          .addClass(this.options.pinnedClass)
+          .transitionEnd(function () { return this$1.transitionEnd(); });
+  };
+  /**
+   * 使元素隐藏
+   */
+  Headroom.prototype.unpin = function unpin () {
+          var this$1 = this;
+
+      if (this.state === 'unpinning' ||
+          this.state === 'unpinned' ||
+          !this.$element.hasClass(this.options.initialClass)) {
+          return;
+      }
+      this.triggerEvent('unpin');
+      this.state = 'unpinning';
+      this.$element
+          .removeClass(this.options.pinnedClass)
+          .addClass(this.options.unpinnedClass)
+          .transitionEnd(function () { return this$1.transitionEnd(); });
+  };
+  /**
+   * 启用 headroom 插件
+   */
+  Headroom.prototype.enable = function enable () {
+          var this$1 = this;
+
+      if (this.isEnable) {
+          return;
+      }
+      this.isEnable = true;
+      this.state = 'pinned';
+      this.$element
+          .addClass(this.options.initialClass)
+          .removeClass(this.options.pinnedClass)
+          .removeClass(this.options.unpinnedClass);
+      this.lastScrollY = window.pageYOffset;
+      $window.on('scroll', function () { return this$1.onScroll(); });
+  };
+  /**
+   * 禁用 headroom 插件
+   */
+  Headroom.prototype.disable = function disable () {
+          var this$1 = this;
+
+      if (!this.isEnable) {
+          return;
+      }
+      this.isEnable = false;
+      this.$element
+          .removeClass(this.options.initialClass)
+          .removeClass(this.options.pinnedClass)
+          .removeClass(this.options.unpinnedClass);
+      $window.off('scroll', function () { return this$1.onScroll(); });
+      window.cancelAnimationFrame(this.rafId);
+  };
+  /**
+   * 获取当前状态。共包含四种状态：`pinning`、`pinned`、`unpinning`、`unpinned`
+   */
+  Headroom.prototype.getState = function getState () {
+      return this.state;
+  };
+  mdui.Headroom = Headroom;
+
+  /**
+   * 解析 DATA API 参数
+   * @param element 元素
+   * @param name 属性名
+   */
+  function parseOptions(element, name) {
+      var attr = $(element).attr(name);
+      if (!attr) {
+          return {};
+      }
+      return new Function('', ("var json = " + attr + "; return JSON.parse(JSON.stringify(json));"))();
+  }
+
+  var customAttr = 'mdui-headroom';
+  $(function () {
+      mdui.mutation(("[" + customAttr + "]"), function () {
+          new mdui.Headroom(this, parseOptions(this, customAttr));
+      });
+  });
+
+  var DEFAULT_OPTIONS$1 = {
+      accordion: false,
+  };
+  var CollapseAbstract = function CollapseAbstract(selector, options) {
+      if ( options === void 0 ) options = {};
+
+      /**
+       * 配置参数
+       */
+      this.options = extend({}, DEFAULT_OPTIONS$1);
+      // CSS 类名
+      var classPrefix = "mdui-" + (this.getNamespace()) + "-item";
+      this.classItem = classPrefix;
+      this.classItemOpen = classPrefix + "-open";
+      this.classHeader = classPrefix + "-header";
+      this.classBody = classPrefix + "-body";
+      this.$element = $(selector).first();
+      extend(this.options, options);
+      this.bindEvent();
+  };
+  /**
+   * 绑定事件
+   */
+  CollapseAbstract.prototype.bindEvent = function bindEvent () {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      var that = this;
+      // 点击 header 时，打开/关闭 item
+      this.$element.on('click', ("." + (this.classHeader)), function () {
+          var $header = $(this);
+          var $item = $header.parent();
+          var $items = that.getItems();
+          $items.each(function (_, item) {
+              if ($item.is(item)) {
+                  that.toggle(item);
+              }
+          });
+      });
+      // 点击关闭按钮时，关闭 item
+      this.$element.on('click', ("[mdui-" + (this.getNamespace()) + "-item-close]"), function () {
+          var $target = $(this);
+          var $item = $target.parents(("." + (that.classItem))).first();
+          that.close($item);
+      });
+  };
+  /**
+   * 指定 item 是否处于打开状态
+   * @param $item
+   */
+  CollapseAbstract.prototype.isOpen = function isOpen ($item) {
+      return $item.hasClass(this.classItemOpen);
+  };
+  /**
+   * 获取所有 item
+   */
+  CollapseAbstract.prototype.getItems = function getItems () {
+      return this.$element.children(("." + (this.classItem)));
+  };
+  /**
+   * 获取指定 item
+   * @param item
+   */
+  CollapseAbstract.prototype.getItem = function getItem (item) {
+      if (isNumber(item)) {
+          return this.getItems().eq(item);
+      }
+      return $(item).first();
+  };
+  /**
+   * 触发组件事件
+   * @param name 事件名
+   * @param $item 事件触发的目标 item
+   */
+  CollapseAbstract.prototype.triggerEvent = function triggerEvent (name, $item) {
+      componentEvent(name, this.getNamespace(), $item, this);
+  };
+  /**
+   * 动画结束回调
+   * @param $content body 元素
+   * @param $item item 元素
+   */
+  CollapseAbstract.prototype.transitionEnd = function transitionEnd ($content, $item) {
+      if (this.isOpen($item)) {
+          $content.transition(0).height('auto').reflow().transition('');
+          this.triggerEvent('opened', $item);
+      }
+      else {
+          $content.height('');
+          this.triggerEvent('closed', $item);
+      }
+  };
+  /**
+   * 打开指定面板项
+   * @param item 面板项的索引号、或 CSS 选择器、或 DOM 元素、或 JQ 对象
+   */
+  CollapseAbstract.prototype.open = function open (item) {
+          var this$1 = this;
+
+      var $item = this.getItem(item);
+      if (this.isOpen($item)) {
+          return;
+      }
+      // 关闭其他项
+      if (this.options.accordion) {
+          this.$element.children(("." + (this.classItemOpen))).each(function (_, element) {
+              var $element = $(element);
+              if (!$element.is($item)) {
+                  this$1.close($element);
+              }
+          });
+      }
+      var $content = $item.children(("." + (this.classBody)));
+      $content
+          .height($content[0].scrollHeight)
+          .transitionEnd(function () { return this$1.transitionEnd($content, $item); });
+      this.triggerEvent('open', $item);
+      $item.addClass(this.classItemOpen);
+  };
+  /**
+   * 关闭指定面板项
+   * @param item 面板项的索引号、或 CSS 选择器、或 DOM 元素、或 JQ 对象
+   */
+  CollapseAbstract.prototype.close = function close (item) {
+          var this$1 = this;
+
+      var $item = this.getItem(item);
+      if (!this.isOpen($item)) {
+          return;
+      }
+      var $content = $item.children(("." + (this.classBody)));
+      this.triggerEvent('close', $item);
+      $item.removeClass(this.classItemOpen);
+      $content
+          .transition(0)
+          .height($content[0].scrollHeight)
+          .reflow()
+          .transition('')
+          .height('')
+          .transitionEnd(function () { return this$1.transitionEnd($content, $item); });
+  };
+  /**
+   * 切换指定面板项的打开状态
+   * @param item 面板项的索引号、或 CSS 选择器、或 DOM 元素、或 JQ 对象
+   */
+  CollapseAbstract.prototype.toggle = function toggle (item) {
+      var $item = this.getItem(item);
+      this.isOpen($item) ? this.close($item) : this.open($item);
+  };
+  /**
+   * 打开所有面板项
+   */
+  CollapseAbstract.prototype.openAll = function openAll () {
+          var this$1 = this;
+
+      this.getItems().each(function (_, element) { return this$1.open(element); });
+  };
+  /**
+   * 关闭所有面板项
+   */
+  CollapseAbstract.prototype.closeAll = function closeAll () {
+          var this$1 = this;
+
+      this.getItems().each(function (_, element) { return this$1.close(element); });
+  };
+
+  var Collapse = /*@__PURE__*/(function (CollapseAbstract) {
+      function Collapse () {
+          CollapseAbstract.apply(this, arguments);
+      }
+
+      if ( CollapseAbstract ) Collapse.__proto__ = CollapseAbstract;
+      Collapse.prototype = Object.create( CollapseAbstract && CollapseAbstract.prototype );
+      Collapse.prototype.constructor = Collapse;
+
+      Collapse.prototype.getNamespace = function getNamespace () {
+          return 'collapse';
+      };
+
+      return Collapse;
+  }(CollapseAbstract));
+  mdui.Collapse = Collapse;
+
+  var customAttr$1 = 'mdui-collapse';
+  $(function () {
+      mdui.mutation(("[" + customAttr$1 + "]"), function () {
+          new mdui.Collapse(this, parseOptions(this, customAttr$1));
+      });
+  });
+
+  var Panel = /*@__PURE__*/(function (CollapseAbstract) {
+      function Panel () {
+          CollapseAbstract.apply(this, arguments);
+      }
+
+      if ( CollapseAbstract ) Panel.__proto__ = CollapseAbstract;
+      Panel.prototype = Object.create( CollapseAbstract && CollapseAbstract.prototype );
+      Panel.prototype.constructor = Panel;
+
+      Panel.prototype.getNamespace = function getNamespace () {
+          return 'panel';
+      };
+
+      return Panel;
+  }(CollapseAbstract));
+  mdui.Panel = Panel;
+
+  var customAttr$2 = 'mdui-panel';
+  $(function () {
+      mdui.mutation(("[" + customAttr$2 + "]"), function () {
+          new mdui.Panel(this, parseOptions(this, customAttr$2));
+      });
+  });
+
+  var Table = function Table(selector) {
+      /**
+       * 表头 tr 元素
+       */
+      this.$thRow = $();
+      /**
+       * 表格 body 中的 tr 元素
+       */
+      this.$tdRows = $();
+      /**
+       * 表头的 checkbox 元素
+       */
+      this.$thCheckbox = $();
+      /**
+       * 表格 body 中的 checkbox 元素
+       */
+      this.$tdCheckboxs = $();
+      /**
+       * 表格行是否可选择
+       */
+      this.selectable = false;
+      /**
+       * 已选中的行数
+       */
+      this.selectedRow = 0;
+      this.$element = $(selector).first();
+      this.init();
+  };
+  /**
+   * 初始化表格
+   */
+  Table.prototype.init = function init () {
+      this.$thRow = this.$element.find('thead tr');
+      this.$tdRows = this.$element.find('tbody tr');
+      this.selectable = this.$element.hasClass('mdui-table-selectable');
+      this.updateThCheckbox();
+      this.updateTdCheckbox();
+      this.updateNumericCol();
+  };
+  /**
+   * 生成 checkbox 的 HTML 结构
+   * @param tag 标签名
+   */
+  Table.prototype.createCheckboxHTML = function createCheckboxHTML (tag) {
+      return ("<" + tag + " class=\"mdui-table-cell-checkbox\">" +
+          '<label class="mdui-checkbox">' +
+          '<input type="checkbox"/>' +
+          '<i class="mdui-checkbox-icon"></i>' +
+          '</label>' +
+          "</" + tag + ">");
+  };
+  /**
+   * 更新表头 checkbox 的状态
+   */
+  Table.prototype.updateThCheckboxStatus = function updateThCheckboxStatus () {
+      var checkbox = this.$thCheckbox[0];
+      var selectedRow = this.selectedRow;
+      var tdRowsLength = this.$tdRows.length;
+      checkbox.checked = selectedRow === tdRowsLength;
+      checkbox.indeterminate = !!selectedRow && selectedRow !== tdRowsLength;
+  };
+  /**
+   * 更新表格行的 checkbox
+   */
+  Table.prototype.updateTdCheckbox = function updateTdCheckbox () {
+          var this$1 = this;
+
+      var rowSelectedClass = 'mdui-table-row-selected';
+      this.$tdRows.each(function (_, row) {
+          var $row = $(row);
+          // 移除旧的 checkbox
+          $row.find('.mdui-table-cell-checkbox').remove();
+          if (!this$1.selectable) {
+              return;
+          }
+          // 创建 DOM
+          var $checkbox = $(this$1.createCheckboxHTML('td'))
+              .prependTo($row)
+              .find('input[type="checkbox"]');
+          // 默认选中的行
+          if ($row.hasClass(rowSelectedClass)) {
+              $checkbox[0].checked = true;
+              this$1.selectedRow++;
+          }
+          this$1.updateThCheckboxStatus();
+          // 绑定事件
+          $checkbox.on('change', function () {
+              if ($checkbox[0].checked) {
+                  $row.addClass(rowSelectedClass);
+                  this$1.selectedRow++;
+              }
+              else {
+                  $row.removeClass(rowSelectedClass);
+                  this$1.selectedRow--;
+              }
+              this$1.updateThCheckboxStatus();
+          });
+          this$1.$tdCheckboxs = this$1.$tdCheckboxs.add($checkbox);
+      });
+  };
+  /**
+   * 更新表头的 checkbox
+   */
+  Table.prototype.updateThCheckbox = function updateThCheckbox () {
+          var this$1 = this;
+
+      // 移除旧的 checkbox
+      this.$thRow.find('.mdui-table-cell-checkbox').remove();
+      if (!this.selectable) {
+          return;
+      }
+      this.$thCheckbox = $(this.createCheckboxHTML('th'))
+          .prependTo(this.$thRow)
+          .find('input[type="checkbox"]')
+          .on('change', function () {
+          var isCheckedAll = this$1.$thCheckbox[0].checked;
+          this$1.selectedRow = isCheckedAll ? this$1.$tdRows.length : 0;
+          this$1.$tdCheckboxs.each(function (_, checkbox) {
+              checkbox.checked = isCheckedAll;
+          });
+          this$1.$tdRows.each(function (_, row) {
+              isCheckedAll
+                  ? $(row).addClass('mdui-table-row-selected')
+                  : $(row).removeClass('mdui-table-row-selected');
+          });
+      });
+  };
+  /**
+   * 更新数值列
+   */
+  Table.prototype.updateNumericCol = function updateNumericCol () {
+          var this$1 = this;
+
+      var numericClass = 'mdui-table-col-numeric';
+      this.$thRow.find('th').each(function (i, th) {
+          var isNumericCol = $(th).hasClass(numericClass);
+          this$1.$tdRows.each(function (_, row) {
+              var $td = $(row).find('td').eq(i);
+              isNumericCol
+                  ? $td.addClass(numericClass)
+                  : $td.removeClass(numericClass);
+          });
+      });
+  };
+  var dataName = '_mdui_table';
+  $(function () {
+      mdui.mutation('.mdui-table', function () {
+          var $element = $(this);
+          if (!$element.data(dataName)) {
+              $element.data(dataName, new Table($element));
+          }
+      });
+  });
+  mdui.updateTables = function (selector) {
+      var $elements = isUndefined(selector) ? $('.mdui-table') : $(selector);
+      $elements.each(function (_, element) {
+          var $element = $(element);
+          var instance = $element.data(dataName);
+          if (instance) {
+              instance.init();
+          }
+          else {
+              $element.data(dataName, new Table($element));
+          }
+      });
+  };
+
+  /**
+   * touch 事件后的 500ms 内禁用 mousedown 事件
+   *
+   * 不支持触控的屏幕上事件顺序为 mousedown -> mouseup -> click
+   * 支持触控的屏幕上事件顺序为 touchstart -> touchend -> mousedown -> mouseup -> click
+   *
+   * 在每一个事件中都使用 TouchHandler.isAllow(event) 判断事件是否可执行
+   * 在 touchstart 和 touchmove、touchend、touchcancel
+   *
+   * (function () {
+   *   $document
+   *     .on(start, function (e) {
+   *       if (!isAllow(e)) {
+   *         return;
+   *       }
+   *       register(e);
+   *       console.log(e.type);
+   *     })
+   *     .on(move, function (e) {
+   *       if (!isAllow(e)) {
+   *         return;
+   *       }
+   *       console.log(e.type);
+   *     })
+   *     .on(end, function (e) {
+   *       if (!isAllow(e)) {
+   *         return;
+   *       }
+   *       console.log(e.type);
+   *     })
+   *     .on(unlock, register);
+   * })();
+   */
+  var startEvent = 'touchstart mousedown';
+  var moveEvent = 'touchmove mousemove';
+  var endEvent = 'touchend mouseup';
+  var cancelEvent = 'touchcancel mouseleave';
+  var unlockEvent = 'touchend touchmove touchcancel';
+  var touches = 0;
+  /**
+   * 该事件是否被允许，在执行事件前调用该方法判断事件是否可以执行
+   * 若已触发 touch 事件，则阻止之后的鼠标事件
+   * @param event
+   */
+  function isAllow(event) {
+      return !(touches &&
+          [
+              'mousedown',
+              'mouseup',
+              'mousemove',
+              'click',
+              'mouseover',
+              'mouseout',
+              'mouseenter',
+              'mouseleave' ].indexOf(event.type) > -1);
+  }
+  /**
+   * 在 touchstart 和 touchmove、touchend、touchcancel 事件中调用该方法注册事件
+   * @param event
+   */
+  function register(event) {
+      if (event.type === 'touchstart') {
+          // 触发了 touch 事件
+          touches += 1;
+      }
+      else if (['touchmove', 'touchend', 'touchcancel'].indexOf(event.type) > -1) {
+          // touch 事件结束 500ms 后解除对鼠标事件的阻止
+          setTimeout(function () {
+              if (touches) {
+                  touches -= 1;
+              }
+          }, 500);
+      }
+  }
+
+  /**
+   * Inspired by https://github.com/nolimits4web/Framework7/blob/master/src/js/fast-clicks.js
+   * https://github.com/nolimits4web/Framework7/blob/master/LICENSE
+   *
+   * Inspired by https://github.com/fians/Waves
+   */
+  /**
+   * 显示涟漪动画
+   * @param event
+   * @param $ripple
+   */
+  function show(event, $ripple) {
+      // 鼠标右键不产生涟漪
+      if (event instanceof MouseEvent && event.button === 2) {
+          return;
+      }
+      // 点击位置坐标
+      var touchPosition = typeof TouchEvent !== 'undefined' &&
+          event instanceof TouchEvent &&
+          event.touches.length
+          ? event.touches[0]
+          : event;
+      var touchStartX = touchPosition.pageX;
+      var touchStartY = touchPosition.pageY;
+      // 涟漪位置
+      var offset = $ripple.offset();
+      var height = $ripple.innerHeight();
+      var width = $ripple.innerWidth();
+      var center = {
+          x: touchStartX - offset.left,
+          y: touchStartY - offset.top,
+      };
+      var diameter = Math.max(Math.pow(Math.pow(height, 2) + Math.pow(width, 2), 0.5), 48);
+      // 涟漪扩散动画
+      var translate = "translate3d(" + (-center.x + width / 2) + "px," +
+          (-center.y + height / 2) + "px, 0) scale(1)";
+      // 涟漪的 DOM 结构，并缓存动画效果
+      $("<div class=\"mdui-ripple-wave\" " +
+          "style=\"width:" + diameter + "px;height:" + diameter + "px;" +
+          "margin-top:-" + (diameter / 2) + "px;margin-left:-" + (diameter / 2) + "px;" +
+          "left:" + (center.x) + "px;top:" + (center.y) + "px;\"></div>")
+          .data('_ripple_wave_translate', translate)
+          .prependTo($ripple)
+          .reflow()
+          .transform(translate);
+  }
+  /**
+   * 隐藏并移除涟漪
+   * @param $wave
+   */
+  function removeRipple($wave) {
+      if (!$wave.length || $wave.data('_ripple_wave_removed')) {
+          return;
+      }
+      $wave.data('_ripple_wave_removed', true);
+      var removeTimer = setTimeout(function () { return $wave.remove(); }, 400);
+      var translate = $wave.data('_ripple_wave_translate');
+      $wave
+          .addClass('mdui-ripple-wave-fill')
+          .transform(translate.replace('scale(1)', 'scale(1.01)'))
+          .transitionEnd(function () {
+          clearTimeout(removeTimer);
+          $wave
+              .addClass('mdui-ripple-wave-out')
+              .transform(translate.replace('scale(1)', 'scale(1.01)'));
+          removeTimer = setTimeout(function () { return $wave.remove(); }, 700);
+          setTimeout(function () {
+              $wave.transitionEnd(function () {
+                  clearTimeout(removeTimer);
+                  $wave.remove();
+              });
+          }, 0);
+      });
+  }
+  /**
+   * 隐藏涟漪动画
+   * @param this
+   */
+  function hide() {
+      var $ripple = $(this);
+      $ripple.children('.mdui-ripple-wave').each(function (_, wave) {
+          removeRipple($(wave));
+      });
+      $ripple.off((moveEvent + " " + endEvent + " " + cancelEvent), hide);
+  }
+  /**
+   * 显示涟漪，并绑定 touchend 等事件
+   * @param event
+   */
+  function showRipple(event) {
+      if (!isAllow(event)) {
+          return;
+      }
+      register(event);
+      // Chrome 59 点击滚动条时，会在 document 上触发事件
+      if (event.target === document) {
+          return;
+      }
+      var $target = $(event.target);
+      // 获取含 .mdui-ripple 类的元素
+      var $ripple = $target.hasClass('mdui-ripple')
+          ? $target
+          : $target.parents('.mdui-ripple').first();
+      if (!$ripple.length) {
+          return;
+      }
+      // 禁用状态的元素上不产生涟漪效果
+      if ($ripple.prop('disabled') || !isUndefined($ripple.attr('disabled'))) {
+          return;
+      }
+      if (event.type === 'touchstart') {
+          var hidden = false;
+          // touchstart 触发指定时间后开始涟漪动画，避免手指滑动时也触发涟漪
+          var timer = setTimeout(function () {
+              timer = 0;
+              show(event, $ripple);
+          }, 200);
+          var hideRipple = function () {
+              // 如果手指没有移动，且涟漪动画还没有开始，则开始涟漪动画
+              if (timer) {
+                  clearTimeout(timer);
+                  timer = 0;
+                  show(event, $ripple);
+              }
+              if (!hidden) {
+                  hidden = true;
+                  hide.call($ripple);
+              }
+          };
+          // 手指移动后，移除涟漪动画
+          var touchMove = function () {
+              if (timer) {
+                  clearTimeout(timer);
+                  timer = 0;
+              }
+              hideRipple();
+          };
+          $ripple.on('touchmove', touchMove).on('touchend touchcancel', hideRipple);
+      }
+      else {
+          show(event, $ripple);
+          $ripple.on((moveEvent + " " + endEvent + " " + cancelEvent), hide);
+      }
+  }
+  $(function () {
+      $document.on(startEvent, showRipple).on(unlockEvent, register);
+  });
+
+  var defaultData = {
+      reInit: false,
+      domLoadedEvent: false,
+  };
+  /**
+   * 输入框事件
+   * @param event
+   * @param data
+   */
+  function inputEvent(event, data) {
+      if ( data === void 0 ) data = {};
+
+      data = extend({}, defaultData, data);
+      var input = event.target;
+      var $input = $(input);
+      var eventType = event.type;
+      var value = $input.val();
+      // 文本框类型
+      var inputType = $input.attr('type') || '';
+      if (['checkbox', 'button', 'submit', 'range', 'radio', 'image'].indexOf(inputType) > -1) {
+          return;
+      }
+      var $textfield = $input.parent('.mdui-textfield');
+      // 输入框是否聚焦
+      if (eventType === 'focus') {
+          $textfield.addClass('mdui-textfield-focus');
+      }
+      if (eventType === 'blur') {
+          $textfield.removeClass('mdui-textfield-focus');
+      }
+      // 输入框是否为空
+      if (eventType === 'blur' || eventType === 'input') {
+          value
+              ? $textfield.addClass('mdui-textfield-not-empty')
+              : $textfield.removeClass('mdui-textfield-not-empty');
+      }
+      // 输入框是否禁用
+      input.disabled
+          ? $textfield.addClass('mdui-textfield-disabled')
+          : $textfield.removeClass('mdui-textfield-disabled');
+      // 表单验证
+      if ((eventType === 'input' || eventType === 'blur') &&
+          !data.domLoadedEvent &&
+          input.validity) {
+          input.validity.valid
+              ? $textfield.removeClass('mdui-textfield-invalid-html5')
+              : $textfield.addClass('mdui-textfield-invalid-html5');
+      }
+      // textarea 高度自动调整
+      if ($input.is('textarea')) {
+          // IE bug：textarea 的值仅为多个换行，不含其他内容时，textarea 的高度不准确
+          //         此时，在计算高度前，在值的开头加入一个空格，计算完后，移除空格
+          var inputValue = value;
+          var hasExtraSpace = false;
+          if (inputValue.replace(/[\r\n]/g, '') === '') {
+              $input.val(' ' + inputValue);
+              hasExtraSpace = true;
+          }
+          // 设置 textarea 高度
+          $input.outerHeight('');
+          var height = $input.outerHeight();
+          var scrollHeight = input.scrollHeight;
+          if (scrollHeight > height) {
+              $input.outerHeight(scrollHeight);
+          }
+          // 计算完，还原 textarea 的值
+          if (hasExtraSpace) {
+              $input.val(inputValue);
+          }
+      }
+      // 实时字数统计
+      if (data.reInit) {
+          $textfield.find('.mdui-textfield-counter').remove();
+      }
+      var maxLength = $input.attr('maxlength');
+      if (maxLength) {
+          if (data.reInit || data.domLoadedEvent) {
+              $('<div class="mdui-textfield-counter">' +
+                  "<span class=\"mdui-textfield-counter-inputed\"></span> / " + maxLength +
+                  '</div>').appendTo($textfield);
+          }
+          $textfield
+              .find('.mdui-textfield-counter-inputed')
+              .text(value.length.toString());
+      }
+      // 含 帮助文本、错误提示、字数统计 时，增加文本框底部内边距
+      if ($textfield.find('.mdui-textfield-helper').length ||
+          $textfield.find('.mdui-textfield-error').length ||
+          maxLength) {
+          $textfield.addClass('mdui-textfield-has-bottom');
+      }
+  }
+  $(function () {
+      // 绑定事件
+      $document.on('input focus blur', '.mdui-textfield-input', { useCapture: true }, inputEvent);
+      // 可展开文本框展开
+      $document.on('click', '.mdui-textfield-expandable .mdui-textfield-icon', function () {
+          $(this)
+              .parents('.mdui-textfield')
+              .addClass('mdui-textfield-expanded')
+              .find('.mdui-textfield-input')[0]
+              .focus();
+      });
+      // 可展开文本框关闭
+      $document.on('click', '.mdui-textfield-expanded .mdui-textfield-close', function () {
+          $(this)
+              .parents('.mdui-textfield')
+              .removeClass('mdui-textfield-expanded')
+              .find('.mdui-textfield-input')
+              .val('');
+      });
+      /**
+       * 初始化文本框
+       */
+      mdui.mutation('.mdui-textfield', function () {
+          $(this).find('.mdui-textfield-input').trigger('input', {
+              domLoadedEvent: true,
+          });
+      });
+  });
+  mdui.updateTextFields = function (selector) {
+      var $elements = isUndefined(selector) ? $('.mdui-textfield') : $(selector);
+      $elements.each(function (_, element) {
+          $(element).find('.mdui-textfield-input').trigger('input', {
+              reInit: true,
+          });
+      });
+  };
+
+  /**
+   * 滑块的值改变后修改滑块样式
+   * @param $slider
+   */
+  function updateValueStyle($slider) {
+      var data = $slider.data();
+      var $track = data._slider_$track;
+      var $fill = data._slider_$fill;
+      var $thumb = data._slider_$thumb;
+      var $input = data._slider_$input;
+      var min = data._slider_min;
+      var max = data._slider_max;
+      var isDisabled = data._slider_disabled;
+      var isDiscrete = data._slider_discrete;
+      var $thumbText = data._slider_$thumbText;
+      var value = $input.val();
+      var percent = ((value - min) / (max - min)) * 100;
+      $fill.width((percent + "%"));
+      $track.width(((100 - percent) + "%"));
+      if (isDisabled) {
+          $fill.css('padding-right', '6px');
+          $track.css('padding-left', '6px');
+      }
+      $thumb.css('left', (percent + "%"));
+      if (isDiscrete) {
+          $thumbText.text(value);
+      }
+      percent === 0
+          ? $slider.addClass('mdui-slider-zero')
+          : $slider.removeClass('mdui-slider-zero');
+  }
+  /**
+   * 重新初始化滑块
+   * @param $slider
+   */
+  function reInit($slider) {
+      var $track = $('<div class="mdui-slider-track"></div>');
+      var $fill = $('<div class="mdui-slider-fill"></div>');
+      var $thumb = $('<div class="mdui-slider-thumb"></div>');
+      var $input = $slider.find('input[type="range"]');
+      var isDisabled = $input[0].disabled;
+      var isDiscrete = $slider.hasClass('mdui-slider-discrete');
+      // 禁用状态
+      isDisabled
+          ? $slider.addClass('mdui-slider-disabled')
+          : $slider.removeClass('mdui-slider-disabled');
+      // 重新填充 HTML
+      $slider.find('.mdui-slider-track').remove();
+      $slider.find('.mdui-slider-fill').remove();
+      $slider.find('.mdui-slider-thumb').remove();
+      $slider.append($track).append($fill).append($thumb);
+      // 间续型滑块
+      var $thumbText = $();
+      if (isDiscrete) {
+          $thumbText = $('<span></span>');
+          $thumb.empty().append($thumbText);
+      }
+      $slider.data('_slider_$track', $track);
+      $slider.data('_slider_$fill', $fill);
+      $slider.data('_slider_$thumb', $thumb);
+      $slider.data('_slider_$input', $input);
+      $slider.data('_slider_min', $input.attr('min'));
+      $slider.data('_slider_max', $input.attr('max'));
+      $slider.data('_slider_disabled', isDisabled);
+      $slider.data('_slider_discrete', isDiscrete);
+      $slider.data('_slider_$thumbText', $thumbText);
+      // 设置默认值
+      updateValueStyle($slider);
+  }
+  var rangeSelector = '.mdui-slider input[type="range"]';
+  $(function () {
+      // 滑块滑动事件
+      $document.on('input change', rangeSelector, function () {
+          var $slider = $(this).parent();
+          updateValueStyle($slider);
+      });
+      // 开始触摸滑块事件
+      $document.on(startEvent, rangeSelector, function (event) {
+          if (!isAllow(event)) {
+              return;
+          }
+          register(event);
+          if (this.disabled) {
+              return;
+          }
+          var $slider = $(this).parent();
+          $slider.addClass('mdui-slider-focus');
+      });
+      // 结束触摸滑块事件
+      $document.on(endEvent, rangeSelector, function (event) {
+          if (!isAllow(event)) {
+              return;
+          }
+          if (this.disabled) {
+              return;
+          }
+          var $slider = $(this).parent();
+          $slider.removeClass('mdui-slider-focus');
+      });
+      $document.on(unlockEvent, rangeSelector, register);
+      /**
+       * 初始化滑块
+       */
+      mdui.mutation('.mdui-slider', function () {
+          reInit($(this));
+      });
+  });
+  mdui.updateSliders = function (selector) {
+      var $elements = isUndefined(selector) ? $('.mdui-slider') : $(selector);
+      $elements.each(function (_, element) {
+          reInit($(element));
+      });
+  };
+
+  var DEFAULT_OPTIONS$2 = {
+      trigger: 'hover',
+  };
+  var Fab = function Fab(selector, options) {
+      var this$1 = this;
+      if ( options === void 0 ) options = {};
+
+      /**
+       * 配置参数
+       */
+      this.options = extend({}, DEFAULT_OPTIONS$2);
+      /**
+       * 当前 fab 的状态
+       */
+      this.state = 'closed';
+      this.$element = $(selector).first();
+      extend(this.options, options);
+      this.$btn = this.$element.find('.mdui-fab');
+      this.$dial = this.$element.find('.mdui-fab-dial');
+      this.$dialBtns = this.$dial.find('.mdui-fab');
+      if (this.options.trigger === 'hover') {
+          this.$btn.on('touchstart mouseenter', function () { return this$1.open(); });
+          this.$element.on('mouseleave', function () { return this$1.close(); });
+      }
+      if (this.options.trigger === 'click') {
+          this.$btn.on(startEvent, function () { return this$1.open(); });
+      }
+      // 触摸屏幕其他地方关闭快速拨号
+      $document.on(startEvent, function (event) {
+          if ($(event.target).parents('.mdui-fab-wrapper').length) {
+              return;
+          }
+          this$1.close();
+      });
+  };
+  /**
+   * 触发组件事件
+   * @param name
+   */
+  Fab.prototype.triggerEvent = function triggerEvent (name) {
+      componentEvent(name, 'fab', this.$element, this);
+  };
+  /**
+   * 当前是否为打开状态
+   */
+  Fab.prototype.isOpen = function isOpen () {
+      return this.state === 'opening' || this.state === 'opened';
+  };
+  /**
+   * 打开快速拨号菜单
+   */
+  Fab.prototype.open = function open () {
+          var this$1 = this;
+
+      if (this.isOpen()) {
+          return;
+      }
+      // 为菜单中的按钮添加不同的 transition-delay
+      this.$dialBtns.each(function (index, btn) {
+          var delay = (15 * (this$1.$dialBtns.length - index)) + "ms";
+          btn.style.transitionDelay = delay;
+          btn.style.webkitTransitionDelay = delay;
+      });
+      this.$dial.css('height', 'auto').addClass('mdui-fab-dial-show');
+      // 如果按钮中存在 .mdui-fab-opened 的图标，则进行图标切换
+      if (this.$btn.find('.mdui-fab-opened').length) {
+          this.$btn.addClass('mdui-fab-opened');
+      }
+      this.state = 'opening';
+      this.triggerEvent('open');
+      // 打开顺序为从下到上逐个打开，最上面的打开后才表示动画完成
+      this.$dialBtns.first().transitionEnd(function () {
+          if (this$1.$btn.hasClass('mdui-fab-opened')) {
+              this$1.state = 'opened';
+              this$1.triggerEvent('opened');
+          }
+      });
+  };
+  /**
+   * 关闭快速拨号菜单
+   */
+  Fab.prototype.close = function close () {
+          var this$1 = this;
+
+      if (!this.isOpen()) {
+          return;
+      }
+      // 为菜单中的按钮添加不同的 transition-delay
+      this.$dialBtns.each(function (index, btn) {
+          var delay = (15 * index) + "ms";
+          btn.style.transitionDelay = delay;
+          btn.style.webkitTransitionDelay = delay;
+      });
+      this.$dial.removeClass('mdui-fab-dial-show');
+      this.$btn.removeClass('mdui-fab-opened');
+      this.state = 'closing';
+      this.triggerEvent('close');
+      // 从上往下依次关闭，最后一个关闭后才表示动画完成
+      this.$dialBtns.last().transitionEnd(function () {
+          if (this$1.$btn.hasClass('mdui-fab-opened')) {
+              return;
+          }
+          this$1.state = 'closed';
+          this$1.triggerEvent('closed');
+          this$1.$dial.css('height', 0);
+      });
+  };
+  /**
+   * 切换快速拨号菜单的打开状态
+   */
+  Fab.prototype.toggle = function toggle () {
+      this.isOpen() ? this.close() : this.open();
+  };
+  /**
+   * 以动画的形式显示整个浮动操作按钮
+   */
+  Fab.prototype.show = function show () {
+      this.$element.removeClass('mdui-fab-hide');
+  };
+  /**
+   * 以动画的形式隐藏整个浮动操作按钮
+   */
+  Fab.prototype.hide = function hide () {
+      this.$element.addClass('mdui-fab-hide');
+  };
+  /**
+   * 返回当前快速拨号菜单的打开状态。共包含四种状态：`opening`、`opened`、`closing`、`closed`
+   */
+  Fab.prototype.getState = function getState () {
+      return this.state;
+  };
+  mdui.Fab = Fab;
+
+  var customAttr$3 = 'mdui-fab';
+  $(function () {
+      // mouseenter 不冒泡，无法进行事件委托，这里用 mouseover 代替。
+      // 不管是 click 、 mouseover 还是 touchstart ，都先初始化。
+      $document.on('touchstart mousedown mouseover', ("[" + customAttr$3 + "]"), function () {
+          new mdui.Fab(this, parseOptions(this, customAttr$3));
+      });
+  });
+
+  /**
+   * 最终生成的元素结构为：
+   *  <select class="mdui-select" mdui-select="{position: 'top'}" style="display: none;"> // $native
+   *    <option value="1">State 1</option>
+   *    <option value="2">State 2</option>
+   *    <option value="3" disabled="">State 3</option>
+   *  </select>
+   *  <div class="mdui-select mdui-select-position-top" style="" id="88dec0e4-d4a2-c6d0-0e7f-1ba4501e0553"> // $element
+   *    <span class="mdui-select-selected">State 1</span> // $selected
+   *    <div class="mdui-select-menu" style="transform-origin: center 100% 0px;"> // $menu
+   *      <div class="mdui-select-menu-item mdui-ripple" selected="">State 1</div> // $items
+   *      <div class="mdui-select-menu-item mdui-ripple">State 2</div>
+   *      <div class="mdui-select-menu-item mdui-ripple" disabled="">State 3</div>
+   *    </div>
+   *  </div>
+   */
+  var DEFAULT_OPTIONS$3 = {
+      position: 'auto',
+      gutter: 16,
+  };
+  var Select = function Select(selector, options) {
+      var this$1 = this;
+      if ( options === void 0 ) options = {};
+
+      /**
+       * 生成的 `<div class="mdui-select">` 元素的 JQ 对象
+       */
+      this.$element = $();
+      /**
+       * 配置参数
+       */
+      this.options = extend({}, DEFAULT_OPTIONS$3);
+      /**
+       * select 的 size 属性的值，根据该值设置 select 的高度
+       */
+      this.size = 0;
+      /**
+       * 占位元素，显示已选中菜单项的文本
+       */
+      this.$selected = $();
+      /**
+       * 菜单项的外层元素的 JQ 对象
+       */
+      this.$menu = $();
+      /**
+       * 菜单项数组的 JQ 对象
+       */
+      this.$items = $();
+      /**
+       * 当前选中的菜单项的索引号
+       */
+      this.selectedIndex = 0;
+      /**
+       * 当前选中菜单项的文本
+       */
+      this.selectedText = '';
+      /**
+       * 当前选中菜单项的值
+       */
+      this.selectedValue = '';
+      /**
+       * 当前 select 的状态
+       */
+      this.state = 'closed';
+      this.$native = $(selector).first();
+      this.$native.hide();
+      extend(this.options, options);
+      // 为当前 select 生成唯一 ID
+      this.uniqueID = $.guid();
+      // 生成 select
+      this.handleUpdate();
+      // 点击 select 外面区域关闭
+      $document.on('click touchstart', function (event) {
+          var $target = $(event.target);
+          if (this$1.isOpen() &&
+              !$target.is(this$1.$element) &&
+              !contains(this$1.$element[0], $target[0])) {
+              this$1.close();
+          }
+      });
+  };
+  /**
+   * 调整菜单位置
+   */
+  Select.prototype.readjustMenu = function readjustMenu () {
+      var windowHeight = $window.height();
+      // mdui-select 高度
+      var elementHeight = this.$element.height();
+      // 菜单项高度
+      var $itemFirst = this.$items.first();
+      var itemHeight = $itemFirst.height();
+      var itemMargin = parseInt($itemFirst.css('margin-top'));
+      // 菜单高度
+      var menuWidth = this.$element.innerWidth() + 0.01; // 必须比真实宽度多一点，不然会出现省略号
+      var menuHeight = itemHeight * this.size + itemMargin * 2;
+      // mdui-select 在窗口中的位置
+      var elementTop = this.$element[0].getBoundingClientRect().top;
+      var transformOriginY;
+      var menuMarginTop;
+      if (this.options.position === 'bottom') {
+          menuMarginTop = elementHeight;
+          transformOriginY = '0px';
+      }
+      else if (this.options.position === 'top') {
+          menuMarginTop = -menuHeight - 1;
+          transformOriginY = '100%';
+      }
+      else {
+          // 菜单高度不能超过窗口高度
+          var menuMaxHeight = windowHeight - this.options.gutter * 2;
+          if (menuHeight > menuMaxHeight) {
+              menuHeight = menuMaxHeight;
+          }
+          // 菜单的 margin-top
+          menuMarginTop = -(itemMargin +
+              this.selectedIndex * itemHeight +
+              (itemHeight - elementHeight) / 2);
+          var menuMaxMarginTop = -(itemMargin +
+              (this.size - 1) * itemHeight +
+              (itemHeight - elementHeight) / 2);
+          if (menuMarginTop < menuMaxMarginTop) {
+              menuMarginTop = menuMaxMarginTop;
+          }
+          // 菜单不能超出窗口
+          var menuTop = elementTop + menuMarginTop;
+          if (menuTop < this.options.gutter) {
+              // 不能超出窗口上方
+              menuMarginTop = -(elementTop - this.options.gutter);
+          }
+          else if (menuTop + menuHeight + this.options.gutter > windowHeight) {
+              // 不能超出窗口下方
+              menuMarginTop = -(elementTop +
+                  menuHeight +
+                  this.options.gutter -
+                  windowHeight);
+          }
+          // transform 的 Y 轴坐标
+          transformOriginY = (this.selectedIndex * itemHeight + itemHeight / 2 + itemMargin) + "px";
+      }
+      // 设置样式
+      this.$element.innerWidth(menuWidth);
+      this.$menu
+          .innerWidth(menuWidth)
+          .height(menuHeight)
+          .css({
+          'margin-top': menuMarginTop + 'px',
+          'transform-origin': 'center ' + transformOriginY + ' 0',
+      });
+  };
+  /**
+   * select 是否为打开状态
+   */
+  Select.prototype.isOpen = function isOpen () {
+      return this.state === 'opening' || this.state === 'opened';
+  };
+  /**
+   * 对原生 select 组件进行了修改后，需要调用该方法
+   */
+  Select.prototype.handleUpdate = function handleUpdate () {
+          var this$1 = this;
+
+      if (this.isOpen()) {
+          this.close();
+      }
+      this.selectedValue = this.$native.val();
+      var itemsData = [];
+      this.$items = $();
+      // 生成 HTML
+      this.$native.find('option').each(function (index, option) {
+          var text = option.textContent || '';
+          var value = option.value;
+          var disabled = option.disabled;
+          var selected = this$1.selectedValue === value;
+          itemsData.push({
+              value: value,
+              text: text,
+              disabled: disabled,
+              selected: selected,
+              index: index,
+          });
+          if (selected) {
+              this$1.selectedText = text;
+              this$1.selectedIndex = index;
+          }
+          this$1.$items = this$1.$items.add('<div class="mdui-select-menu-item mdui-ripple"' +
+              (disabled ? ' disabled' : '') +
+              (selected ? ' selected' : '') +
+              ">" + text + "</div>");
+      });
+      this.$selected = $(("<span class=\"mdui-select-selected\">" + (this.selectedText) + "</span>"));
+      this.$element = $("<div class=\"mdui-select mdui-select-position-" + (this.options.position) + "\" " +
+          "style=\"" + (this.$native.attr('style')) + "\" " +
+          "id=\"" + (this.uniqueID) + "\"></div>")
+          .show()
+          .append(this.$selected);
+      this.$menu = $('<div class="mdui-select-menu"></div>')
+          .appendTo(this.$element)
+          .append(this.$items);
+      $(("#" + (this.uniqueID))).remove();
+      this.$native.after(this.$element);
+      // 根据 select 的 size 属性设置高度
+      this.size = parseInt(this.$native.attr('size') || '0');
+      if (this.size <= 0) {
+          this.size = this.$items.length;
+          if (this.size > 8) {
+              this.size = 8;
+          }
+      }
+      // 点击选项时关闭下拉菜单
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      var that = this;
+      this.$items.on('click', function () {
+          if (that.state === 'closing') {
+              return;
+          }
+          var $item = $(this);
+          var index = $item.index();
+          var data = itemsData[index];
+          if (data.disabled) {
+              return;
+          }
+          that.$selected.text(data.text);
+          that.$native.val(data.value);
+          that.$items.removeAttr('selected');
+          $item.attr('selected', '');
+          that.selectedIndex = data.index;
+          that.selectedValue = data.value;
+          that.selectedText = data.text;
+          that.$native.trigger('change');
+          that.close();
+      });
+      // 点击 $element 时打开下拉菜单
+      this.$element.on('click', function (event) {
+          var $target = $(event.target);
+          // 在菜单上点击时不打开
+          if ($target.is('.mdui-select-menu') ||
+              $target.is('.mdui-select-menu-item')) {
+              return;
+          }
+          this$1.toggle();
+      });
+  };
+  /**
+   * 动画结束的回调
+   */
+  Select.prototype.transitionEnd = function transitionEnd () {
+      this.$element.removeClass('mdui-select-closing');
+      if (this.state === 'opening') {
+          this.state = 'opened';
+          this.triggerEvent('opened');
+          this.$menu.css('overflow-y', 'auto');
+      }
+      if (this.state === 'closing') {
+          this.state = 'closed';
+          this.triggerEvent('closed');
+          // 恢复样式
+          this.$element.innerWidth('');
+          this.$menu.css({
+              'margin-top': '',
+              height: '',
+              width: '',
+          });
+      }
+  };
+  /**
+   * 触发组件事件
+   * @param name
+   */
+  Select.prototype.triggerEvent = function triggerEvent (name) {
+      componentEvent(name, 'select', this.$native, this);
+  };
+  /**
+   * 切换下拉菜单的打开状态
+   */
+  Select.prototype.toggle = function toggle () {
+      this.isOpen() ? this.close() : this.open();
+  };
+  /**
+   * 打开下拉菜单
+   */
+  Select.prototype.open = function open () {
+          var this$1 = this;
+
+      if (this.isOpen()) {
+          return;
+      }
+      this.state = 'opening';
+      this.triggerEvent('open');
+      this.readjustMenu();
+      this.$element.addClass('mdui-select-open');
+      this.$menu.transitionEnd(function () { return this$1.transitionEnd(); });
+  };
+  /**
+   * 关闭下拉菜单
+   */
+  Select.prototype.close = function close () {
+          var this$1 = this;
+
+      if (!this.isOpen()) {
+          return;
+      }
+      this.state = 'closing';
+      this.triggerEvent('close');
+      this.$menu.css('overflow-y', '');
+      this.$element
+          .removeClass('mdui-select-open')
+          .addClass('mdui-select-closing');
+      this.$menu.transitionEnd(function () { return this$1.transitionEnd(); });
+  };
+  /**
+   * 获取当前菜单的状态。共包含四种状态：`opening`、`opened`、`closing`、`closed`
+   */
+  Select.prototype.getState = function getState () {
+      return this.state;
+  };
+  mdui.Select = Select;
+
+  var customAttr$4 = 'mdui-select';
+  $(function () {
+      mdui.mutation(("[" + customAttr$4 + "]"), function () {
+          new mdui.Select(this, parseOptions(this, customAttr$4));
+      });
+  });
+
+  $(function () {
+      // 滚动时隐藏应用栏
+      mdui.mutation('.mdui-appbar-scroll-hide', function () {
+          new mdui.Headroom(this);
+      });
+      // 滚动时只隐藏应用栏中的工具栏
+      mdui.mutation('.mdui-appbar-scroll-toolbar-hide', function () {
+          new mdui.Headroom(this, {
+              pinnedClass: 'mdui-headroom-pinned-toolbar',
+              unpinnedClass: 'mdui-headroom-unpinned-toolbar',
+          });
+      });
+  });
+
+  var DEFAULT_OPTIONS$4 = {
+      trigger: 'click',
+      loop: false,
+  };
+  var Tab = function Tab(selector, options) {
+      var this$1 = this;
+      if ( options === void 0 ) options = {};
+
+      /**
+       * 配置参数
+       */
+      this.options = extend({}, DEFAULT_OPTIONS$4);
+      /**
+       * 当前激活的 tab 的索引号。为 -1 时表示没有激活的选项卡，或不存在选项卡
+       */
+      this.activeIndex = -1;
+      this.$element = $(selector).first();
+      extend(this.options, options);
+      this.$tabs = this.$element.children('a');
+      this.$indicator = $('<div class="mdui-tab-indicator"></div>').appendTo(this.$element);
+      // 根据 url hash 获取默认激活的选项卡
+      var hash = window.location.hash;
+      if (hash) {
+          this.$tabs.each(function (index, tab) {
+              if ($(tab).attr('href') === hash) {
+                  this$1.activeIndex = index;
+                  return false;
+              }
+              return true;
+          });
+      }
+      // 含 .mdui-tab-active 的元素默认激活
+      if (this.activeIndex === -1) {
+          this.$tabs.each(function (index, tab) {
+              if ($(tab).hasClass('mdui-tab-active')) {
+                  this$1.activeIndex = index;
+                  return false;
+              }
+              return true;
+          });
+      }
+      // 存在选项卡时，默认激活第一个选项卡
+      if (this.$tabs.length && this.activeIndex === -1) {
+          this.activeIndex = 0;
+      }
+      // 设置激活状态选项卡
+      this.setActive();
+      // 监听窗口大小变化事件，调整指示器位置
+      $window.on('resize', $.throttle(function () { return this$1.setIndicatorPosition(); }, 100));
+      // 监听点击选项卡事件
+      this.$tabs.each(function (_, tab) {
+          this$1.bindTabEvent(tab);
+      });
+  };
+  /**
+   * 指定选项卡是否已禁用
+   * @param $tab
+   */
+  Tab.prototype.isDisabled = function isDisabled ($tab) {
+      return $tab.attr('disabled') !== undefined;
+  };
+  /**
+   * 绑定在 Tab 上点击或悬浮的事件
+   * @param tab
+   */
+  Tab.prototype.bindTabEvent = function bindTabEvent (tab) {
+          var this$1 = this;
+
+      var $tab = $(tab);
+      // 点击或鼠标移入触发的事件
+      var clickEvent = function () {
+          // 禁用状态的选项卡无法选中
+          if (this$1.isDisabled($tab)) {
+              return false;
+          }
+          this$1.activeIndex = this$1.$tabs.index(tab);
+          this$1.setActive();
+      };
+      // 无论 trigger 是 click 还是 hover，都会响应 click 事件
+      $tab.on('click', clickEvent);
+      // trigger 为 hover 时，额外响应 mouseenter 事件
+      if (this.options.trigger === 'hover') {
+          $tab.on('mouseenter', clickEvent);
+      }
+      // 阻止链接的默认点击动作
+      $tab.on('click', function () {
+          if (($tab.attr('href') || '').indexOf('#') === 0) {
+              return false;
+          }
+      });
+  };
+  /**
+   * 触发组件事件
+   * @param name
+   * @param $element
+   * @param parameters
+   */
+  Tab.prototype.triggerEvent = function triggerEvent (name, $element, parameters) {
+          if ( parameters === void 0 ) parameters = {};
+
+      componentEvent(name, 'tab', $element, this, parameters);
+  };
+  /**
+   * 设置激活状态的选项卡
+   */
+  Tab.prototype.setActive = function setActive () {
+          var this$1 = this;
+
+      this.$tabs.each(function (index, tab) {
+          var $tab = $(tab);
+          var targetId = $tab.attr('href') || '';
+          // 设置选项卡激活状态
+          if (index === this$1.activeIndex && !this$1.isDisabled($tab)) {
+              if (!$tab.hasClass('mdui-tab-active')) {
+                  this$1.triggerEvent('change', this$1.$element, {
+                      index: this$1.activeIndex,
+                      id: targetId.substr(1),
+                  });
+                  this$1.triggerEvent('show', $tab);
+                  $tab.addClass('mdui-tab-active');
+              }
+              $(targetId).show();
+              this$1.setIndicatorPosition();
+          }
+          else {
+              $tab.removeClass('mdui-tab-active');
+              $(targetId).hide();
+          }
+      });
+  };
+  /**
+   * 设置选项卡指示器的位置
+   */
+  Tab.prototype.setIndicatorPosition = function setIndicatorPosition () {
+      // 选项卡数量为 0 时，不显示指示器
+      if (this.activeIndex === -1) {
+          this.$indicator.css({
+              left: 0,
+              width: 0,
+          });
+          return;
+      }
+      var $activeTab = this.$tabs.eq(this.activeIndex);
+      if (this.isDisabled($activeTab)) {
+          return;
+      }
+      var activeTabOffset = $activeTab.offset();
+      this.$indicator.css({
+          left: ((activeTabOffset.left +
+              this.$element[0].scrollLeft -
+              this.$element[0].getBoundingClientRect().left) + "px"),
+          width: (($activeTab.innerWidth()) + "px"),
+      });
+  };
+  /**
+   * 切换到下一个选项卡
+   */
+  Tab.prototype.next = function next () {
+      if (this.activeIndex === -1) {
+          return;
+      }
+      if (this.$tabs.length > this.activeIndex + 1) {
+          this.activeIndex++;
+      }
+      else if (this.options.loop) {
+          this.activeIndex = 0;
+      }
+      this.setActive();
+  };
+  /**
+   * 切换到上一个选项卡
+   */
+  Tab.prototype.prev = function prev () {
+      if (this.activeIndex === -1) {
+          return;
+      }
+      if (this.activeIndex > 0) {
+          this.activeIndex--;
+      }
+      else if (this.options.loop) {
+          this.activeIndex = this.$tabs.length - 1;
+      }
+      this.setActive();
+  };
+  /**
+   * 显示指定索引号、或指定id的选项卡
+   * @param index 索引号、或id
+   */
+  Tab.prototype.show = function show (index) {
+          var this$1 = this;
+
+      if (this.activeIndex === -1) {
+          return;
+      }
+      if (isNumber(index)) {
+          this.activeIndex = index;
+      }
+      else {
+          this.$tabs.each(function (i, tab) {
+              if (tab.id === index) {
+                  this$1.activeIndex === i;
+                  return false;
+              }
+          });
+      }
+      this.setActive();
+  };
+  /**
+   * 在父元素的宽度变化时，需要调用该方法重新调整指示器位置
+   * 在添加或删除选项卡时，需要调用该方法
+   */
+  Tab.prototype.handleUpdate = function handleUpdate () {
+          var this$1 = this;
+
+      var $oldTabs = this.$tabs; // 旧的 tabs JQ对象
+      var $newTabs = this.$element.children('a'); // 新的 tabs JQ对象
+      var oldTabsElement = $oldTabs.get(); // 旧的 tabs 元素数组
+      var newTabsElement = $newTabs.get(); // 新的 tabs 元素数组
+      if (!$newTabs.length) {
+          this.activeIndex = -1;
+          this.$tabs = $newTabs;
+          this.setIndicatorPosition();
+          return;
+      }
+      // 重新遍历选项卡，找出新增的选项卡
+      $newTabs.each(function (index, tab) {
+          // 有新增的选项卡
+          if (oldTabsElement.indexOf(tab) < 0) {
+              this$1.bindTabEvent(tab);
+              if (this$1.activeIndex === -1) {
+                  this$1.activeIndex = 0;
+              }
+              else if (index <= this$1.activeIndex) {
+                  this$1.activeIndex++;
+              }
+          }
+      });
+      // 找出被移除的选项卡
+      $oldTabs.each(function (index, tab) {
+          // 有被移除的选项卡
+          if (newTabsElement.indexOf(tab) < 0) {
+              if (index < this$1.activeIndex) {
+                  this$1.activeIndex--;
+              }
+              else if (index === this$1.activeIndex) {
+                  this$1.activeIndex = 0;
+              }
+          }
+      });
+      this.$tabs = $newTabs;
+      this.setActive();
+  };
+  mdui.Tab = Tab;
+
+  var customAttr$5 = 'mdui-tab';
+  $(function () {
+      mdui.mutation(("[" + customAttr$5 + "]"), function () {
+          new mdui.Tab(this, parseOptions(this, customAttr$5));
+      });
+  });
+
+  /**
+   * 在桌面设备上默认显示抽屉栏，不显示遮罩层
+   * 在手机和平板设备上默认不显示抽屉栏，始终显示遮罩层，且覆盖导航栏
+   */
+  var DEFAULT_OPTIONS$5 = {
+      overlay: false,
+      swipe: false,
+  };
+  var Drawer = function Drawer(selector, options) {
+      var this$1 = this;
+      if ( options === void 0 ) options = {};
+
+      /**
+       * 配置参数
+       */
+      this.options = extend({}, DEFAULT_OPTIONS$5);
+      /**
+       * 当前是否显示着遮罩层
+       */
+      this.overlay = false;
+      this.$element = $(selector).first();
+      extend(this.options, options);
+      this.position = this.$element.hasClass('mdui-drawer-right')
+          ? 'right'
+          : 'left';
+      if (this.$element.hasClass('mdui-drawer-close')) {
+          this.state = 'closed';
+      }
+      else if (this.$element.hasClass('mdui-drawer-open')) {
+          this.state = 'opened';
+      }
+      else if (this.isDesktop()) {
+          this.state = 'opened';
+      }
+      else {
+          this.state = 'closed';
+      }
+      // 浏览器窗口大小调整时
+      $window.on('resize', $.throttle(function () {
+          if (this$1.isDesktop()) {
+              // 由手机平板切换到桌面时
+              // 如果显示着遮罩，则隐藏遮罩
+              if (this$1.overlay && !this$1.options.overlay) {
+                  $.hideOverlay();
+                  this$1.overlay = false;
+                  $.unlockScreen();
+              }
+              // 没有强制关闭，则状态为打开状态
+              if (!this$1.$element.hasClass('mdui-drawer-close')) {
+                  this$1.state = 'opened';
+              }
+          }
+          else if (!this$1.overlay && this$1.state === 'opened') {
+              // 由桌面切换到手机平板时。如果抽屉栏是打开着的且没有遮罩层，则关闭抽屉栏
+              if (this$1.$element.hasClass('mdui-drawer-open')) {
+                  $.showOverlay();
+                  this$1.overlay = true;
+                  $.lockScreen();
+                  $('.mdui-overlay').one('click', function () { return this$1.close(); });
+              }
+              else {
+                  this$1.state = 'closed';
+              }
+          }
+      }, 100));
+      // 绑定关闭按钮事件
+      this.$element.find('[mdui-drawer-close]').each(function (_, close) {
+          $(close).on('click', function () { return this$1.close(); });
+      });
+      this.swipeSupport();
+  };
+  /**
+   * 是否是桌面设备
+   */
+  Drawer.prototype.isDesktop = function isDesktop () {
+      return $window.width() >= 1024;
+  };
+  /**
+   * 滑动手势支持
+   */
+  Drawer.prototype.swipeSupport = function swipeSupport () {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      var that = this;
+      // 抽屉栏滑动手势控制
+      var openNavEventHandler;
+      var touchStartX;
+      var touchStartY;
+      var swipeStartX;
+      var swiping = null;
+      var maybeSwiping = false;
+      var $body = $('body');
+      // 手势触发的范围
+      var swipeAreaWidth = 24;
+      function setPosition(translateX) {
+          var rtlTranslateMultiplier = that.position === 'right' ? -1 : 1;
+          var transformCSS = "translate(" + (-1 * rtlTranslateMultiplier * translateX) + "px, 0) !important;";
+          var transitionCSS = 'initial !important;';
+          that.$element.css('cssText', ("transform: " + transformCSS + "; transition: " + transitionCSS + ";"));
+      }
+      function cleanPosition() {
+          that.$element[0].style.transform = '';
+          that.$element[0].style.webkitTransform = '';
+          that.$element[0].style.transition = '';
+          that.$element[0].style.webkitTransition = '';
+      }
+      function getMaxTranslateX() {
+          return that.$element.width() + 10;
+      }
+      function getTranslateX(currentX) {
+          return Math.min(Math.max(swiping === 'closing'
+              ? swipeStartX - currentX
+              : getMaxTranslateX() + swipeStartX - currentX, 0), getMaxTranslateX());
+      }
+      function onBodyTouchEnd(event) {
+          if (swiping) {
+              var touchX = event.changedTouches[0].pageX;
+              if (that.position === 'right') {
+                  touchX = $body.width() - touchX;
+              }
+              var translateRatio = getTranslateX(touchX) / getMaxTranslateX();
+              maybeSwiping = false;
+              var swipingState = swiping;
+              swiping = null;
+              if (swipingState === 'opening') {
+                  if (translateRatio < 0.92) {
+                      cleanPosition();
+                      that.open();
+                  }
+                  else {
+                      cleanPosition();
+                  }
+              }
+              else {
+                  if (translateRatio > 0.08) {
+                      cleanPosition();
+                      that.close();
+                  }
+                  else {
+                      cleanPosition();
+                  }
+              }
+              $.unlockScreen();
+          }
+          else {
+              maybeSwiping = false;
+          }
+          $body.off({
+              // eslint-disable-next-line @typescript-eslint/no-use-before-define
+              touchmove: onBodyTouchMove,
+              touchend: onBodyTouchEnd,
+              // eslint-disable-next-line @typescript-eslint/no-use-before-define
+              touchcancel: onBodyTouchMove,
+          });
+      }
+      function onBodyTouchMove(event) {
+          var touchX = event.touches[0].pageX;
+          if (that.position === 'right') {
+              touchX = $body.width() - touchX;
+          }
+          var touchY = event.touches[0].pageY;
+          if (swiping) {
+              setPosition(getTranslateX(touchX));
+          }
+          else if (maybeSwiping) {
+              var dXAbs = Math.abs(touchX - touchStartX);
+              var dYAbs = Math.abs(touchY - touchStartY);
+              var threshold = 8;
+              if (dXAbs > threshold && dYAbs <= threshold) {
+                  swipeStartX = touchX;
+                  swiping = that.state === 'opened' ? 'closing' : 'opening';
+                  $.lockScreen();
+                  setPosition(getTranslateX(touchX));
+              }
+              else if (dXAbs <= threshold && dYAbs > threshold) {
+                  onBodyTouchEnd();
+              }
+          }
+      }
+      function onBodyTouchStart(event) {
+          touchStartX = event.touches[0].pageX;
+          if (that.position === 'right') {
+              touchStartX = $body.width() - touchStartX;
+          }
+          touchStartY = event.touches[0].pageY;
+          if (that.state !== 'opened') {
+              if (touchStartX > swipeAreaWidth ||
+                  openNavEventHandler !== onBodyTouchStart) {
+                  return;
+              }
+          }
+          maybeSwiping = true;
+          $body.on({
+              touchmove: onBodyTouchMove,
+              touchend: onBodyTouchEnd,
+              touchcancel: onBodyTouchMove,
+          });
+      }
+      function enableSwipeHandling() {
+          if (!openNavEventHandler) {
+              $body.on('touchstart', onBodyTouchStart);
+              openNavEventHandler = onBodyTouchStart;
+          }
+      }
+      if (this.options.swipe) {
+          enableSwipeHandling();
+      }
+  };
+  /**
+   * 触发组件事件
+   * @param name
+   */
+  Drawer.prototype.triggerEvent = function triggerEvent (name) {
+      componentEvent(name, 'drawer', this.$element, this);
+  };
+  /**
+   * 动画结束回调
+   */
+  Drawer.prototype.transitionEnd = function transitionEnd () {
+      if (this.$element.hasClass('mdui-drawer-open')) {
+          this.state = 'opened';
+          this.triggerEvent('opened');
+      }
+      else {
+          this.state = 'closed';
+          this.triggerEvent('closed');
+      }
+  };
+  /**
+   * 是否处于打开状态
+   */
+  Drawer.prototype.isOpen = function isOpen () {
+      return this.state === 'opening' || this.state === 'opened';
+  };
+  /**
+   * 打开抽屉栏
+   */
+  Drawer.prototype.open = function open () {
+          var this$1 = this;
+
+      if (this.isOpen()) {
+          return;
+      }
+      this.state = 'opening';
+      this.triggerEvent('open');
+      if (!this.options.overlay) {
+          $('body').addClass(("mdui-drawer-body-" + (this.position)));
+      }
+      this.$element
+          .removeClass('mdui-drawer-close')
+          .addClass('mdui-drawer-open')
+          .transitionEnd(function () { return this$1.transitionEnd(); });
+      if (!this.isDesktop() || this.options.overlay) {
+          this.overlay = true;
+          $.showOverlay().one('click', function () { return this$1.close(); });
+          $.lockScreen();
+      }
+  };
+  /**
+   * 关闭抽屉栏
+   */
+  Drawer.prototype.close = function close () {
+          var this$1 = this;
+
+      if (!this.isOpen()) {
+          return;
+      }
+      this.state = 'closing';
+      this.triggerEvent('close');
+      if (!this.options.overlay) {
+          $('body').removeClass(("mdui-drawer-body-" + (this.position)));
+      }
+      this.$element
+          .addClass('mdui-drawer-close')
+          .removeClass('mdui-drawer-open')
+          .transitionEnd(function () { return this$1.transitionEnd(); });
+      if (this.overlay) {
+          $.hideOverlay();
+          this.overlay = false;
+          $.unlockScreen();
+      }
+  };
+  /**
+   * 切换抽屉栏打开/关闭状态
+   */
+  Drawer.prototype.toggle = function toggle () {
+      this.isOpen() ? this.close() : this.open();
+  };
+  /**
+   * 返回当前抽屉栏的状态。共包含四种状态：`opening`、`opened`、`closing`、`closed`
+   */
+  Drawer.prototype.getState = function getState () {
+      return this.state;
+  };
+  mdui.Drawer = Drawer;
+
+  var customAttr$6 = 'mdui-drawer';
+  $(function () {
+      mdui.mutation(("[" + customAttr$6 + "]"), function () {
+          var $element = $(this);
+          var options = parseOptions(this, customAttr$6);
+          var selector = options.target;
+          // @ts-ignore
+          delete options.target;
+          var $drawer = $(selector).first();
+          var instance = new mdui.Drawer($drawer, options);
+          $element.on('click', function () { return instance.toggle(); });
+      });
+  });
+
+  var container = {};
+  function queue(name, func) {
+      if (isUndefined(container[name])) {
+          container[name] = [];
+      }
+      if (isUndefined(func)) {
+          return container[name];
+      }
+      container[name].push(func);
+  }
+  /**
+   * 从队列中移除第一个函数，并执行该函数
+   * @param name 队列满
+   */
+  function dequeue(name) {
+      if (isUndefined(container[name])) {
+          return;
+      }
+      if (!container[name].length) {
+          return;
+      }
+      var func = container[name].shift();
+      func();
+  }
+
+  var DEFAULT_OPTIONS$6 = {
+      history: true,
+      overlay: true,
+      modal: false,
+      closeOnEsc: true,
+      closeOnCancel: true,
+      closeOnConfirm: true,
+      destroyOnClosed: false,
+  };
+  /**
+   * 当前显示的对话框实例
+   */
+  var currentInst = null;
+  /**
+   * 队列名
+   */
+  var queueName = '_mdui_dialog';
+  /**
+   * 窗口是否已锁定
+   */
+  var isLockScreen = false;
+  /**
+   * 遮罩层元素
+   */
+  var $overlay;
+  var Dialog = function Dialog(selector, options) {
+      var this$1 = this;
+      if ( options === void 0 ) options = {};
+
+      /**
+       * 配置参数
+       */
+      this.options = extend({}, DEFAULT_OPTIONS$6);
+      /**
+       * 当前 dialog 的状态
+       */
+      this.state = 'closed';
+      /**
+       * dialog 元素是否是动态添加的
+       */
+      this.append = false;
+      this.$element = $(selector).first();
+      // 如果对话框元素没有在当前文档中，则需要添加
+      if (!contains(document.body, this.$element[0])) {
+          this.append = true;
+          $('body').append(this.$element);
+      }
+      extend(this.options, options);
+      // 绑定取消按钮事件
+      this.$element.find('[mdui-dialog-cancel]').each(function (_, cancel) {
+          $(cancel).on('click', function () {
+              this$1.triggerEvent('cancel');
+              if (this$1.options.closeOnCancel) {
+                  this$1.close();
+              }
+          });
+      });
+      // 绑定确认按钮事件
+      this.$element.find('[mdui-dialog-confirm]').each(function (_, confirm) {
+          $(confirm).on('click', function () {
+              this$1.triggerEvent('confirm');
+              if (this$1.options.closeOnConfirm) {
+                  this$1.close();
+              }
+          });
+      });
+      // 绑定关闭按钮事件
+      this.$element.find('[mdui-dialog-close]').each(function (_, close) {
+          $(close).on('click', function () { return this$1.close(); });
+      });
+  };
+  /**
+   * 触发组件事件
+   * @param name
+   */
+  Dialog.prototype.triggerEvent = function triggerEvent (name) {
+      componentEvent(name, 'dialog', this.$element, this);
+  };
+  /**
+   * 窗口宽度变化，或对话框内容变化时，调整对话框位置和对话框内的滚动条
+   */
+  Dialog.prototype.readjust = function readjust () {
+      if (!currentInst) {
+          return;
+      }
+      var $element = currentInst.$element;
+      var $title = $element.children('.mdui-dialog-title');
+      var $content = $element.children('.mdui-dialog-content');
+      var $actions = $element.children('.mdui-dialog-actions');
+      // 调整 dialog 的 top 和 height 值
+      $element.height('');
+      $content.height('');
+      var elementHeight = $element.height();
+      $element.css({
+          top: ((($window.height() - elementHeight) / 2) + "px"),
+          height: (elementHeight + "px"),
+      });
+      // 调整 mdui-dialog-content 的高度
+      $content.innerHeight(elementHeight -
+          ($title.innerHeight() || 0) -
+          ($actions.innerHeight() || 0));
+  };
+  /**
+   * hashchange 事件触发时关闭对话框
+   */
+  Dialog.prototype.hashchangeEvent = function hashchangeEvent () {
+      if (window.location.hash.substring(1).indexOf('mdui-dialog') < 0) {
+          currentInst.close(true);
+      }
+  };
+  /**
+   * 点击遮罩层关闭对话框
+   * @param event
+   */
+  Dialog.prototype.overlayClick = function overlayClick (event) {
+      if ($(event.target).hasClass('mdui-overlay') &&
+          currentInst) {
+          currentInst.close();
+      }
+  };
+  /**
+   * 动画结束回调
+   */
+  Dialog.prototype.transitionEnd = function transitionEnd () {
+      if (this.$element.hasClass('mdui-dialog-open')) {
+          this.state = 'opened';
+          this.triggerEvent('opened');
+      }
+      else {
+          this.state = 'closed';
+          this.triggerEvent('closed');
+          this.$element.hide();
+          // 所有对话框都关闭，且当前没有打开的对话框时，解锁屏幕
+          if (!queue(queueName).length && !currentInst && isLockScreen) {
+              $.unlockScreen();
+              isLockScreen = false;
+          }
+          $window.off('resize', $.throttle(this.readjust, 100));
+          if (this.options.destroyOnClosed) {
+              this.destroy();
+          }
+      }
+  };
+  /**
+   * 打开指定对话框
+   */
+  Dialog.prototype.doOpen = function doOpen () {
+          var this$1 = this;
+
+      currentInst = this;
+      if (!isLockScreen) {
+          $.lockScreen();
+          isLockScreen = true;
+      }
+      this.$element.show();
+      this.readjust();
+      $window.on('resize', $.throttle(this.readjust, 100));
+      // 打开消息框
+      this.state = 'opening';
+      this.triggerEvent('open');
+      this.$element
+          .addClass('mdui-dialog-open')
+          .transitionEnd(function () { return this$1.transitionEnd(); });
+      // 不存在遮罩层元素时，添加遮罩层
+      if (!$overlay) {
+          $overlay = $.showOverlay(5100);
+      }
+      // 点击遮罩层时是否关闭对话框
+      if (this.options.modal) {
+          $overlay.off('click', this.overlayClick);
+      }
+      else {
+          $overlay.on('click', this.overlayClick);
+      }
+      // 是否显示遮罩层，不显示时，把遮罩层背景透明
+      $overlay.css('opacity', this.options.overlay ? '' : 0);
+      if (this.options.history) {
+          // 如果 hash 中原来就有 mdui-dialog，先删除，避免后退历史纪录后仍然有 mdui-dialog 导致无法关闭
+          // 包括 mdui-dialog 和 &mdui-dialog 和 ?mdui-dialog
+          var hash = window.location.hash.substring(1);
+          if (hash.indexOf('mdui-dialog') > -1) {
+              hash = hash.replace(/[&?]?mdui-dialog/g, '');
+          }
+          // 后退按钮关闭对话框
+          if (hash) {
+              window.location.hash = "" + hash + (hash.indexOf('?') > -1 ? '&' : '?') + "mdui-dialog";
+          }
+          else {
+              window.location.hash = 'mdui-dialog';
+          }
+          $window.on('hashchange', this.hashchangeEvent);
+      }
+  };
+  /**
+   * 当前对话框是否为打开状态
+   */
+  Dialog.prototype.isOpen = function isOpen () {
+      return this.state === 'opening' || this.state === 'opened';
+  };
+  /**
+   * 打开对话框
+   */
+  Dialog.prototype.open = function open () {
+          var this$1 = this;
+
+      if (this.isOpen()) {
+          return;
+      }
+      // 如果当前有正在打开或已经打开的对话框,或队列不为空，则先加入队列，等旧对话框开始关闭时再打开
+      if ((currentInst &&
+          (currentInst.state === 'opening' || currentInst.state === 'opened')) ||
+          queue(queueName).length) {
+          queue(queueName, function () { return this$1.doOpen(); });
+          return;
+      }
+      this.doOpen();
+  };
+  /**
+   * 关闭对话框
+   */
+  Dialog.prototype.close = function close (historyBack) {
+          var this$1 = this;
+          if ( historyBack === void 0 ) historyBack = false;
+
+      // historyBack 是否需要后退历史纪录，默认为 `false`。该参数仅内部使用
+      // 为 `false` 时是通过 js 关闭，需要后退一个历史记录
+      // 为 `true` 时是通过后退按钮关闭，不需要后退历史记录
+      // setTimeout 的作用是：
+      // 当同时关闭一个对话框，并打开另一个对话框时，使打开对话框的操作先执行，以使需要打开的对话框先加入队列
+      setTimeout(function () {
+          if (!this$1.isOpen()) {
+              return;
+          }
+          currentInst = null;
+          this$1.state = 'closing';
+          this$1.triggerEvent('close');
+          // 所有对话框都关闭，且当前没有打开的对话框时，隐藏遮罩
+          if (!queue(queueName).length && $overlay) {
+              $.hideOverlay();
+              $overlay = null;
+              // 若仍存在遮罩，恢复遮罩的 z-index
+              $('.mdui-overlay').css('z-index', 2000);
+          }
+          this$1.$element
+              .removeClass('mdui-dialog-open')
+              .transitionEnd(function () { return this$1.transitionEnd(); });
+          if (this$1.options.history && !queue(queueName).length) {
+              if (!historyBack) {
+                  window.history.back();
+              }
+              $window.off('hashchange', this$1.hashchangeEvent);
+          }
+          // 关闭旧对话框，打开新对话框。
+          // 加一点延迟，仅仅为了视觉效果更好。不加延时也不影响功能
+          setTimeout(function () {
+              dequeue(queueName);
+          }, 100);
+      });
+  };
+  /**
+   * 切换对话框打开/关闭状态
+   */
+  Dialog.prototype.toggle = function toggle () {
+      this.isOpen() ? this.close() : this.open();
+  };
+  /**
+   * 获取对话框状态。共包含四种状态：`opening`、`opened`、`closing`、`closed`
+   */
+  Dialog.prototype.getState = function getState () {
+      return this.state;
+  };
+  /**
+   * 销毁对话框
+   */
+  Dialog.prototype.destroy = function destroy () {
+      if (this.append) {
+          this.$element.remove();
+      }
+      if (!queue(queueName).length && !currentInst) {
+          if ($overlay) {
+              $.hideOverlay();
+              $overlay = null;
+          }
+          if (isLockScreen) {
+              $.unlockScreen();
+              isLockScreen = false;
+          }
+      }
+  };
+  /**
+   * 对话框内容变化时，需要调用该方法来调整对话框位置和滚动条高度
+   */
+  Dialog.prototype.handleUpdate = function handleUpdate () {
+      this.readjust();
+  };
+
+  // esc 按下时关闭对话框
+  $document.on('keydown', function (event) {
+      if (currentInst &&
+          currentInst.options.closeOnEsc &&
+          currentInst.state === 'opened' &&
+          event.keyCode === 27) {
+          currentInst.close();
+      }
+  });
+  mdui.Dialog = Dialog;
+
+  var customAttr$7 = 'mdui-dialog';
+  var dataName$1 = '_mdui_dialog';
+  $(function () {
+      $document.on('click', ("[" + customAttr$7 + "]"), function () {
+          var options = parseOptions(this, customAttr$7);
+          var selector = options.target;
+          // @ts-ignore
+          delete options.target;
+          var $dialog = $(selector).first();
+          var instance = $dialog.data(dataName$1);
+          if (!instance) {
+              instance = new mdui.Dialog($dialog, options);
+              $dialog.data(dataName$1, instance);
+          }
+          instance.open();
+      });
+  });
+
+  var DEFAULT_BUTTON = {
+      text: '',
+      bold: false,
+      close: true,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onClick: function () { },
+  };
+  var DEFAULT_OPTIONS$7 = {
+      title: '',
+      content: '',
+      buttons: [],
+      stackedButtons: false,
+      cssClass: '',
+      history: true,
+      overlay: true,
+      modal: false,
+      closeOnEsc: true,
+      destroyOnClosed: true,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onOpen: function () { },
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onOpened: function () { },
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onClose: function () { },
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onClosed: function () { },
+  };
+  mdui.dialog = function (options) {
+      var _a, _b;
+      // 合并配置参数
+      options = extend({}, DEFAULT_OPTIONS$7, options);
+      each(options.buttons, function (i, button) {
+          options.buttons[i] = extend({}, DEFAULT_BUTTON, button);
+      });
+      // 按钮的 HTML
+      var buttonsHTML = '';
+      if ((_a = options.buttons) === null || _a === void 0 ? void 0 : _a.length) {
+          buttonsHTML = "<div class=\"mdui-dialog-actions" + (options.stackedButtons ? ' mdui-dialog-actions-stacked' : '') + "\">";
+          each(options.buttons, function (_, button) {
+              buttonsHTML +=
+                  '<a href="javascript:void(0)" ' +
+                      "class=\"mdui-btn mdui-ripple mdui-text-color-primary " + (button.bold ? 'mdui-btn-bold' : '') + "\">" + (button.text) + "</a>";
+          });
+          buttonsHTML += '</div>';
+      }
+      // Dialog 的 HTML
+      var HTML = "<div class=\"mdui-dialog " + (options.cssClass) + "\">" +
+          (options.title
+              ? ("<div class=\"mdui-dialog-title\">" + (options.title) + "</div>")
+              : '') +
+          (options.content
+              ? ("<div class=\"mdui-dialog-content\">" + (options.content) + "</div>")
+              : '') +
+          buttonsHTML +
+          '</div>';
+      // 实例化 Dialog
+      var instance = new mdui.Dialog(HTML, {
+          history: options.history,
+          overlay: options.overlay,
+          modal: options.modal,
+          closeOnEsc: options.closeOnEsc,
+          destroyOnClosed: options.destroyOnClosed,
+      });
+      // 绑定按钮事件
+      if ((_b = options.buttons) === null || _b === void 0 ? void 0 : _b.length) {
+          instance.$element
+              .find('.mdui-dialog-actions .mdui-btn')
+              .each(function (index, button) {
+              $(button).on('click', function () {
+                  options.buttons[index].onClick(instance);
+                  if (options.buttons[index].close) {
+                      instance.close();
+                  }
+              });
+          });
+      }
+      // 绑定打开关闭事件
+      instance.$element
+          .on('open.mdui.dialog', function () {
+          options.onOpen(instance);
+      })
+          .on('opened.mdui.dialog', function () {
+          options.onOpened(instance);
+      })
+          .on('close.mdui.dialog', function () {
+          options.onClose(instance);
+      })
+          .on('closed.mdui.dialog', function () {
+          options.onClosed(instance);
+      });
+      instance.open();
+      return instance;
+  };
+
+  var DEFAULT_OPTIONS$8 = {
+      confirmText: 'ok',
+      history: true,
+      modal: false,
+      closeOnEsc: true,
+      closeOnConfirm: true,
+  };
+  mdui.alert = function (text, title, onConfirm, options) {
+      if (isFunction(title)) {
+          options = onConfirm;
+          onConfirm = title;
+          title = '';
+      }
+      if (isUndefined(onConfirm)) {
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          onConfirm = function () { };
+      }
+      if (isUndefined(options)) {
+          options = {};
+      }
+      options = extend({}, DEFAULT_OPTIONS$8, options);
+      return mdui.dialog({
+          title: title,
+          content: text,
+          buttons: [
+              {
+                  text: options.confirmText,
+                  bold: false,
+                  close: options.closeOnConfirm,
+                  onClick: onConfirm,
+              } ],
+          cssClass: 'mdui-dialog-alert',
+          history: options.history,
+          modal: options.modal,
+          closeOnEsc: options.closeOnEsc,
+      });
+  };
+
+  var DEFAULT_OPTIONS$9 = {
+      confirmText: 'ok',
+      cancelText: 'cancel',
+      history: true,
+      modal: false,
+      closeOnEsc: true,
+      closeOnCancel: true,
+      closeOnConfirm: true,
+  };
+  mdui.confirm = function (text, title, onConfirm, onCancel, options) {
+      if (isFunction(title)) {
+          options = onCancel;
+          onCancel = onConfirm;
+          onConfirm = title;
+          title = '';
+      }
+      if (isUndefined(onConfirm)) {
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          onConfirm = function () { };
+      }
+      if (isUndefined(onCancel)) {
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          onCancel = function () { };
+      }
+      if (isUndefined(options)) {
+          options = {};
+      }
+      options = extend({}, DEFAULT_OPTIONS$9, options);
+      return mdui.dialog({
+          title: title,
+          content: text,
+          buttons: [
+              {
+                  text: options.cancelText,
+                  bold: false,
+                  close: options.closeOnCancel,
+                  onClick: onCancel,
+              },
+              {
+                  text: options.confirmText,
+                  bold: false,
+                  close: options.closeOnConfirm,
+                  onClick: onConfirm,
+              } ],
+          cssClass: 'mdui-dialog-confirm',
+          history: options.history,
+          modal: options.modal,
+          closeOnEsc: options.closeOnEsc,
+      });
+  };
+
+  var DEFAULT_OPTIONS$a = {
+      confirmText: 'ok',
+      cancelText: 'cancel',
+      history: true,
+      modal: false,
+      closeOnEsc: true,
+      closeOnCancel: true,
+      closeOnConfirm: true,
+      type: 'text',
+      maxlength: 0,
+      defaultValue: '',
+      confirmOnEnter: false,
+  };
+  mdui.prompt = function (label, title, onConfirm, onCancel, options) {
+      if (isFunction(title)) {
+          options = onCancel;
+          onCancel = onConfirm;
+          onConfirm = title;
+          title = '';
+      }
+      if (isUndefined(onConfirm)) {
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          onConfirm = function () { };
+      }
+      if (isUndefined(onCancel)) {
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          onCancel = function () { };
+      }
+      if (isUndefined(options)) {
+          options = {};
+      }
+      options = extend({}, DEFAULT_OPTIONS$a, options);
+      var content = '<div class="mdui-textfield">' +
+          (label ? ("<label class=\"mdui-textfield-label\">" + label + "</label>") : '') +
+          (options.type === 'text'
+              ? ("<input class=\"mdui-textfield-input\" type=\"text\" value=\"" + (options.defaultValue) + "\" " + (options.maxlength ? 'maxlength="' + options.maxlength + '"' : '') + "/>")
+              : '') +
+          (options.type === 'textarea'
+              ? ("<textarea class=\"mdui-textfield-input\" " + (options.maxlength ? 'maxlength="' + options.maxlength + '"' : '') + ">" + (options.defaultValue) + "</textarea>")
+              : '') +
+          '</div>';
+      var onCancelClick = function (dialog) {
+          var value = dialog.$element.find('.mdui-textfield-input').val();
+          onCancel(value, dialog);
+      };
+      var onConfirmClick = function (dialog) {
+          var value = dialog.$element.find('.mdui-textfield-input').val();
+          onConfirm(value, dialog);
+      };
+      return mdui.dialog({
+          title: title,
+          content: content,
+          buttons: [
+              {
+                  text: options.cancelText,
+                  bold: false,
+                  close: options.closeOnCancel,
+                  onClick: onCancelClick,
+              },
+              {
+                  text: options.confirmText,
+                  bold: false,
+                  close: options.closeOnConfirm,
+                  onClick: onConfirmClick,
+              } ],
+          cssClass: 'mdui-dialog-prompt',
+          history: options.history,
+          modal: options.modal,
+          closeOnEsc: options.closeOnEsc,
+          onOpen: function (dialog) {
+              // 初始化输入框
+              var $input = dialog.$element.find('.mdui-textfield-input');
+              mdui.updateTextFields($input);
+              // 聚焦到输入框
+              $input[0].focus();
+              // 捕捉文本框回车键，在单行文本框的情况下触发回调
+              if (options.type !== 'textarea' && options.confirmOnEnter === true) {
+                  $input.on('keydown', function (event) {
+                      if (event.keyCode === 13) {
+                          var value = dialog.$element.find('.mdui-textfield-input').val();
+                          onConfirm(value, dialog);
+                          if (options.closeOnConfirm) {
+                              dialog.close();
+                          }
+                          return false;
+                      }
+                      return;
+                  });
+              }
+              // 如果是多行输入框，监听输入框的 input 事件，更新对话框高度
+              if (options.type === 'textarea') {
+                  $input.on('input', function () { return dialog.handleUpdate(); });
+              }
+              // 有字符数限制时，加载完文本框后 DOM 会变化，需要更新对话框高度
+              if (options.maxlength) {
+                  dialog.handleUpdate();
+              }
+          },
+      });
+  };
+
+  var DEFAULT_OPTIONS$b = {
+      position: 'auto',
+      delay: 0,
+      content: '',
+  };
+  var Tooltip = function Tooltip(selector, options) {
+      if ( options === void 0 ) options = {};
+
+      /**
+       * 配置参数
+       */
+      this.options = extend({}, DEFAULT_OPTIONS$b);
+      /**
+       * 当前 tooltip 的状态
+       */
+      this.state = 'closed';
+      /**
+       * setTimeout 的返回值
+       */
+      this.timeoutId = null;
+      this.$target = $(selector).first();
+      extend(this.options, options);
+      // 创建 Tooltip HTML
+      this.$element = $(("<div class=\"mdui-tooltip\" id=\"" + ($.guid()) + "\">" + (this.options.content) + "</div>")).appendTo(document.body);
+      // 绑定事件。元素处于 disabled 状态时无法触发鼠标事件，为了统一，把 touch 事件也禁用
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      var that = this;
+      this.$target
+          .on('touchstart mouseenter', function (event) {
+          if (that.isDisabled(this)) {
+              return;
+          }
+          if (!isAllow(event)) {
+              return;
+          }
+          register(event);
+          that.open();
+      })
+          .on('touchend mouseleave', function (event) {
+          if (that.isDisabled(this)) {
+              return;
+          }
+          if (!isAllow(event)) {
+              return;
+          }
+          that.close();
+      })
+          .on(unlockEvent, function (event) {
+          if (that.isDisabled(this)) {
+              return;
+          }
+          register(event);
+      });
+  };
+  /**
+   * 元素是否已禁用
+   * @param element
+   */
+  Tooltip.prototype.isDisabled = function isDisabled (element) {
+      return (element.disabled ||
+          $(element).attr('disabled') !== undefined);
+  };
+  /**
+   * 是否是桌面设备
+   */
+  Tooltip.prototype.isDesktop = function isDesktop () {
+      return $window.width() > 1024;
+  };
+  /**
+   * 设置 Tooltip 的位置
+   */
+  Tooltip.prototype.setPosition = function setPosition () {
+      var marginLeft;
+      var marginTop;
+      // 触发的元素
+      var targetProps = this.$target[0].getBoundingClientRect();
+      // 触发的元素和 Tooltip 之间的距离
+      var targetMargin = this.isDesktop() ? 14 : 24;
+      // Tooltip 的宽度和高度
+      var tooltipWidth = this.$element[0].offsetWidth;
+      var tooltipHeight = this.$element[0].offsetHeight;
+      // Tooltip 的方向
+      var position = this.options.position;
+      // 自动判断位置，加 2px，使 Tooltip 距离窗口边框至少有 2px 的间距
+      if (position === 'auto') {
+          if (targetProps.top +
+              targetProps.height +
+              targetMargin +
+              tooltipHeight +
+              2 <
+              $window.height()) {
+              position = 'bottom';
+          }
+          else if (targetMargin + tooltipHeight + 2 < targetProps.top) {
+              position = 'top';
+          }
+          else if (targetMargin + tooltipWidth + 2 < targetProps.left) {
+              position = 'left';
+          }
+          else if (targetProps.width + targetMargin + tooltipWidth + 2 <
+              $window.width() - targetProps.left) {
+              position = 'right';
+          }
+          else {
+              position = 'bottom';
+          }
+      }
+      // 设置位置
+      switch (position) {
+          case 'bottom':
+              marginLeft = -1 * (tooltipWidth / 2);
+              marginTop = targetProps.height / 2 + targetMargin;
+              this.$element.transformOrigin('top center');
+              break;
+          case 'top':
+              marginLeft = -1 * (tooltipWidth / 2);
+              marginTop =
+                  -1 * (tooltipHeight + targetProps.height / 2 + targetMargin);
+              this.$element.transformOrigin('bottom center');
+              break;
+          case 'left':
+              marginLeft = -1 * (tooltipWidth + targetProps.width / 2 + targetMargin);
+              marginTop = -1 * (tooltipHeight / 2);
+              this.$element.transformOrigin('center right');
+              break;
+          case 'right':
+              marginLeft = targetProps.width / 2 + targetMargin;
+              marginTop = -1 * (tooltipHeight / 2);
+              this.$element.transformOrigin('center left');
+              break;
+      }
+      var targetOffset = this.$target.offset();
+      this.$element.css({
+          top: ((targetOffset.top + targetProps.height / 2) + "px"),
+          left: ((targetOffset.left + targetProps.width / 2) + "px"),
+          'margin-left': (marginLeft + "px"),
+          'margin-top': (marginTop + "px"),
+      });
+  };
+  /**
+   * 触发组件事件
+   * @param name
+   */
+  Tooltip.prototype.triggerEvent = function triggerEvent (name) {
+      componentEvent(name, 'tooltip', this.$target, this);
+  };
+  /**
+   * 动画结束回调
+   */
+  Tooltip.prototype.transitionEnd = function transitionEnd () {
+      if (this.$element.hasClass('mdui-tooltip-open')) {
+          this.state = 'opened';
+          this.triggerEvent('opened');
+      }
+      else {
+          this.state = 'closed';
+          this.triggerEvent('closed');
+      }
+  };
+  /**
+   * 当前 tooltip 是否为打开状态
+   */
+  Tooltip.prototype.isOpen = function isOpen () {
+      return this.state === 'opening' || this.state === 'opened';
+  };
+  /**
+   * 执行打开 tooltip
+   */
+  Tooltip.prototype.doOpen = function doOpen () {
+          var this$1 = this;
+
+      this.state = 'opening';
+      this.triggerEvent('open');
+      this.$element
+          .addClass('mdui-tooltip-open')
+          .transitionEnd(function () { return this$1.transitionEnd(); });
+  };
+  /**
+   * 打开 Tooltip
+   * @param options 允许每次打开时设置不同的参数
+   */
+  Tooltip.prototype.open = function open (options) {
+          var this$1 = this;
+
+      if (this.isOpen()) {
+          return;
+      }
+      var oldOptions = extend({}, this.options);
+      if (options) {
+          extend(this.options, options);
+      }
+      // tooltip 的内容有更新
+      if (oldOptions.content !== this.options.content) {
+          this.$element.html(this.options.content);
+      }
+      this.setPosition();
+      if (this.options.delay) {
+          this.timeoutId = setTimeout(function () { return this$1.doOpen(); }, this.options.delay);
+      }
+      else {
+          this.timeoutId = null;
+          this.doOpen();
+      }
+  };
+  /**
+   * 关闭 Tooltip
+   */
+  Tooltip.prototype.close = function close () {
+          var this$1 = this;
+
+      if (this.timeoutId) {
+          clearTimeout(this.timeoutId);
+          this.timeoutId = null;
+      }
+      if (!this.isOpen()) {
+          return;
+      }
+      this.state = 'closing';
+      this.triggerEvent('close');
+      this.$element
+          .removeClass('mdui-tooltip-open')
+          .transitionEnd(function () { return this$1.transitionEnd(); });
+  };
+  /**
+   * 切换 Tooltip 的打开状态
+   */
+  Tooltip.prototype.toggle = function toggle () {
+      this.isOpen() ? this.close() : this.open();
+  };
+  /**
+   * 获取 Tooltip 状态。共包含四种状态：`opening`、`opened`、`closing`、`closed`
+   */
+  Tooltip.prototype.getState = function getState () {
+      return this.state;
+  };
+  mdui.Tooltip = Tooltip;
+
+  var customAttr$8 = 'mdui-tooltip';
+  var dataName$2 = '_mdui_tooltip';
+  $(function () {
+      // mouseenter 不能冒泡，所以这里用 mouseover 代替
+      $document.on('touchstart mouseover', ("[" + customAttr$8 + "]"), function () {
+          var $target = $(this);
+          var instance = $target.data(dataName$2);
+          if (!instance) {
+              instance = new mdui.Tooltip(this, parseOptions(this, customAttr$8));
+              $target.data(dataName$2, instance);
+          }
+      });
+  });
+
+  var DEFAULT_OPTIONS$c = {
+      message: '',
+      timeout: 4000,
+      position: 'bottom',
+      buttonText: '',
+      buttonColor: '',
+      closeOnButtonClick: true,
+      closeOnOutsideClick: true,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onClick: function () { },
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onButtonClick: function () { },
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onOpen: function () { },
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onOpened: function () { },
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onClose: function () { },
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onClosed: function () { },
+  };
+  /**
+   * 当前打开着的 Snackbar
+   */
+  var currentInst$1 = null;
+  /**
+   * 队列名
+   */
+  var queueName$1 = '_mdui_snackbar';
+  var Snackbar = function Snackbar(options) {
+      /**
+       * 配置参数
+       */
+      this.options = extend({}, DEFAULT_OPTIONS$c);
+      /**
+       * 当前 Snackbar 的状态
+       */
+      this.state = 'closed';
+      /**
+       * setTimeout 的 ID
+       */
+      this.timeoutId = null;
+      extend(this.options, options);
+      // 按钮颜色
+      var buttonColorStyle = '';
+      var buttonColorClass = '';
+      if (this.options.buttonColor.indexOf('#') === 0 ||
+          this.options.buttonColor.indexOf('rgb') === 0) {
+          buttonColorStyle = "style=\"color:" + (this.options.buttonColor) + "\"";
+      }
+      else if (this.options.buttonColor !== '') {
+          buttonColorClass = "mdui-text-color-" + (this.options.buttonColor);
+      }
+      // 添加 HTML
+      this.$element = $('<div class="mdui-snackbar">' +
+          "<div class=\"mdui-snackbar-text\">" + (this.options.message) + "</div>" +
+          (this.options.buttonText
+              ? ("<a href=\"javascript:void(0)\" class=\"mdui-snackbar-action mdui-btn mdui-ripple mdui-ripple-white " + buttonColorClass + "\" " + buttonColorStyle + ">" + (this.options.buttonText) + "</a>")
+              : '') +
+          '</div>').appendTo(document.body);
+      // 设置位置
+      this.setPosition('close');
+      this.$element.reflow().addClass(("mdui-snackbar-" + (this.options.position)));
+  };
+  /**
+   * 点击 Snackbar 外面的区域关闭
+   * @param event
+   */
+  Snackbar.prototype.closeOnOutsideClick = function closeOnOutsideClick (event) {
+      var $target = $(event.target);
+      if (!$target.hasClass('mdui-snackbar') &&
+          !$target.parents('.mdui-snackbar').length) {
+          currentInst$1.close();
+      }
+  };
+  /**
+   * 设置 Snackbar 的位置
+   * @param state
+   */
+  Snackbar.prototype.setPosition = function setPosition (state) {
+      var snackbarHeight = this.$element[0].clientHeight;
+      var position = this.options.position;
+      var translateX;
+      var translateY;
+      // translateX
+      if (position === 'bottom' || position === 'top') {
+          translateX = '-50%';
+      }
+      else {
+          translateX = '0';
+      }
+      // translateY
+      if (state === 'open') {
+          translateY = '0';
+      }
+      else {
+          if (position === 'bottom') {
+              translateY = snackbarHeight;
+          }
+          if (position === 'top') {
+              translateY = -snackbarHeight;
+          }
+          if (position === 'left-top' || position === 'right-top') {
+              translateY = -snackbarHeight - 24;
+          }
+          if (position === 'left-bottom' || position === 'right-bottom') {
+              translateY = snackbarHeight + 24;
+          }
+      }
+      this.$element.transform(("translate(" + translateX + "," + translateY + "px"));
+  };
+  /**
+   * 打开 Snackbar
+   */
+  Snackbar.prototype.open = function open () {
+          var this$1 = this;
+
+      if (this.state === 'opening' || this.state === 'opened') {
+          return;
+      }
+      // 如果当前有正在显示的 Snackbar，则先加入队列，等旧 Snackbar 关闭后再打开
+      if (currentInst$1) {
+          queue(queueName$1, function () { return this$1.open(); });
+          return;
+      }
+      currentInst$1 = this;
+      // 开始打开
+      this.state = 'opening';
+      this.options.onOpen(this);
+      this.setPosition('open');
+      this.$element.transitionEnd(function () {
+          if (this$1.state !== 'opening') {
+              return;
+          }
+          this$1.state = 'opened';
+          this$1.options.onOpened(this$1);
+          // 有按钮时绑定事件
+          if (this$1.options.buttonText) {
+              this$1.$element.find('.mdui-snackbar-action').on('click', function () {
+                  this$1.options.onButtonClick(this$1);
+                  if (this$1.options.closeOnButtonClick) {
+                      this$1.close();
+                  }
+              });
+          }
+          // 点击 snackbar 的事件
+          this$1.$element.on('click', function (event) {
+              if (!$(event.target).hasClass('mdui-snackbar-action')) {
+                  this$1.options.onClick(this$1);
+              }
+          });
+          // 点击 Snackbar 外面的区域关闭
+          if (this$1.options.closeOnOutsideClick) {
+              $document.on(startEvent, this$1.closeOnOutsideClick);
+          }
+          // 超时后自动关闭
+          if (this$1.options.timeout) {
+              this$1.timeoutId = setTimeout(function () { return this$1.close(); }, this$1.options.timeout);
+          }
+      });
+  };
+  /**
+   * 关闭 Snackbar
+   */
+  Snackbar.prototype.close = function close () {
+          var this$1 = this;
+
+      if (this.state === 'closing' || this.state === 'closed') {
+          return;
+      }
+      if (this.timeoutId) {
+          clearTimeout(this.timeoutId);
+      }
+      if (this.options.closeOnOutsideClick) {
+          $document.off(startEvent, this.closeOnOutsideClick);
+      }
+      this.state = 'closing';
+      this.options.onClose(this);
+      this.setPosition('close');
+      this.$element.transitionEnd(function () {
+          if (this$1.state !== 'closing') {
+              return;
+          }
+          currentInst$1 = null;
+          this$1.state = 'closed';
+          this$1.options.onClosed(this$1);
+          this$1.$element.remove();
+          dequeue(queueName$1);
+      });
+  };
+  mdui.snackbar = function (message, options) {
+      if ( options === void 0 ) options = {};
+
+      if (isString(message)) {
+          options.message = message;
+      }
+      else {
+          options = message;
+      }
+      var instance = new Snackbar(options);
+      instance.open();
+      return instance;
+  };
+
+  $(function () {
+      // 切换导航项
+      $document.on('click', '.mdui-bottom-nav>a', function () {
+          var $item = $(this);
+          var $bottomNav = $item.parent();
+          $bottomNav.children('a').each(function (index, item) {
+              var isThis = $item.is(item);
+              if (isThis) {
+                  componentEvent('change', 'bottomNav', $bottomNav[0], undefined, {
+                      index: index,
+                  });
+              }
+              isThis
+                  ? $(item).addClass('mdui-bottom-nav-active')
+                  : $(item).removeClass('mdui-bottom-nav-active');
+          });
+      });
+      // 滚动时隐藏 mdui-bottom-nav-scroll-hide
+      mdui.mutation('.mdui-bottom-nav-scroll-hide', function () {
+          new mdui.Headroom(this, {
+              pinnedClass: 'mdui-headroom-pinned-down',
+              unpinnedClass: 'mdui-headroom-unpinned-down',
+          });
+      });
+  });
+
+  /**
+   * layer 的 HTML 结构
+   * @param index
+   */
+  function layerHTML(index) {
+      if ( index === void 0 ) index = false;
+
+      return ("<div class=\"mdui-spinner-layer " + (index ? ("mdui-spinner-layer-" + index) : '') + "\">" +
+          '<div class="mdui-spinner-circle-clipper mdui-spinner-left">' +
+          '<div class="mdui-spinner-circle"></div>' +
+          '</div>' +
+          '<div class="mdui-spinner-gap-patch">' +
+          '<div class="mdui-spinner-circle"></div>' +
+          '</div>' +
+          '<div class="mdui-spinner-circle-clipper mdui-spinner-right">' +
+          '<div class="mdui-spinner-circle"></div>' +
+          '</div>' +
+          '</div>');
+  }
+  /**
+   * 填充 HTML
+   * @param spinner
+   */
+  function fillHTML(spinner) {
+      var $spinner = $(spinner);
+      var layer = $spinner.hasClass('mdui-spinner-colorful')
+          ? layerHTML(1) + layerHTML(2) + layerHTML(3) + layerHTML(4)
+          : layerHTML();
+      $spinner.html(layer);
+  }
+  $(function () {
+      // 页面加载完后自动填充 HTML 结构
+      mdui.mutation('.mdui-spinner', function () {
+          fillHTML(this);
+      });
+  });
+  mdui.updateSpinners = function (selector) {
+      var $elements = isUndefined(selector) ? $('.mdui-spinner') : $(selector);
+      $elements.each(function () {
+          fillHTML(this);
+      });
+  };
+
+  var DEFAULT_OPTIONS$d = {
+      position: 'auto',
+      align: 'auto',
+      gutter: 16,
+      fixed: false,
+      covered: 'auto',
+      subMenuTrigger: 'hover',
+      subMenuDelay: 200,
+  };
+  var Menu = function Menu(anchorSelector, menuSelector, options) {
+      var this$1 = this;
+      if ( options === void 0 ) options = {};
+
+      /**
+       * 配置参数
+       */
+      this.options = extend({}, DEFAULT_OPTIONS$d);
+      /**
+       * 当前菜单状态
+       */
+      this.state = 'closed';
+      this.$anchor = $(anchorSelector).first();
+      this.$element = $(menuSelector).first();
+      // 触发菜单的元素 和 菜单必须是同级的元素，否则菜单可能不能定位
+      if (!this.$anchor.parent().is(this.$element.parent())) {
+          throw new Error('anchorSelector and menuSelector must be siblings');
+      }
+      extend(this.options, options);
+      // 是否是级联菜单
+      this.isCascade = this.$element.hasClass('mdui-menu-cascade');
+      // covered 参数处理
+      this.isCovered =
+          this.options.covered === 'auto' ? !this.isCascade : this.options.covered;
+      // 点击触发菜单切换
+      this.$anchor.on('click', function () { return this$1.toggle(); });
+      // 点击菜单外面区域关闭菜单
+      $document.on('click touchstart', function (event) {
+          var $target = $(event.target);
+          if (this$1.isOpen() &&
+              !$target.is(this$1.$element) &&
+              !contains(this$1.$element[0], $target[0]) &&
+              !$target.is(this$1.$anchor) &&
+              !contains(this$1.$anchor[0], $target[0])) {
+              this$1.close();
+          }
+      });
+      // 点击不含子菜单的菜单条目关闭菜单
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      var that = this;
+      $document.on('click', '.mdui-menu-item', function () {
+          var $item = $(this);
+          if (!$item.find('.mdui-menu').length &&
+              $item.attr('disabled') === undefined) {
+              that.close();
+          }
+      });
+      // 绑定点击或鼠标移入含子菜单的条目的事件
+      this.bindSubMenuEvent();
+      // 窗口大小变化时，重新调整菜单位置
+      $window.on('resize', $.throttle(function () { return this$1.readjust(); }, 100));
+  };
+  /**
+   * 是否为打开状态
+   */
+  Menu.prototype.isOpen = function isOpen () {
+      return this.state === 'opening' || this.state === 'opened';
+  };
+  /**
+   * 触发组件事件
+   * @param name
+   */
+  Menu.prototype.triggerEvent = function triggerEvent (name) {
+      componentEvent(name, 'menu', this.$element, this);
+  };
+  /**
+   * 调整主菜单位置
+   */
+  Menu.prototype.readjust = function readjust () {
+      var menuLeft;
+      var menuTop;
+      // 菜单位置和方向
+      var position;
+      var align;
+      // window 窗口的宽度和高度
+      var windowHeight = $window.height();
+      var windowWidth = $window.width();
+      // 配置参数
+      var gutter = this.options.gutter;
+      var isCovered = this.isCovered;
+      var isFixed = this.options.fixed;
+      // 动画方向参数
+      var transformOriginX;
+      var transformOriginY;
+      // 菜单的原始宽度和高度
+      var menuWidth = this.$element.width();
+      var menuHeight = this.$element.height();
+      // 触发菜单的元素在窗口中的位置
+      var anchorRect = this.$anchor[0].getBoundingClientRect();
+      var anchorTop = anchorRect.top;
+      var anchorLeft = anchorRect.left;
+      var anchorHeight = anchorRect.height;
+      var anchorWidth = anchorRect.width;
+      var anchorBottom = windowHeight - anchorTop - anchorHeight;
+      var anchorRight = windowWidth - anchorLeft - anchorWidth;
+      // 触发元素相对其拥有定位属性的父元素的位置
+      var anchorOffsetTop = this.$anchor[0].offsetTop;
+      var anchorOffsetLeft = this.$anchor[0].offsetLeft;
+      // 自动判断菜单位置
+      if (this.options.position === 'auto') {
+          if (anchorBottom + (isCovered ? anchorHeight : 0) > menuHeight + gutter) {
+              // 判断下方是否放得下菜单
+              position = 'bottom';
+          }
+          else if (anchorTop + (isCovered ? anchorHeight : 0) >
+              menuHeight + gutter) {
+              // 判断上方是否放得下菜单
+              position = 'top';
+          }
+          else {
+              // 上下都放不下，居中显示
+              position = 'center';
+          }
+      }
+      else {
+          position = this.options.position;
+      }
+      // 自动判断菜单对齐方式
+      if (this.options.align === 'auto') {
+          if (anchorRight + anchorWidth > menuWidth + gutter) {
+              // 判断右侧是否放得下菜单
+              align = 'left';
+          }
+          else if (anchorLeft + anchorWidth > menuWidth + gutter) {
+              // 判断左侧是否放得下菜单
+              align = 'right';
+          }
+          else {
+              // 左右都放不下，居中显示
+              align = 'center';
+          }
+      }
+      else {
+          align = this.options.align;
+      }
+      // 设置菜单位置
+      if (position === 'bottom') {
+          transformOriginY = '0';
+          menuTop =
+              (isCovered ? 0 : anchorHeight) +
+                  (isFixed ? anchorTop : anchorOffsetTop);
+      }
+      else if (position === 'top') {
+          transformOriginY = '100%';
+          menuTop =
+              (isCovered ? anchorHeight : 0) +
+                  (isFixed ? anchorTop - menuHeight : anchorOffsetTop - menuHeight);
+      }
+      else {
+          transformOriginY = '50%';
+          // =====================在窗口中居中
+          // 显示的菜单的高度，简单菜单高度不超过窗口高度，若超过了则在菜单内部显示滚动条
+          // 级联菜单内部不允许出现滚动条
+          var menuHeightTemp = menuHeight;
+          // 简单菜单比窗口高时，限制菜单高度
+          if (!this.isCascade) {
+              if (menuHeight + gutter * 2 > windowHeight) {
+                  menuHeightTemp = windowHeight - gutter * 2;
+                  this.$element.height(menuHeightTemp);
+              }
+          }
+          menuTop =
+              (windowHeight - menuHeightTemp) / 2 +
+                  (isFixed ? 0 : anchorOffsetTop - anchorTop);
+      }
+      this.$element.css('top', (menuTop + "px"));
+      // 设置菜单对齐方式
+      if (align === 'left') {
+          transformOriginX = '0';
+          menuLeft = isFixed ? anchorLeft : anchorOffsetLeft;
+      }
+      else if (align === 'right') {
+          transformOriginX = '100%';
+          menuLeft = isFixed
+              ? anchorLeft + anchorWidth - menuWidth
+              : anchorOffsetLeft + anchorWidth - menuWidth;
+      }
+      else {
+          transformOriginX = '50%';
+          //=======================在窗口中居中
+          // 显示的菜单的宽度，菜单宽度不能超过窗口宽度
+          var menuWidthTemp = menuWidth;
+          // 菜单比窗口宽，限制菜单宽度
+          if (menuWidth + gutter * 2 > windowWidth) {
+              menuWidthTemp = windowWidth - gutter * 2;
+              this.$element.width(menuWidthTemp);
+          }
+          menuLeft =
+              (windowWidth - menuWidthTemp) / 2 +
+                  (isFixed ? 0 : anchorOffsetLeft - anchorLeft);
+      }
+      this.$element.css('left', (menuLeft + "px"));
+      // 设置菜单动画方向
+      this.$element.transformOrigin((transformOriginX + " " + transformOriginY));
+  };
+  /**
+   * 调整子菜单的位置
+   * @param $submenu
+   */
+  Menu.prototype.readjustSubmenu = function readjustSubmenu ($submenu) {
+      var $item = $submenu.parent('.mdui-menu-item');
+      var submenuTop;
+      var submenuLeft;
+      // 子菜单位置和方向
+      var position;
+      var align;
+      // window 窗口的宽度和高度
+      var windowHeight = $window.height();
+      var windowWidth = $window.width();
+      // 动画方向参数
+      var transformOriginX;
+      var transformOriginY;
+      // 子菜单的原始宽度和高度
+      var submenuWidth = $submenu.width();
+      var submenuHeight = $submenu.height();
+      // 触发子菜单的菜单项的宽度高度
+      var itemRect = $item[0].getBoundingClientRect();
+      var itemWidth = itemRect.width;
+      var itemHeight = itemRect.height;
+      var itemLeft = itemRect.left;
+      var itemTop = itemRect.top;
+      // 判断菜单上下位置
+      if (windowHeight - itemTop > submenuHeight) {
+          // 判断下方是否放得下菜单
+          position = 'bottom';
+      }
+      else if (itemTop + itemHeight > submenuHeight) {
+          // 判断上方是否放得下菜单
+          position = 'top';
+      }
+      else {
+          // 默认放在下方
+          position = 'bottom';
+      }
+      // 判断菜单左右位置
+      if (windowWidth - itemLeft - itemWidth > submenuWidth) {
+          // 判断右侧是否放得下菜单
+          align = 'left';
+      }
+      else if (itemLeft > submenuWidth) {
+          // 判断左侧是否放得下菜单
+          align = 'right';
+      }
+      else {
+          // 默认放在右侧
+          align = 'left';
+      }
+      // 设置菜单位置
+      if (position === 'bottom') {
+          transformOriginY = '0';
+          submenuTop = '0';
+      }
+      else if (position === 'top') {
+          transformOriginY = '100%';
+          submenuTop = -submenuHeight + itemHeight;
+      }
+      $submenu.css('top', (submenuTop + "px"));
+      // 设置菜单对齐方式
+      if (align === 'left') {
+          transformOriginX = '0';
+          submenuLeft = itemWidth;
+      }
+      else if (align === 'right') {
+          transformOriginX = '100%';
+          submenuLeft = -submenuWidth;
+      }
+      $submenu.css('left', (submenuLeft + "px"));
+      // 设置菜单动画方向
+      $submenu.transformOrigin((transformOriginX + " " + transformOriginY));
+  };
+  /**
+   * 打开子菜单
+   * @param $submenu
+   */
+  Menu.prototype.openSubMenu = function openSubMenu ($submenu) {
+      this.readjustSubmenu($submenu);
+      $submenu
+          .addClass('mdui-menu-open')
+          .parent('.mdui-menu-item')
+          .addClass('mdui-menu-item-active');
+  };
+  /**
+   * 关闭子菜单，及其嵌套的子菜单
+   * @param $submenu
+   */
+  Menu.prototype.closeSubMenu = function closeSubMenu ($submenu) {
+      // 关闭子菜单
+      $submenu
+          .removeClass('mdui-menu-open')
+          .addClass('mdui-menu-closing')
+          .transitionEnd(function () { return $submenu.removeClass('mdui-menu-closing'); })
+          // 移除激活状态的样式
+          .parent('.mdui-menu-item')
+          .removeClass('mdui-menu-item-active');
+      // 循环关闭嵌套的子菜单
+      $submenu.find('.mdui-menu').each(function (_, menu) {
+          var $subSubmenu = $(menu);
+          $subSubmenu
+              .removeClass('mdui-menu-open')
+              .addClass('mdui-menu-closing')
+              .transitionEnd(function () { return $subSubmenu.removeClass('mdui-menu-closing'); })
+              .parent('.mdui-menu-item')
+              .removeClass('mdui-menu-item-active');
+      });
+  };
+  /**
+   * 切换子菜单状态
+   * @param $submenu
+   */
+  Menu.prototype.toggleSubMenu = function toggleSubMenu ($submenu) {
+      $submenu.hasClass('mdui-menu-open')
+          ? this.closeSubMenu($submenu)
+          : this.openSubMenu($submenu);
+  };
+  /**
+   * 绑定子菜单事件
+   */
+  Menu.prototype.bindSubMenuEvent = function bindSubMenuEvent () {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      var that = this;
+      // 点击打开子菜单
+      this.$element.on('click', '.mdui-menu-item', function (event) {
+          var $item = $(this);
+          var $target = $(event.target);
+          // 禁用状态菜单不操作
+          if ($item.attr('disabled') !== undefined) {
+              return;
+          }
+          // 没有点击在子菜单的菜单项上时，不操作（点在了子菜单的空白区域、或分隔线上）
+          if ($target.is('.mdui-menu') || $target.is('.mdui-divider')) {
+              return;
+          }
+          // 阻止冒泡，点击菜单项时只在最后一级的 mdui-menu-item 上生效，不向上冒泡
+          if (!$target.parents('.mdui-menu-item').first().is($item)) {
+              return;
+          }
+          // 当前菜单的子菜单
+          var $submenu = $item.children('.mdui-menu');
+          // 先关闭除当前子菜单外的所有同级子菜单
+          $item
+              .parent('.mdui-menu')
+              .children('.mdui-menu-item')
+              .each(function (_, item) {
+              var $tmpSubmenu = $(item).children('.mdui-menu');
+              if ($tmpSubmenu.length &&
+                  (!$submenu.length || !$tmpSubmenu.is($submenu))) {
+                  that.closeSubMenu($tmpSubmenu);
+              }
+          });
+          // 切换当前子菜单
+          if ($submenu.length) {
+              that.toggleSubMenu($submenu);
+          }
+      });
+      if (this.options.subMenuTrigger === 'hover') {
+          // 临时存储 setTimeout 对象
+          var timeout = null;
+          var timeoutOpen = null;
+          this.$element.on('mouseover mouseout', '.mdui-menu-item', function (event) {
+              var $item = $(this);
+              var eventType = event.type;
+              var $relatedTarget = $(event.relatedTarget);
+              // 禁用状态的菜单不操作
+              if ($item.attr('disabled') !== undefined) {
+                  return;
+              }
+              // 用 mouseover 模拟 mouseenter
+              if (eventType === 'mouseover') {
+                  if (!$item.is($relatedTarget) &&
+                      contains($item[0], $relatedTarget[0])) {
+                      return;
+                  }
+              }
+              // 用 mouseout 模拟 mouseleave
+              else if (eventType === 'mouseout') {
+                  if ($item.is($relatedTarget) ||
+                      contains($item[0], $relatedTarget[0])) {
+                      return;
+                  }
+              }
+              // 当前菜单项下的子菜单，未必存在
+              var $submenu = $item.children('.mdui-menu');
+              // 鼠标移入菜单项时，显示菜单项下的子菜单
+              if (eventType === 'mouseover') {
+                  if ($submenu.length) {
+                      // 当前子菜单准备打开时，如果当前子菜单正准备着关闭，不用再关闭了
+                      var tmpClose = $submenu.data('timeoutClose.mdui.menu');
+                      if (tmpClose) {
+                          clearTimeout(tmpClose);
+                      }
+                      // 如果当前子菜单已经打开，不操作
+                      if ($submenu.hasClass('mdui-menu-open')) {
+                          return;
+                      }
+                      // 当前子菜单准备打开时，其他准备打开的子菜单不用再打开了
+                      clearTimeout(timeoutOpen);
+                      // 准备打开当前子菜单
+                      timeout = timeoutOpen = setTimeout(function () { return that.openSubMenu($submenu); }, that.options.subMenuDelay);
+                      $submenu.data('timeoutOpen.mdui.menu', timeout);
+                  }
+              }
+              // 鼠标移出菜单项时，关闭菜单项下的子菜单
+              else if (eventType === 'mouseout') {
+                  if ($submenu.length) {
+                      // 鼠标移出菜单项时，如果当前菜单项下的子菜单正准备打开，不用再打开了
+                      var tmpOpen = $submenu.data('timeoutOpen.mdui.menu');
+                      if (tmpOpen) {
+                          clearTimeout(tmpOpen);
+                      }
+                      // 准备关闭当前子菜单
+                      timeout = setTimeout(function () { return that.closeSubMenu($submenu); }, that.options.subMenuDelay);
+                      $submenu.data('timeoutClose.mdui.menu', timeout);
+                  }
+              }
+          });
+      }
+  };
+  /**
+   * 动画结束回调
+   */
+  Menu.prototype.transitionEnd = function transitionEnd () {
+      this.$element.removeClass('mdui-menu-closing');
+      if (this.state === 'opening') {
+          this.state = 'opened';
+          this.triggerEvent('opened');
+      }
+      if (this.state === 'closing') {
+          this.state = 'closed';
+          this.triggerEvent('closed');
+          // 关闭后，恢复菜单样式到默认状态，并恢复 fixed 定位
+          this.$element.css({
+              top: '',
+              left: '',
+              width: '',
+              position: 'fixed',
+          });
+      }
+  };
+  /**
+   * 切换菜单状态
+   */
+  Menu.prototype.toggle = function toggle () {
+      this.isOpen() ? this.close() : this.open();
+  };
+  /**
+   * 打开菜单
+   */
+  Menu.prototype.open = function open () {
+          var this$1 = this;
+
+      if (this.isOpen()) {
+          return;
+      }
+      this.state = 'opening';
+      this.triggerEvent('open');
+      this.readjust();
+      this.$element
+          // 菜单隐藏状态使用使用 fixed 定位。
+          .css('position', this.options.fixed ? 'fixed' : 'absolute')
+          .addClass('mdui-menu-open')
+          .transitionEnd(function () { return this$1.transitionEnd(); });
+  };
+  /**
+   * 关闭菜单
+   */
+  Menu.prototype.close = function close () {
+          var this$1 = this;
+
+      if (!this.isOpen()) {
+          return;
+      }
+      this.state = 'closing';
+      this.triggerEvent('close');
+      // 菜单开始关闭时，关闭所有子菜单
+      this.$element.find('.mdui-menu').each(function (_, submenu) {
+          this$1.closeSubMenu($(submenu));
+      });
+      this.$element
+          .removeClass('mdui-menu-open')
+          .addClass('mdui-menu-closing')
+          .transitionEnd(function () { return this$1.transitionEnd(); });
+  };
+  mdui.Menu = Menu;
+
+  var customAttr$9 = 'mdui-menu';
+  var dataName$3 = '_mdui_menu';
+  $(function () {
+      $document.on('click', ("[" + customAttr$9 + "]"), function () {
+          var $this = $(this);
+          var instance = $this.data(dataName$3);
+          if (!instance) {
+              var options = parseOptions(this, customAttr$9);
+              var menuSelector = options.target;
+              // @ts-ignore
+              delete options.target;
+              instance = new mdui.Menu($this, menuSelector, options);
+              $this.data(dataName$3, instance);
+              instance.toggle();
+          }
+      });
+  });
+
+  return mdui;
+
+})));
+//# sourceMappingURL=mdui.js.map

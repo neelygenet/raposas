@@ -103,3 +103,8 @@ body{
     border-radius: 5px;
     color: white;
 }
+
+.breadcrumb {
+    background-color: var(--secondary-dark);
+    color: white;
+}

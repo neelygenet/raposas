@@ -92,7 +92,7 @@ function nav(path) {
     var model = window.MODEL;
     var html = "";
     var cur = window.current_drive_order || 0;
-    html += `<nav class="navbar navbar-expand-lg">
+    html += `<nav class="navbar navbar-expand-lg ${UI.dark_mode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'}">
   <a class="navbar-brand" href="/${cur}:/">${UI.logo_image ? '<img border="0" alt="'+UI.company_name+'" src="'+UI.logo_link_name+'" height="64px" class="mainLogo">' : UI.logo_link_name}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -100,17 +100,16 @@ function nav(path) {
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/${cur}:/">Início</a>
+        <a class="nav-link" href="/${cur}:/"><i class="fas fa-home"></i>Início</a>
       </li>`;
     var names = window.drive_names;
     var drive_name = window.drive_names[cur];
-
-    // Dropdown to select different drive roots.
-    html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Escolha o drive</a><div class="dropdown-menu" aria-labelledby="navbarDropdown">`;
+    /*html += `<button class="mdui-btn mdui-btn-raised" mdui-menu="{target: '#drive-names'}"><i class="mdui-icon mdui-icon-left material-icons">share</i> ${names[cur]}</button>`;
+    html += `<ul class="mdui-menu" id="drive-names" style="transform-origin: 0px 0px; position: fixed;">`;
     names.forEach((name, idx) => {
-        html += `<a class="dropdown-item"  href="/${idx}:/">${name}</a>`;
+        html += `<li class="mdui-menu-item ${(idx === cur) ? 'mdui-list-item-active' : ''} "><a href="/${idx}:/" class="mdui-ripple">${name}</a></li>`;
     });
-    html += `</div></li>`;
+    html += `</ul>`;*/
 
     if (!model.is_search_page) {
         var arr = path.trim('/').split('/');
@@ -132,77 +131,29 @@ function nav(path) {
     }
 
     html += `
-	<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mais</a>
-	    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		<a class="dropdown-item" href="https://blog.raposas.net/p/copyright.html" target="_blank"><i
+	</div>
+	<li class="nav-item">
+	    <a class="dropdown-item" href="https://raposas.net/0:/" target="_blank"><i class="fas fa-folder"></i>
+	     Arquivos principais</a>
+	</li>
+	<li class="nav-item">
+	    <a class="dropdown-item" href="https://raposas.net/1:/" target="_blank"><i class="fas fa-folder"></i>
+	Contribuições</a>
+	</li>
+	<li class="nav-item">
+	    <a class="dropdown-item" href="https://blog.raposas.net/p/copyright.html" target="_blank"><i
 			class="far fa-copyright" class="basicIcon"></i> Copyright</a>
-		<a class="dropdown-item" href="https://blog.raposas.net/p/privacidade.html" target="_blank"><i
+	</li>
+	<li class="nav-item">
+	    <a class="dropdown-item" href="https://blog.raposas.net/p/privacidade.html" target="_blank"><i
 			class="fas fa-user-secret" class="basicIcon"></i> Privacidade</a>
-function nav(path) {
-    var model = window.MODEL;
-    var html = "";
-    var cur = window.current_drive_order || 0;
-    html += `<nav class="navbar navbar-expand-lg ${UI.dark_mode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'}">
-  <a class="navbar-brand" href="/${cur}:/">${UI.logo_image ? '<img border="0" alt="'+UI.company_name+'" src="'+UI.logo_link_name+'" height="64px" class="mainLogo">' : UI.logo_link_name}</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/${cur}:/">Início</a>
-      </li>`;
-    var names = window.drive_names;
-    var drive_name = window.drive_names[cur];
-    /*html += `<button class="mdui-btn mdui-btn-raised" mdui-menu="{target: '#drive-names'}"><i class="mdui-icon mdui-icon-left material-icons">share</i> ${names[cur]}</button>`;
-    html += `<ul class="mdui-menu" id="drive-names" style="transform-origin: 0px 0px; position: fixed;">`;
-    names.forEach((name, idx) => {
-        html += `<li class="mdui-menu-item ${(idx === cur) ? 'mdui-list-item-active' : ''} "><a href="/${idx}:/" class="mdui-ripple">${name}</a></li>`;
-    });
-    html += `</ul>`;*/
-
-    // Dropdown to select different drive roots.
-    html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Escolha o drive</a><div class="dropdown-menu" aria-labelledby="navbarDropdown">`;
-    names.forEach((name, idx) => {
-        html += `<a class="dropdown-item"  href="/${idx}:/">${name}</a>`;
-    });
-    html += `</div></li>`;
-
-    if (!model.is_search_page) {
-        var arr = path.trim('/').split('/');
-        var p = '/';
-        if (arr.length > 1) {
-            arr.shift();
-            for (var i in arr) {
-                var n = arr[i];
-                n = decodeURI(n);
-                p += n + '/';
-                if (p.endsWith(".mp3/") === true || p.endsWith(".mp4/") === true || p.endsWith(".mkv/") === true || p.endsWith(".flac/") === true || p.endsWith(".m4a/") === true || p.endsWith(".pdf/") === true || p.endsWith(".jpg/") === true || p.endsWith(".png/") === true || p.endsWith(".jpeg/") === true || p.endsWith(".gif/") === true || p.endsWith(".md/") === true || p.endsWith(".zip/") === true || p.endsWith(".rar/") === true || p.endsWith(".exe/") === true || p.endsWith(".tar/") === true) {
-                    p = p.slice(0, -1);
-                }
-                if (n === '') {
-                    break;
-                }
-            }
-        }
-    }
-
-    html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Mais</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="https://blog.raposas.net/p/copyright.html" target="_blank"><i
-            class="far fa-copyright" class="basicIcon"></i> Copyright</a>
-        <a class="dropdown-item" href="https://blog.raposas.net/p/privacidade.html" target="_blank"><i
-            class="fas fa-user-secret" class="basicIcon"></i> Privacidade</a>
-        </div>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="https://t.me/raposas_net"><i class="fab fa-telegram"></i> Telegram</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="https://discord.gg/D7PpmzKJpy"><i class="fab fa-discord"></i> Discord</a>
-        </li>`;
+	</li>
+	<li class="nav-item">
+	    <a class="nav-link" href="https://t.me/raposas_net"><i class="fab fa-telegram"></i> Telegram</a>
+	</li>
+	<li class="nav-item">
+	    <a class="nav-link" href="https://discord.gg/D7PpmzKJpy"><i class="fab fa-discord"></i> Discord</a>
+	</li>`;
 
     var search_text = model.is_search_page ? (model.q || '') : '';
     const isMobile = Os.isMobile;
@@ -225,49 +176,6 @@ function nav(path) {
     $('#nav').html(html);
     mdui.mutation();
     mdui.updateTextFields();
-}
-
-/**
- * Initiate POST request for listing
- * @param path Path
- * @param params Form params
- * @param resultCallback Success Result Callback
- * @param authErrorCallback Pass Error Callback
- */
-function requestListPath(path, params, resultCallback, authErrorCallback) {
-    var p = {
-        password: params['password'] || null,
-        page_token: params['page_token'] || null,
-        page_index: params['page_index'] || 0
-    };
-    $.post(path, p, function (data, status) {
-        var res = jQuery.parseJSON(data);
-        if (res && res.error && res.error.code == '401') {
-            // Password verification failed
-            if (authErrorCallback) authErrorCallback(path)
-        } else if (res && res.data) {
-            if (resultCallback) resultCallback(res, path, p)
-        }
-    })
-}
-
-/**
- * Search POST request
- * @param params Form params
- * @param resultCallback Success callback
- */
-function requestSearch(params, resultCallback) {
-    var p = {
-        q: params['q'] || null,
-        page_token: params['page_token'] || null,
-        page_index: params['page_index'] || 0
-    };
-    $.post(`/${window.current_drive_order}:search`, p, function (data, status) {
-        var res = jQuery.parseJSON(data);
-        if (res && res.data) {
-            if (resultCallback) resultCallback(res, p)
-        }
-    })
 }
 
 /**
@@ -367,7 +275,7 @@ function list(path) {
     $('#content').html(content);
 
     var password = localStorage.getItem('password' + path);
-    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border m-5 text-primary" role="status"><span class="sr-only">Carregando...</span></div></div>`);
+    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border m-5 text-primary" role="status"><span class="sr-only">Loading...</span></div></div>`);
     $('#readme_md').hide().html('');
     $('#head_md').hide().html('');
 
@@ -921,12 +829,10 @@ function file_pdf(path) {
   <div class="card-body text-center">
   <div class="alert alert-danger" id="folderne" role="alert"></div><script>document.getElementById("folderne").innerHTML=decodeURI(this.window.location.href.substring(window.location.href.lastIndexOf('/',window.location.href.lastIndexOf('/')+1))).replace('/','').replace('?a=view','');</script>
   </div>
-
 <object data-v-59e039ae="" data="${inline_url}" type="application/pdf" name="file.pdf" height="600px">
   	<embed class="embed-responsive" data-v-59e039ae="" src="${inline_url}" type="application/pdf" height="600px">
   </object>
   <br>
-
   <p class="card-text text-center"><a href="${url}" class="btn btn-primary">Baixar</a></p><br>
   <p class="card-text text-center"><a href="${inline_url}" target="_blank" class="btn btn-primary">Abrir em uma nova janela</a></p><br>
   </div>

@@ -152,11 +152,11 @@ function nav(path) {
 	</li>
 
 	<li class="nav-item">
-	    <a class="nav-link" href="https://discord.gg/D7PpmzKJpy"><i class="fab fa-discord"></i> Discord</a>
+	    <a class="nav-link" href="https://t.me/raposas_net"><i class="fab fa-telegram"></i> Telegram</a>
 	</li>
 
 	<li class="nav-item">
-	    <a class="nav-link" href="https://t.me/raposas_net"><i class="fab fa-telegram"></i> Telegram</a>
+	    <a class="nav-link" href="https://discord.gg/D7PpmzKJpy"><i class="fab fa-discord"></i> Discord</a>
 	</li>`;
 
     var search_text = model.is_search_page ? (model.q || '') : '';

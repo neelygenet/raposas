@@ -141,10 +141,6 @@ function nav(path) {
 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mais</a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="https://blog.raposas.net/p/doe-com-mercado-pago.html" target="_blank"><i
-                class="fas fa-hand-holding-usd"></i> Doe com cartão ou boleto</a>
-        <a class="dropdown-item" href="https://blog.raposas.net/p/doe-com-mercado-pago.html" target="_blank"><i
-                class="fas fa-hands-helping"></i> Doe sem gastar um centavo</a>
         <a class="dropdown-item" href="https://blog.raposas.net/p/copyright.html" target="_blank"><i
                 class="far fa-copyright" class="basicIcon"></i> Copyright</a>
         <a class="dropdown-item" href="https://blog.raposas.net/p/privacidade.html" target="_blank"><i
@@ -152,12 +148,14 @@ function nav(path) {
     </div>
 </li>
 <li class="nav-item">
+    <a class="nav-link" href="https://blog.raposas.net/p/doe-com-mercado-pago.html"><i class="fas fa-hands-helping"></i> Doe</a>
+</li>
+<li class="nav-item">
     <a class="nav-link" href="https://t.me/raposas_net"><i class="fab fa-telegram"></i> Telegram</a>
 </li>
 <li class="nav-item">
     <a class="nav-link" href="https://discord.gg/D7PpmzKJpy"><i class="fab fa-discord"></i> Discord</a>
-</li>
-`;
+</li>`;
 
     var search_text = model.is_search_page ? (model.q || '') : '';
     const isMobile = Os.isMobile;

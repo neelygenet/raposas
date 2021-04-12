@@ -14,7 +14,20 @@ function init() {
     <div id="content">
     </div>
     <br>
-    <script src="https://cdn.jsdelivr.net/gh/neelygenet/raposas@${UI.version}/js/darkmode.js"></script>
+
+    <script>
+        function darkLight() {
+            "dark" != localStorage.toggled ? ($("head").append(
+                '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neelygenet/raposas@${UI.version}/css/dark-mode.css" type="text/css" />'
+            ), localStorage.toggled = "dark") : ($(
+                    'link[href="https://cdn.jsdelivr.net/gh/neelygenet/raposas@${UI.version}/css/dark-mode.css"]')
+                .remove(), localStorage.toggled = "")
+        }
+        $("#main").toggleClass(localStorage.toggled), "dark" == localStorage.toggled && $("head").append(
+            '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neelygenet/raposas@${UI.version}/css/dark-mode.css" type="text/css" />'
+        );
+    </script>
+
     <div class="darkmode-toggle" onclick="darkLight()">🌓</div>
     <footer class="text-muted">
         <div class="container">
@@ -846,9 +859,22 @@ function file_pdf(path) {
         </div>
 
         <object data-v-59e039ae="" data="${inline_url}" type="application/pdf" name="file.pdf" height="600px">
-            <embed class="embed-responsive" data-v-59e039ae="" src="${inline_url}" type="application/pdf"
-                height="600px">
+            	<embed class="embed-responsive" data-v-59e039ae="" src="${inline_url}" type="application/pdf"
+               	height="600px">
         </object>
+
+	<style>
+		.mobileHidden{
+			display: none;
+		}
+	</style>
+
+	<script>
+		if(!Os.isMobile){
+			$("object").addClass("mobileHidden");
+		}
+	</script>
+
         <br>
 
         <div class="row">

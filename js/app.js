@@ -870,7 +870,7 @@ function file_pdf(path) {
 	</style>
 
 	<script>
-		if(!Os.isMobile){
+		if(Os.isMobile){
 			$("object").addClass("mobileHidden");
 		}
 	</script>

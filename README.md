@@ -29,4 +29,4 @@ Doe sem gastar um centavo: [clique aqui para instruções](https://blog.raposas.
 
 * Código-fonte original: [ParveenBhadooOfficial](https://github.com/ParveenBhadooOfficial/Google-Drive-Index)
 * Frameworks utilizados: [Bootstrap](https://getbootstrap.com), [jQuery](https://jquery.com/) e [Plyr](https://plyr.io)
-* Ícones: [Fonteawesome](https://fontawesome.com/)
+* Ícones: [Fontawesome](https://fontawesome.com/)

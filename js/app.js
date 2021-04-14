@@ -16,6 +16,7 @@ function init() {
     <br>
 
     <script>
+	// Modo escuro. O clique no botão de modo escuro executa a função darkLight()
         function darkLight() {
             "dark" != localStorage.toggled ? ($("head").append(
                 '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neelygenet/raposas@${UI.version}/css/dark-mode.css" type="text/css" />'
@@ -32,7 +33,8 @@ function init() {
     <footer class="text-muted">
         <div class="container">
             <p>Construído com <i class="fa fa-heart" title="amor" style="color: #dc3545!important;"></i> e <i
-                    class="fa fa-coffee" title="café" style="color: #ffc107!important;"></i> por <a
+                    class="fa fa-coffee" title="
+" style="color: #ffc107!important;"></i> por <a
                     href="https://github.com/neelygenet/raposas" target="_blank">Neely Genet</a>.</p>
             <p><i class="fas fa-crow" title="corvo" class="basicIcon"></i> ${UI.copyright_year} - ${UI.company_name}.
                 Todos os direitos liberados. <a href="https://www.youtube.com/watch?v=LXilEPmkoQY"
@@ -158,6 +160,9 @@ function nav(path) {
 	        <a class="dropdown-item" href="https://docs.raposas.net/Doar" target="_blank"><i
 	                class="fas fa-hand-holding-usd" class="basicIcon"></i>
 	            Doar</a>
+		<a class="dropdown-item" href="https://blog.raposas.net" target="_blank"><i
+	                class="fab fa-blogger" style="color: #f06b34!important;"></i>
+	            Blog</a>
 	        <a class="dropdown-item" href="https://docs.raposas.net/Copyright" target="_blank"><i class="far fa-copyright"
 	                class="basicIcon"></i> Copyright</a>
 	        <a class="dropdown-item" href="https://docs.raposas.net/Privacidade" target="_blank"><i

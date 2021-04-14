@@ -47,7 +47,7 @@ const authConfig = {
 	 */
 	"search_result_list_page_size": 50,
 	// Confirm that cors can be opened
-	"enable_cors_file_down": false,
+	"enable_cors_file_down": true,
 	/**
 	 * The basic auth above already contains the function of global protection in the disk. So by default, the password in the .password file is no longer authenticated;
 	 * If you still need to verify the password in the .password file for certain directories based on global authentication, set this option to true;
@@ -62,12 +62,12 @@ const authConfig = {
  */
 const uiConfig = {
 	"theme": "bhadoo_bootstrap", // Change doesn't works
-	"version": "v1.0.5", // don't touch this one.
+	"version": "v1.1.1", // don't touch this one.
 	"dark_mode": false,
 	"logo_image": true, // true if you're using image link in next option.
 	"logo_height": "64px", // only if logo_image is true
 	"logo_width": "64px", // only if logo_image is true
-	"logo_link_name": "https://cdn.jsdelivr.net/gh/neelygenet/raposas@v1.0.5/images/logo.png", // if logo is true then link otherwise just text for name
+	"logo_link_name": "https://cdn.jsdelivr.net/gh/neelygenet/raposas@v1.1.1/images/logo.png", // if logo is true then link otherwise just text for name
 	"copyright_year": "2021", // year of copyright, can be anything like 2015 - 2020 or just 2020
 	"company_name": "Raposas", // Name next to copyright
 	"company_link": "", // link of copyright name
@@ -119,9 +119,10 @@ function html(current_drive_order = 0, model = {}) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+  <meta name="robots" content="index, follow">
   <title>Raposas</title>
-  <meta name="description" content="O Raposas é um indexador gratuito do Google Drive. Estude com o apoio de libertários que acreditam numa sociedade livre e justa. Copiar não é roubar.">
   <link rel="icon" href="https://cdn.jsdelivr.net/gh/neelygenet/raposas@${uiConfig.version}/images/logo.png">
+  <meta property="og:image" content="https://raw.githubusercontent.com/neelygenet/raposas/main/images/seo-logo.png" />
   <script>
     window.drive_names = JSON.parse('${JSON.stringify(authConfig.roots.map(it => it.name))}');
     window.MODEL = JSON.parse('${JSON.stringify(model)}');

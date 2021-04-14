@@ -796,8 +796,6 @@ function copyToClipboard(str) {
 function file_video(path) {
     const url = window.location.origin + path;
     const content = `
-<link href="https://cdn.jsdelivr.net/gh/neelygenet/raposas@${UI.version}/plyr/plyr.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/gh/neelygenet/raposas@${UI.version}/plyr/plyr.min.js"></script>
 <div class="container"><br>
     <div class="card">
         <div class="card-body text-center">
@@ -807,7 +805,7 @@ function file_video(path) {
                         .location.href.lastIndexOf('/', window.location.href.lastIndexOf('/') + 1))).replace('/', '')
                     .replace('?a=view', '');
             </script>
-            <video width="100%" height="100%" id="player" controls>
+            <video width="100%" height="100%" id="player" controls data-poster="https://raw.githubusercontent.com/neelygenet/raposas/main/images/seo-logo-black.png">
                 <source type="video/mp4" src="${url}" /></video>
         </div>
         <script type="text/javascript">

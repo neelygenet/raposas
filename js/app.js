@@ -152,27 +152,33 @@ function nav(path) {
     }
 
     html += `
-	<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mais</a>
-	    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	        <a class="dropdown-item" href="https://docs.raposas.net/Contribuir" target="_blank"><i class="fas fa-folder"
-	                class="basicIcon"></i> Contribuir</a>
-	        <a class="dropdown-item" href="https://docs.raposas.net/Doar" target="_blank"><i
-	                class="fas fa-hand-holding-usd" class="basicIcon"></i>
-	            Doar</a>
-		<a class="dropdown-item" href="https://blog.raposas.net" target="_blank"><i
-	                class="fab fa-blogger" style="color: #f06b34!important;"></i>
-	            Blog</a>
-	        <a class="dropdown-item" href="https://docs.raposas.net/Copyright" target="_blank"><i class="far fa-copyright"
-	                class="basicIcon"></i> Copyright</a>
-	        <a class="dropdown-item" href="https://docs.raposas.net/Privacidade" target="_blank"><i
-	                class="fas fa-user-secret" class="basicIcon"></i> Privacidade</a>
-	    </div>
-	</li>
+<li class="nav-item">
+    <a class="nav-link" href="https://docs.raposas.net/Contribuir" target="_blank"><i class="fas fa-folder"
+            class="basicIcon"></i> Contribuir</a>
+</li>
 
-	<li class="nav-item">
-	    <a class="nav-link" href="https://telegram.raposas.net" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
-	</li>`;
+<li class="nav-item">
+    <a class="nav-link" href="https://docs.raposas.net/Doar" target="_blank"><i class="fas fa-hand-holding-usd"
+            class="basicIcon"></i>
+        Doar</a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="https://telegram.raposas.net" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+</li>
+
+<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mais</a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="https://blog.raposas.net" target="_blank"><i class="fab fa-blogger"
+                style="color: #f06b34!important;"></i>
+            Blog</a>
+        <a class="dropdown-item" href="https://docs.raposas.net/Copyright" target="_blank"><i class="far fa-copyright"
+                class="basicIcon"></i> Copyright</a>
+        <a class="dropdown-item" href="https://docs.raposas.net/Privacidade" target="_blank"><i
+                class="fas fa-user-secret" class="basicIcon"></i> Privacidade</a>
+    </div>
+</li>`;
 
     var search_text = model.is_search_page ? (model.q || '') : '';
     const isMobile = Os.isMobile;

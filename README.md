@@ -1,7 +1,7 @@
 # Raposas [![](https://data.jsdelivr.com/v1/package/gh/neelygenet/raposas/badge)](https://www.jsdelivr.com/package/gh/neelygenet/raposas)
 O **Raposas** é um indexador público e gratuito do Google Drive. Funcionamos de uma forma muito parecida com o Google: o Google ativamente busca por novos sites para incluí-los em sua base de dados e, então, disponibilizá-los em uma interface amplamente utilizada em todo o mundo. No Raposas fazemos algo semelhante, mas ao invés de termos um sistema de robôs automáticos que custa bilhões de dólares, a própria comunidade envia pastas e arquivos do Google Drive para serem indexados pelo Raposas.
 
-![Logo do Raposas](https://cdn.jsdelivr.net/gh/neelygenet/raposas@v1.1.0/images/logo.png)
+![Logo do Raposas](https://cdn.jsdelivr.net/gh/neelygenet/raposas@v1.1.2/images/logo.png)
 
 O código-fonte deste indexador é open-source e foi derivado de um projeto pré-existente criado por ParveenBhadooOfficial (créditos abaixo). Se você é um programador e deseja contribuir ou simplesmente acessar o nosso código, você pode encontrar o nosso repositório no GitHub clicando [aqui](https://github.com/neelygenet/raposas).
 
@@ -11,7 +11,7 @@ Com a sua doação, poderemos aumentar a qualidade deste indexador para que ele 
 
 Doe com Pix: `doe@raposas.net`
 
-Doe com Cartão de Crédito ou Boleto Bancário: [clique aqui para instruções](https://blog.raposas.net/p/doe-com-mercado-pago.html).
+Doe com Cartão de Crédito ou Boleto Bancário: [clique aqui para instruções](https://docs.raposas.net/Doar).
 
 Doe sem gastar um centavo: [clique aqui para instruções](https://blog.raposas.net/p/doe-sem-gastar-um-centavo.html).
 

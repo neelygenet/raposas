@@ -91,6 +91,11 @@ body{
     color: white;
 }
 
+#count {
+    background-color: var(--secondary-dark);
+    color: white;
+}
+
 /* Ícones */
 .basicIcon{
     background-color: #FFFFFF;

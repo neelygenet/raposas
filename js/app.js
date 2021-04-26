@@ -754,7 +754,7 @@ function file_others(path) {
   } else {
     var path = unescape(path);
   }
-  var url = window.location.origin + path;
+  var url = window.location.href.split("?")[0];
   $.post("",
   function(data){
   var obj = JSON.parse(data);
@@ -797,7 +797,7 @@ function file_code(path) {
   } else {
     var path = unescape(path);
   }
-  var url = window.location.origin + path;
+  var url = window.location.href.split("?")[0];
   $.post("",
   function(data){
   var obj = JSON.parse(data);
@@ -836,7 +836,7 @@ function file_video(path) {
   } else {
     var path = unescape(path);
   }
-  var url = window.location.origin + path;
+  var url = window.location.href.split("?")[0];
   $.post("",
   function(data){
   var obj = JSON.parse(data);
@@ -868,7 +868,7 @@ function file_audio(path) {
   } else {
     var path = unescape(path);
   }
-  var url = window.location.origin + path;
+  var url = window.location.href.split("?")[0];
   $.post("",
   function(data){
   var obj = JSON.parse(data);
@@ -900,7 +900,7 @@ function file_pdf(path) {
   } else {
     var path = unescape(path);
   }
-  var url = window.location.origin + path;
+  var url = window.location.href.split("?")[0];
   var inline_url = `${url}?inline=true`
   $.post("",
   function(data){
@@ -958,7 +958,7 @@ function file_image(path) {
   } else {
     var path = unescape(path);
   }
-  var url = window.location.origin + path;
+  var url = window.location.href.split("?")[0];
   // console.log(window.location.pathname)
   const currentPathname = window.location.pathname
   const lastIndex = currentPathname.lastIndexOf('/');

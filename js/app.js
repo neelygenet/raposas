@@ -1,8 +1,7 @@
-/* Readequado para as necessidades do Raposas.
-   Programa original: https://github.com/ParveenBhadooOfficial/Google-Drive-Index
+/*
+Adaptado por Neely Genet para as necessidades do Raposas a partir de outros programas Open-source.
+Créditos no README.md
 */
-
-// Initialize the page
 function init() {
   document.siteName = $('title').html();
   var html = `
@@ -524,7 +523,7 @@ function render_search_result_list() {
 <div class="card">
 <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
 </div>
-<div class="alert alert-secondary text-center d-none" role="alert" id="count">Total <span class="number text-center"></span> items</div>
+<div class="alert alert-secondary text-center d-none" role="alert" id="count">Total <span class="number text-center"></span> itens</div>
 </div>
 `;
   $('#content').html(content);
@@ -771,7 +770,7 @@ function file_others(path) {
   var content = `<div class="container"><br>
   <div class="card">
       <div class="card-body">
-          <div class="alert alert-danger" id="file_details" role="alert">${obj.name} - ${size}</div>
+          <div class="alert alert-primary" id="file_details" role="alert">${obj.name} - ${size}</div>
       </div>
 
       <iframe src="https://drive.google.com/file/d/${obj.id}/preview" width="100%" height="550"></iframe>

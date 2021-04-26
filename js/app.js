@@ -112,16 +112,17 @@ function render(path) {
 
 // Render title
 function title(path) {
-  var cur = window.current_drive_order || 0;
-  var drive_name = window.drive_names[cur];
   var fileName = path.split('/').pop();
   var fileNameDecoded = decodeURIComponent(fileName.replace(/\+/g,  " "));
   var model = window.MODEL;
-  console.log(model);
   if (model.is_search_page)
-      $('title').html(`Raposas - ${drive_name} - Resultados da busca para ${model.q} `);
+      $('title').html(`Raposas - Resultados da busca para ${model.q} `);
   else
-      $('title').html(`Raposas - ${drive_name} - ${fileNameDecoded}`);
+    if(!fileNameDecoded) {
+        $('title').html(`Raposas`);
+    } else {
+      $('title').html(`Raposas - ${fileNameDecoded}`);
+    }
 }
 
 // Render the navigation bar
@@ -140,7 +141,6 @@ function nav(path) {
         <a class="nav-link" href="/${cur}:/">Início</a>
       </li>`;
   var names = window.drive_names;
-  var drive_name = window.drive_names[cur];
 
   // Dropdown to select different drive roots.
   html += `<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Escolha o drive</a><div class="dropdown-menu" aria-labelledby="navbarDropdown">`;
@@ -198,7 +198,6 @@ function nav(path) {
   </li>`;
 
   var search_text = model.is_search_page ? (model.q || '') : '';
-  const isMobile = Os.isMobile;
   var search_bar = `
 </ul>
 <form class="form-inline my-2 my-lg-0" method="get" action="/${cur}:search">
@@ -231,7 +230,7 @@ function requestListPath(path, params, resultCallback, authErrorCallback) {
       page_token: params['page_token'] || null,
       page_index: params['page_index'] || 0
   };
-  $.post(path, p, function(data, status) {
+  $.post(path, p, function(data) {
       var res = jQuery.parseJSON(data);
       if (res && res.error && res.error.code == '401') {
           // Password verification failed
@@ -253,7 +252,7 @@ function requestSearch(params, resultCallback) {
       page_token: params['page_token'] || null,
       page_index: params['page_index'] || 0
   };
-  $.post(`/${window.current_drive_order}:search`, p, function(data, status) {
+  $.post(`/${window.current_drive_order}:search`, p, function(data) {
       var res = jQuery.parseJSON(data);
       if (res && res.data) {
           if (resultCallback) resultCallback(res, p)
@@ -749,14 +748,7 @@ function file(path) {
 
 // Document display |zip|.exe/others direct downloads
 function file_others(path) {
-  var type = {
-      "zip": "zip",
-      "exe": "exe",
-      "rar": "rar",
-  };
   var name = path.split('/').pop();
-  var decodename = unescape(name);
-  var ext = name.split('.').pop().toLowerCase();
   if (path.includes("%23") == true){
     var path = path;
   } else {
@@ -799,7 +791,6 @@ function file_code(path) {
       "md": "Markdown",
   };
   var name = path.split('/').pop();
-  var decodename = unescape(name);
   var ext = name.split('.').pop().toLowerCase();
   if (path.includes("%23") == true){
     var path = path;
@@ -840,15 +831,12 @@ function file_code(path) {
 // Document display video |mp4|webm|avi|
 function file_video(path) {
   var name = path.split('/').pop();
-  var decodename = unescape(name);
-  var caption = name.slice(0, name.lastIndexOf('.'))
   if (path.includes("%23") == true){
     var path = path;
   } else {
     var path = unescape(path);
   }
   var url = window.location.origin + path;
-  var url_without_https = url.replace(/^(https?:|)\/\//,'')
   $.post("",
   function(data){
   var obj = JSON.parse(data);
@@ -875,7 +863,6 @@ function file_video(path) {
 // File display Audio |mp3|flac|m4a|wav|ogg|
 function file_audio(path) {
   var name = path.split('/').pop();
-  var decodename = unescape(name);
   if (path.includes("%23") == true){
     var path = path;
   } else {
@@ -908,7 +895,6 @@ function file_audio(path) {
 // Document display pdf
 function file_pdf(path) {
   var name = path.split('/').pop();
-  var decodename = unescape(name);
   if (path.includes("%23") == true){
     var path = path;
   } else {
@@ -919,7 +905,6 @@ function file_pdf(path) {
   $.post("",
   function(data){
   var obj = JSON.parse(data);
-  var size = formatFileSize(obj.size);
   var content = `
   <div class="container"><br>
     <div class="card">
@@ -968,7 +953,6 @@ function file_pdf(path) {
 // image display
 function file_image(path) {
   var name = path.split('/').pop();
-  var decodename = unescape(name);
   if (path.includes("%23") == true){
     var path = path;
   } else {
@@ -1045,7 +1029,6 @@ function file_image(path) {
           target = $(e.target).parent();
       }
       const filepath = target.attr('data-filepath');
-      const direction = target.attr('data-direction');
       //console.log(`${direction}Turn page ${filepath}`);
       file(filepath)
   });

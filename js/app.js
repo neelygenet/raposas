@@ -851,9 +851,6 @@ function file_video(path) {
       <iframe src="https://drive.google.com/file/d/${obj.id}/preview" width="100%" height="550"></iframe>
 
       <div class="card-body">
-          <!-- <p class="card-text text-center">
-              <a href="${url}" class="btn btn-primary">Baixar arquivo</a>
-          </p> -->
 	<br>
       </div>
 `;$('#content').html(content);

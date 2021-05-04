@@ -187,9 +187,6 @@ function init() {
     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mais</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="https://blog.raposas.net" target="_blank"><i class="fab fa-blogger"
-                    style="color: #f06b34!important;"></i>
-                Blog</a>
             <a class="dropdown-item" href="https://docs.raposas.net/Copyright" target="_blank"><i class="far fa-copyright"
                     class="basicIcon"></i> Copyright</a>
             <a class="dropdown-item" href="https://docs.raposas.net/Privacidade" target="_blank"><i

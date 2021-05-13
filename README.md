@@ -13,13 +13,11 @@ Doe com Pix: `doe@raposas.net`
 
 Doe com Cartão de Crédito ou Boleto Bancário: [clique aqui para instruções](https://docs.raposas.net/Doar).
 
-Doe sem gastar um centavo: [clique aqui para instruções](https://blog.raposas.net/p/doe-sem-gastar-um-centavo.html).
-
 ## Perguntas frequentes
 
 **1) Posso enviar esse site para meus amigos?** Sim. O Raposas é um indexador público e gratuito.
 
-**2) Encontrei um erro no site. Como faço para reportá-lo para o Raposas?** Considere abrir um issue em nosso repositório do GitHub clicando [aqui](https://github.com/neelygenet/raposas/issues).
+**2) Encontrei um erro no site. Como faço para reportá-lo para o Raposas?** Envie uma mensagem em nosso grupo do Telegram ([convite aqui](https://t.me/raposaschat)).
 
 **3) Como faço para encontrar um curso?** Utilize a barra de pesquisa para procurar o que deseja. Mas atenção: a pesquisa só funciona no drive atual. Ou seja, se você está no drive "Arquivos Principais", a pesquisa só irá lhe mostrar os arquivos que estão presentes no drive "Arquivos Principais". Portanto, se você não encontrar o que está procurando em um drive, você pode selecionar o outro no menu "Drives disponíveis" e repetir a pesquisa.
 

@@ -763,7 +763,7 @@ function file(path) {
 // Document display |zip|.exe/others direct downloads
 function file_others(path) {
     var path = path;
-    var url = UI.second_domain_for_dl ? UI.downloaddomain + path : window.location.origin + path;
+    var url = window.location.origin + path;
     $.post("",
     function(data){
     var obj = jQuery.parseJSON(gdidecode(read(data)));
@@ -805,7 +805,7 @@ function file_code(path) {
     var name = path.split('/').pop();
     var ext = name.split('.').pop().toLowerCase();
     var path = path;
-    var url = UI.second_domain_for_dl ? UI.downloaddomain + path : window.location.origin + path;
+    var url = window.location.origin + path;
     $.post("",
     function(data){
     var obj = jQuery.parseJSON(gdidecode(read(data)));
@@ -941,7 +941,7 @@ function file_audio(path) {
     var name = path.split('/').pop();
     var decodename = unescape(name);
     var path = path;
-    var url = UI.second_domain_for_dl ? UI.downloaddomain + path : window.location.origin + path;
+    var url = window.location.origin + path;
     $.post("",
     function(data){
     var obj = jQuery.parseJSON(gdidecode(read(data)));
@@ -1009,15 +1009,11 @@ function file_pdf(path) {
 // image display
 function file_image(path) {
     var path = path;
-    var url = UI.second_domain_for_dl ? UI.downloaddomain + path : window.location.origin + path;
-    // console.log(window.location.pathname)
+    var url = window.location.origin + path;
     const currentPathname = window.location.pathname
     const lastIndex = currentPathname.lastIndexOf('/');
     const fatherPathname = currentPathname.slice(0, lastIndex + 1);
-    // console.log(fatherPathname)
     let target_children = localStorage.getItem(fatherPathname);
-    // console.log(`fatherPathname: ${fatherPathname}`);
-    // console.log(target_children)
     let targetText = '';
     if (target_children) {
       try {

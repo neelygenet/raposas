@@ -189,8 +189,8 @@ function nav(path) {
     var search_bar = `
 </ul>
 <form class="d-flex" method="get" action="/${cur}:search">
-<input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search" value="${search_text}" required>
-<button class="btn ${UI.search_button_class}" onclick="if($('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Search</button>
+<input class="form-control me-2" name="q" type="search" placeholder="Pesquisar" aria-label="Search" value="${search_text}" required>
+<button class="btn ${UI.search_button_class}" onclick="if($('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Pesquisar</button>
 </form>
 </div>
 </div>
@@ -424,11 +424,8 @@ function append_files_to_list(path, files) {
                 });
             }
             var ext = p.split('.').pop().toLowerCase();
-            //if ("|html|php|css|go|java|js|json|txt|sh|md|mp4|webm|avi|bmp|jpg|jpeg|png|gif|m4a|mp3|flac|wav|ogg|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|pdf|".indexOf(`|${ext}|`) >= 0) {
-                //targetFiles.push(filepath);
                 pn += "?a=view";
                 c += " view";
-            //}
             html += `<div class="list-group-item list-group-item-action">`
 
             if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
@@ -597,7 +594,6 @@ function append_search_result_to_list(files) {
     var $list = $('#list');
     // Is it the last page of data?
     var is_lastpage_loaded = null === $list.data('nextPageToken');
-    // var is_firstpage = '0' == $list.data('curPageIndex');
 
     html = "";
 
@@ -737,12 +733,8 @@ function file(path) {
         return file_code(path);
     }
 
-    if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|".indexOf(`|${ext}|`) >= 0) {
+    if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
         return file_video(path);
-    }
-
-    if ("|ts|flv|".indexOf(`|${ext}|`) >= 0) {
-        return file_video_noView(path);
     }
 
     if ("|mp3|flac|wav|ogg|m4a|aac|".indexOf(`|${ext}|`) >= 0) {
@@ -769,23 +761,29 @@ function file_others(path) {
     var obj = jQuery.parseJSON(gdidecode(read(data)));
     var size = formatFileSize(obj.size);
     var content = `
-<div class="container"><br>
-<div class="card text-center">
-<div class="card-body text-center">
+  <div class="container text-center"><br>
+  <div class="card text-center">
+  <div class="text-center">
   <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${obj.name}<br>${size}</div>
-</div>
+	<iframe src="https://drive.google.com/file/d/${obj.id}/preview" width="100%" height="480"></iframe>
+  </div></br>
 <div class="card-body">
 <div class="input-group mb-4">
   <div class="input-group-prepend">
-    <span class="input-group-text" id="">Full URL</span>
+    <span class="input-group-text" id="">URL completo</span>
   </div>
   <input type="text" class="form-control" id="dlurl" value="${url}">
 </div>
-	<p class="card-text text-center">
-  <a href="${url}" class="btn btn-primary">Download</a>
-  <button onclick="copyFunction()" onmouseout="outFunc()" class="btn btn-success"> <span class="tooltiptext" id="myTooltip">Copiar</span> </button></p><br></div>`;
-    $('#content').html(content);
-    });
+<div class="btn-group text-center">
+    <a href="${url}" type="button" class="btn btn-primary">Download</a>
+</div>
+<button onclick="copyFunction()" onmouseout="outFunc()" class="btn btn-success"> <span class="tooltiptext" id="myTooltip">Copiar</span> </button>
+<br>
+  </div>
+  </div>
+  </div>
+  `;$('#content').html(content);
+  });
 }
 
 // Document display |html|php|css|go|java|js|json|txt|sh|md|
@@ -844,35 +842,19 @@ function file_code(path) {
 
 // Document display video |mp4|webm|avi|
 function file_video(path) {
-    var name = path.split('/').pop();
-    var decodename = unescape(name);
     var path = path;
     var url = UI.second_domain_for_dl ? UI.downloaddomain + path : window.location.origin + path;
     $.post("",
     function(data){
     var obj = jQuery.parseJSON(gdidecode(read(data)));
     var size = formatFileSize(obj.size);
-		if (obj.thumbnailLink != null){
-    var poster = obj.thumbnailLink.slice(0, -5);
-		}
-		else {
-		var poster = UI.poster;
-		}
     var content = `
   <div class="container text-center"><br>
   <div class="card text-center">
   <div class="text-center">
   <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${obj.name}<br>${size}</div>
-	<video id="vplayer" width="100%" height="100%" playsinline controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']; data-plyr-config="{ "title": "${decodename}"}" data-poster="${poster}" style="--plyr-captions-text-color: #ffffff;--plyr-captions-background: #000000;">
-	  <source src="${url}" type="video/mp4" />
-	  <source src="${url}" type="video/webm" />
-	</video>
-  </div>
-	${UI.disable_player ? '<style>.plyr{display:none;}</style>' : ''}
-  <script>
-   const player = new Plyr('#vplayer');
-  </script></br>
-${UI.disable_video_download ? `` : `
+	<iframe src="https://drive.google.com/file/d/${obj.id}/preview" width="100%" height="480"></iframe>
+  </div></br>
 <div class="card-body">
 <div class="input-group mb-4">
   <div class="input-group-prepend">
@@ -887,49 +869,6 @@ ${UI.disable_video_download ? `` : `
 <br>
   </div>
   </div>
-  `}
-  </div>
-  `;$('#content').html(content);
-  });
-
-}
-
-function file_video_noView(path) {
-    var path = path;
-    var url = UI.second_domain_for_dl ? UI.downloaddomain + path : window.location.origin + path;
-    $.post("",
-    function(data){
-    var obj = jQuery.parseJSON(gdidecode(read(data)));
-    var size = formatFileSize(obj.size);
-		if (obj.thumbnailLink != null){
-    var poster = obj.thumbnailLink.slice(0, -5);
-		}
-		else {
-		var poster = UI.poster;
-		}
-    var content = `
-  <div class="container text-center"><br>
-  <div class="card text-center">
-  <div class="text-center">
-  <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${obj.name}<br>${size}</div>
-  <div class="alert alert-danger" role="alert">Esse arquivo não pode ser visualizado no navegador. Você deve efetuar o download e assistí-lo utilizando o VLC Player.</div>
-  </div>
-${UI.disable_video_download ? `` : `
-<div class="card-body">
-<div class="input-group mb-4">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="">URL completo</span>
-  </div>
-  <input type="text" class="form-control" id="dlurl" value="${url}">
-</div>
-<div class="btn-group text-center">
-    <a href="${url}" type="button" class="btn btn-primary">Download</a>
-</div>
-<button onclick="copyFunction()" onmouseout="outFunc()" class="btn btn-success"> <span class="tooltiptext" id="myTooltip">Copiar</span> </button>
-<br>
-  </div>
-  </div>
-  `}
   </div>
   `;$('#content').html(content);
   });
@@ -938,8 +877,6 @@ ${UI.disable_video_download ? `` : `
 
 // File display Audio |mp3|flac|m4a|wav|ogg|
 function file_audio(path) {
-    var name = path.split('/').pop();
-    var decodename = unescape(name);
     var path = path;
     var url = window.location.origin + path;
     $.post("",
@@ -947,64 +884,72 @@ function file_audio(path) {
     var obj = jQuery.parseJSON(gdidecode(read(data)));
     var size = formatFileSize(obj.size);
     var content = `
-  <div class="container"><br>
-  <div class="card" style="background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);">
-  <div class="card-body text-center">
+  <div class="container text-center"><br>
+  <div class="card text-center">
+  <div class="text-center">
   <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${obj.name}<br>${size}</div>
-  <br><img draggable="false" src="${UI.audioposter}" width="100%" /><br>
-  <audio id="vplayer" width="100%" playsinline controls>
-    <source src="${url}" type="audio/ogg">
-    <source src="${url}" type="audio/mpeg">
-  Your browser does not support the audio element.
-  </audio>
-  </div>
-	${UI.disable_player ? '<style>.plyr{display:none;}</style>' : ''}
-  <script>
-   const player = new Plyr('#vplayer');
-  </script></br>
-  <div class="card-body">
+	<iframe src="https://drive.google.com/file/d/${obj.id}/preview" width="100%" height="480"></iframe>
+  </div></br>
+<div class="card-body">
 <div class="input-group mb-4">
   <div class="input-group-prepend">
     <span class="input-group-text" id="">URL completo</span>
   </div>
   <input type="text" class="form-control" id="dlurl" value="${url}">
 </div>
-	<p class="card-text text-center">
-  <a href="${url}" class="btn btn-primary">Download</a> <button onclick="copyFunction()" onmouseout="outFunc()" class="btn btn-success"> <span class="tooltiptext" id="myTooltip">Copiar</span> </button></p><br>
+<div class="btn-group text-center">
+    <a href="${url}" type="button" class="btn btn-primary">Download</a>
+</div>
+<button onclick="copyFunction()" onmouseout="outFunc()" class="btn btn-success"> <span class="tooltiptext" id="myTooltip">Copiar</span> </button>
+<br>
   </div>
   </div>
   </div>
-  `;
-    $('#content').html(content);
-    });
+  `;$('#content').html(content);
+  });
 }
 
 // Document display pdf
 function file_pdf(path) {
-    const url = window.location.origin + path;
-    const inline_url = `${url}?inline=true`
-    const file_name = decodeURI(path.slice(path.lastIndexOf('/') + 1, path.length))
+    var url = window.location.origin + path;
+    $.post("",
+    function(data){
+    var obj = jQuery.parseJSON(gdidecode(read(data)));
+    var inline_url = url + '?inline=true';
+    var size = formatFileSize(obj.size);
     var content = `
-  <div class="container"><br>
-  <div class="card">
-  <div class="card-body text-center">
-  <div class="alert alert-danger" id="folderne" role="alert"></div><script>document.getElementById("folderne").innerHTML=decodeURI(this.window.location.href.substring(window.location.href.lastIndexOf('/',window.location.href.lastIndexOf('/')+1))).replace('/','').replace('?a=view','');</script>
+  <div class="container text-center"><br>
+  <div class="card text-center">
+  <div class="text-center">
+  <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${obj.name}<br>${size}</div>
+	<iframe src="https://drive.google.com/file/d/${obj.id}/preview" width="100%" height="480"></iframe>
+  </div></br>
+<div class="card-body">
+<div class="input-group mb-4">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="">URL completo</span>
+  </div>
+  <input type="text" class="form-control" id="dlurl" value="${url}">
+</div>
+
+<div class="btn-group text-center">
+      <a href="${url}" type="button" class="btn btn-primary">Download</a>
+      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only"></span>
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="${inline_url}" target="_blank">Abrir em nova aba</a></div>
   </div>
 
-<object data-v-59e039ae="" data="${inline_url}" type="application/pdf" name="file.pdf" height="600px">
-  	<embed class="embed-responsive" data-v-59e039ae="" src="${inline_url}" type="application/pdf" height="600px">
-  </object>
-  <br>
-
-  <p class="card-text text-center"><a href="${url}" class="btn btn-primary">Download</a></p><br>
-  <p class="card-text text-center"><a href="${inline_url}" target="_blank" class="btn btn-primary">Abrir em uma nova janela</a></p><br>
+<button onclick="copyFunction()" onmouseout="outFunc()" class="btn btn-success"> <span class="tooltiptext" id="myTooltip">Copiar</span> </button>
+<br>
   </div>
   </div>
-  `;
-    $('#content').removeClass('mdui-container').addClass('mdui-container-fluid').css({
-        padding: 0
-    }).html(content);
-}
+  </div>
+  `;$('#content').html(content);
+  });
+  }
+  
 
 // image display
 function file_image(path) {
@@ -1028,8 +973,6 @@ function file_image(path) {
       if (target_children.length > 0 && target_children.includes(path)) {
         let len = target_children.length;
         let cur = target_children.indexOf(path);
-        // console.log(`len = ${len}`)
-        // console.log(`cur = ${cur}`)
         let prev_child = (cur - 1 > -1) ? target_children[cur - 1] : null;
         let next_child = (cur + 1 < len) ? target_children[cur + 1] : null;
           if (prev_child == null) {
@@ -1049,10 +992,6 @@ function file_image(path) {
                               ${nextchild ? `<a class="btn btn-primary" href="${next_child}?a=view" role="button">Next</a>` : ``}
                   `;
     }
-            // <div id="btns" >
-            //             ${targetObj[path].prev ? `<span id="leftBtn" data-direction="left" data-filepath="${targetObj[path].prev}"><i class="mdui-icon material-icons">&#xe5c4;</i><span style="margin-left: 10px;">Prev</span></span>` : `<span style="cursor: not-allowed;color: rgba(0,0,0,0.2);margin-bottom:20px;"><i class="mdui-icon material-icons">&#xe5c4;</i><span style="margin-left: 10px;">Prev</span></span>`}
-            //             ${targetObj[path].next ? `<span id="rightBtn" data-direction="right"  data-filepath="${targetObj[path].next}"><i class="mdui-icon material-icons">&#xe5c8;</i><span style="margin-left: 10px;">Next</span></span>` : `<span style="cursor: not-allowed;color: rgba(0,0,0,0.2);"><i class="mdui-icon material-icons">&#xe5c4;</i><span style="margin-left: 10px;">Prev</span></span>`}
-            // </div>
           }
     $.post("",
     function(data){
@@ -1195,18 +1134,6 @@ function read(str) {
 $(function() {
     init();
     var path = window.location.pathname;
-    /*$("body").on("click", '.folder', function () {
-        var url = $(this).attr('href');
-        history.pushState(null, null, url);
-        render(url);
-        return false;
-    });
-    $("body").on("click", '.view', function () {
-        var url = $(this).attr('href');
-        history.pushState(null, null, url);
-        render(url);
-        return false;
-    });*/
 
     render(path);
 });
@@ -1225,4 +1152,3 @@ function outFunc() {
     var tooltip = document.getElementById("myTooltip");
     tooltip.innerHTML = "Copiar";
 }
-

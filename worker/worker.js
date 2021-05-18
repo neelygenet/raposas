@@ -130,8 +130,6 @@ function html(current_drive_order = 0, model = {}) {
   </script>
   <script src="${uiConfig.jsdelivr_cdn_src}@${uiConfig.version}/dist/jquery.min.js"></script>
   <script src="${uiConfig.jsdelivr_cdn_src}@${uiConfig.version}/dist/fontawesome.min.js"></script>
-  <script src="${uiConfig.jsdelivr_cdn_src}@${uiConfig.version}/plyr/plyr.min.js"></script>
-  <link rel="stylesheet" href="${uiConfig.jsdelivr_cdn_src}@${uiConfig.version}/plyr/plyr.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootswatch@${uiConfig.bootswatch_version}/dist/slate/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
   <style>
   a {

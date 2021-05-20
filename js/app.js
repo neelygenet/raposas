@@ -31,7 +31,7 @@ function init() {
 <footer class="footer mt-auto py-3 text-muted ${UI.footer_style_class}" style="${UI.fixed_footer ?'position: fixed; ': ''}left: 0; bottom: 0; width: 100%; color: white; z-index: 9999;"> <div class="container" style="width: auto; padding: 0 10px;"><p style="text-align: center;">Construído com <i class="fa fa-heart" title="amor" style="color: #dc3545!important;"></i> e <i
 class="fa fa-coffee" title="" style="color: #ffc107!important;"></i> por <a
 href="https://github.com/neelygenet/raposas" target="_blank">Neely Genet</a>.</p>
-<p style="text-align: center;"><i class="fas fa-crow" title="corvo" class="basicIcon"></i> ${UI.copyright_year} - ${UI.company_name}.
+<p style="text-align: center;"><i class="fab fa-creative-commons-pd"></i> ${UI.copyright_year} - ${UI.company_name}.
 Todos os direitos liberados. <a href="https://www.youtube.com/watch?v=LXilEPmkoQY"
 target="_blank">Copiar não é roubar</a>.</p> </div> </footer>
   `;
@@ -160,6 +160,11 @@ function nav(path) {
 <li class="nav-item">
     <a class="nav-link" href="https://docs.raposas.net/Contribuir" target="_blank"><i class="fas fa-folder"
             class="basicIcon"></i> Contribuir</a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="https://docs.raposas.net/flashcards" target="_blank"><i class="fas fa-hat-wizard"
+    	    class="basicIcon"></i> Flashcards</a>
 </li>
 
 <li class="nav-item">

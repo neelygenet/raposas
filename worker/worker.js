@@ -30,7 +30,7 @@ const authConfig = {
          // "auth": {"username":"password"} /* Remove double slash before "auth" to activate id password protection */
       },
       {
-          "id": "0AKX4zntvxFxFUk9PVA",
+          "id": "",
           "name": "Contribuições",
           "protect_file_link": false,
          // "auth": {"username":"password", "username1":"password1"} /* Remove double slash before "auth" to activate id password protection */
@@ -130,7 +130,7 @@ function html(current_drive_order = 0, model = {}) {
   </script>
   <script src="${uiConfig.jsdelivr_cdn_src}@${uiConfig.version}/dist/jquery.min.js"></script>
   <script src="${uiConfig.jsdelivr_cdn_src}@${uiConfig.version}/dist/fontawesome.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootswatch@${uiConfig.bootswatch_version}/dist/slate/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootswatch@${uiConfig.bootswatch_version}/dist/slate/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <style>
   a {
       color: ${uiConfig.css_a_tag_color};

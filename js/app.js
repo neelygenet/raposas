@@ -163,6 +163,11 @@ function nav(path) {
 </li>
 
 <li class="nav-item">
+    <a class="nav-link" href="https://torrents.raposas.net" target="_blank"><i class="fas fa-save"
+            class="basicIcon"></i> Torrents</a>
+</li>
+
+<li class="nav-item">
     <a class="nav-link" href="https://docs.raposas.net/flashcards" target="_blank"><i class="fas fa-hat-wizard"
     	    class="basicIcon"></i> Flashcards</a>
 </li>

@@ -775,7 +775,16 @@ function file_others(path) {
   <div class="card text-center">
   <div class="text-center">
   <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${obj.name}<br>${size}</div>
-	<iframe src="https://drive.google.com/file/d/${obj.id}/preview" width="100%" height="480"></iframe>
+	<center>
+	    <div class="card" style="width: 18rem;">
+	        <img src="eye.png" class="card-img-top" alt="...">
+	        <h5 class="card-title">Visualização não disponível</h5>
+	        <div class="card-body">
+	            <p class="card-text">O arquivo que você está tentando acessar não pode ser visualizado no navegador. Você
+	                deve efetuar o download para visualizá-lo no seu computador.</p>
+	        </div>
+	    </div>
+	</center>
   </div></br>
 <div class="card-body">
 <div class="input-group mb-4">

@@ -697,7 +697,7 @@ function onSearchResultItemClick(a_ele) {
             }
             title = `Resultado`;
             $('#SearchModelLabel').html(title);
-            content = `<a class="btn btn-info" href="${ehrefurl}">Abrir</a> <a class="btn btn-secondary" href="${ehrefurl}" target="_blank">Abrir em nova aba</a>`;
+            content = `<a class="btn btn-info" href="${ehrefurl}">Abrir</a> <a class="btn btn-secondary" href="${ehrefurl}" target="_blank">Imprimir</a>`;
             $('#modal-body-space').html(content);
             return;
         }

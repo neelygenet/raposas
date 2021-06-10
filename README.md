@@ -5,15 +5,9 @@ O **Raposas** é um indexador público e gratuito do Google Drive. Funcionamos d
 
 O código-fonte deste indexador é open-source e foi derivado de um projeto pré-existente criado por ParveenBhadooOfficial (créditos abaixo). Se você é um programador e deseja contribuir ou simplesmente acessar o nosso código, você pode encontrar o nosso repositório no GitHub clicando [aqui](https://github.com/neelygenet/raposas).
 
-## Doe
-
-Com a sua doação, poderemos aumentar a qualidade deste indexador para que ele abarque cada vez mais conteúdo. Se você considera que valemos o seu dinheiro, por favor, considere fazer uma doação.
-
-Doe com Pix: `doe@raposas.net`
-
-Doe com Cartão de Crédito ou Boleto Bancário: [clique aqui para instruções](https://docs.raposas.net/Doar).
-
 ## Perguntas frequentes
+
+----------------------------------------------------
 
 **1) Posso enviar esse site para meus amigos?** Sim. O Raposas é um indexador público e gratuito.
 

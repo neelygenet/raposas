@@ -777,7 +777,7 @@ function file_others(path) {
   <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${obj.name}<br>${size}</div>
 	<center>
 	    <div class="card" style="width: 18rem;">
-	        <img src="eye.png" class="card-img-top" alt="...">
+	        <img src="https://raw.githubusercontent.com/neelygenet/raposas/main/images/eye.png" class="card-img-top" alt="Imagem de um olho que não pode ver">
 	        <h5 class="card-title">Visualização não disponível</h5>
 	        <div class="card-body">
 	            <p class="card-text">O arquivo que você está tentando acessar não pode ser visualizado no navegador. Você

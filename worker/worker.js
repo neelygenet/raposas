@@ -53,14 +53,14 @@ const authConfig = {
 ░░░╚═╝░░░╚═╝░░╚═╝╚══════╝░╚═════╝░╚══════╝╚═════╝░*/
 
 const uiConfig = {
-    "version": "v1.3.0", // don't touch this one. get latest code using generator at https://generator.driveindex.ga
+    "version": "v1.4.0", // don't touch this one. get latest code using generator at https://generator.driveindex.ga
     "bootswatch_version": "5.0.1",
     "logo_image": true, // true if you're using image link in next option.
     "logo_height": "64px", // only if logo_image is true
     "logo_width": "64px", // only if logo_image is true
-    "favicon": "https://cdn.jsdelivr.net/gh/neelygenet/raposas@v1.3.0/images/logo.png",
+    "favicon": "https://cdn.jsdelivr.net/gh/neelygenet/raposas@v1.4.0/images/logo.png",
     // if logo is true then link otherwise just text for name
-    "logo_link_name": "https://cdn.jsdelivr.net/gh/neelygenet/raposas@v1.3.0/images/logo.png",
+    "logo_link_name": "https://cdn.jsdelivr.net/gh/neelygenet/raposas@v1.4.0/images/logo.png",
     "fixed_header": true, // If you want the footer to be flexible or fixed.
     "header_padding": "60", // Value 60 for fixed header, Value 20 for flexible header. Required to be changed accordingly in some themes.
     "fixed_footer": false, // If you want the footer to be flexible or fixed.

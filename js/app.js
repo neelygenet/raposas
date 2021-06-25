@@ -1,6 +1,6 @@
 /*
 Adaptado por Neely Genet para as necessidades do Raposas a partir de outros programas Open-source.
-Créditos no README.md
+Créditos ao ParveenBhadooOfficial
 */
 function init() {
     document.siteName = $('title').html();
